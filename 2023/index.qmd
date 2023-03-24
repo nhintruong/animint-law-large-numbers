@@ -1,0 +1,25 @@
+---
+title: "R-Stats GSOC"
+bibliography: citations.bibtex
+format: html
+css: style_changes.css
+toc: true
+toc-location: left
+toc-title: "Contents:"
+linkcolor: "#885e22"
+mainfont: FiraGo
+monofont: Fira Code
+reference-location: margin
+cap-location: margin
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      cache = FALSE,
+                      autodep = TRUE)
+library(knitr)        # file conversion
+library(tidyverse)    # data manipulation
+library(kableExtra)   # make tables
+```
+
+## Introduction
