@@ -31,9 +31,11 @@ library(kableExtra)   # make tables
 
 Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in latter group, best of luck!)
 
-Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. R is a wonderful language for scientific computation.
+Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. I've used and relied on a lot of R packages for ...
 
-Why apply to work on `animint2` in particular? I'm never used `animint2` before, but I have used `ggplot2`, so there's a kind of familiarity that I hope will be helpful to me.
+Why apply to work on `animint2`? I think interactive models and visualizations are important for exploratory science. Here's an example from my domain of expertise. In network psychopathology, an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. It continues to be an important part of network theory.^[D. Borsboom. ["A network theory of mental disorders."](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375) _World Psychiatry_. 2017.] 
+
+I'm never used `animint2` before, but I have used `ggplot2`. There's a family resemblance between the packages that should help me when contributing to the former.
 
 Of course, my super top secret reason for doing this is so I can eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That's just between you and me.
 

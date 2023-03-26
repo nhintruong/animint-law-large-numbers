@@ -1,7 +1,7 @@
 
 # Scraps
 
-Bits of code that aren't used in the application, but which I'm keeping around for sentimental reasons.
+Bits of code and writing that aren't used in the application, but which I'm keeping around for sentimental reasons. And just in case they become useful again.
 
 
 ```{r setup}
@@ -11,6 +11,9 @@ knitr::opts_chunk$set(echo = TRUE,
                       autodep = TRUE)
 library(whatever)
 ```
+
+^[C.D. van Borkulo, H.L.J. van der Maas, D. Borsboom, A.O.J. Cramer. [Vulnerability to Depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression). _Netlogo_. 2013.]
+
 
 ```{r}
 b5 <- read_tsv("b5.tsv")
