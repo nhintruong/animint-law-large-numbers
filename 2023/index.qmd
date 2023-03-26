@@ -27,6 +27,7 @@ library(kableExtra)   # make tables
 ```
 
 
+
 ## Introduction
 
 Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in latter group, best of luck!)
@@ -38,6 +39,7 @@ Why apply to work on `animint2`? I think interactive models and visualizations a
 I'm never used `animint2` before, but I have used `ggplot2`. There's a family resemblance between the packages that should help me when contributing to the former.
 
 Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That's just between you and me.
+
 
 
 ## Easy Test
@@ -81,6 +83,7 @@ ten_country
 ```
 
 Since just having the
+
 
 ### Sibling Rivalry
 
