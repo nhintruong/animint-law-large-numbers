@@ -1,0 +1,19 @@
+
+# Scraps
+
+Bits of code that aren't used in the application, but which I'm keeping around for sentimental reasons.
+
+
+```{r setup}
+#| include: FALSE
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = FALSE,
+                      autodep = TRUE)
+library(whatever)
+```
+
+```{r}
+b5 <- read_tsv("b5.tsv")
+go_away <- c("race", "age", "engnat", "gender", "hand", "source")
+b5c <- b5 |> select(-any_of(go_away))
+```

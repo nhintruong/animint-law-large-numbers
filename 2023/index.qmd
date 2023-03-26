@@ -1,12 +1,12 @@
 ---
-title: "R-Stats GSOC"
-bibliography: citations.bibtex
+title: "animint2 GSOC Application"
+author: "J. Chen"
+bibliography: gsoc.bibtex
 format: html
-css: style_changes.css
 toc: true
 toc-location: left
 toc-title: "Contents:"
-linkcolor: "#885e22"
+linkcolor: "#043521"
 mainfont: FiraGo
 monofont: Fira Code
 reference-location: margin
@@ -18,8 +18,131 @@ knitr::opts_chunk$set(echo = FALSE,
                       cache = FALSE,
                       autodep = TRUE)
 library(knitr)        # file conversion
-library(tidyverse)    # data manipulation
+#library(tidyverse)    # data manipulation
+library(readr)
+library(dplyr)
+library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
 ```
 
 ## Introduction
+
+Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in latter group, best of luck!)
+
+Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. R is a wonderful language for scientific computation.
+
+Why apply to work on `animint2` in particular? I'm never used `animint2` before, but I have used `ggplot2`, so there's a kind of familiarity that I hope will be helpful to me.
+
+Of course, my super top secret reason for doing this is so I can eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That's just between you and me.
+
+
+## Easy Test
+
+The easy test asks us to do an exercise from the [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). Or,
+
+> Even better: use animint2 to visualize some data from your domain of expertise.
+
+So let's take a look at some psychometrics.
+
+### Personalities By Country
+
+Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big 5 dataset. [Personality psychology is not my area of expertise, so it was fun to play around with the data.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
+
+```{r}
+b5 <- read_tsv("b5.tsv")
+go_away <- c("race", "age", "engnat", "gender", "hand", "source")
+b5c <- b5 |> select(!(go_away))
+```
+
+How many countries are there in this dataset, anyway?
+
+```{r}
+count_country <- n_distinct(b5c$country)
+count_country
+```
+
+And what about the number of responses per country? [I used `filter()` to remove rows that don't provide a country.]{.aside}
+
+```{r}
+num_country <- b5c |> count(country, sort = TRUE) |>
+  filter(!(country == "(nu"))
+num_country
+```
+
+```{r}
+test <- num_country |> filter(1:10)
+test
+```
+
+That's a lot of countries, and most of them have very few responses. 
+
+First, let's see the number of responses per country:
+
+```{r}
+num_country_plot <- ggplot(data = b5, mapping = aes(x = country)) + 
+  geom_bar() + 
+  coord_flip()
+num_country_plot
+#ggsave(filename = "test.pdf", num_country, "pdf", height = 50, width = 50, units = "in", limitsize = FALSE)
+```
+
+Since just having the
+
+### Sibling Rivalry
+
+The second part of the easy test asks me to
+
+> Show an example of an error that you see when animint2 is loaded/attached at the same time as standard ggplot2.
+
+There's no conflict with just loading the packages:
+
+```{r, eval = FALSE}
+library(animint2)
+library(ggplot2)
+```
+
+
+But R throws up an error message when you run code that uses that syntax. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
+
+```{r}
+#| column: margin
+
+cat_pop <- read_csv("meow.csv")
+cat_pop
+```
+
+```{r, eval = FALSE}
+cat_bar <- ggplot(data = cat_pop, 
+                  mapping = aes(cat_name, popularity)) + 
+  geom_bar(stat = "identity")
+cat_bar
+```
+
+What happens?
+
+```{r, eval = FALSE}
+Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
+```
+
+In other words, `animint2` and `ggplot2` don't get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.
+
+```{r, echo = FALSE}
+#| label: fig-cat-popularity
+#| fig-cap: "Popularity of cat names on a scale of 1–3."
+#| column: margin
+
+cat_bar <- ggplot(data = cat_pop, 
+                  mapping = aes(cat_name, popularity)) + 
+  geom_bar(stat = "identity")
+cat_bar
+```
+
+
+## Technical Appendix
+
+Here are all the little technical bits that don't matter all that much, but which I noticed while taking the tests:
+
+- The Big 5 dataset is provided as a `.csv`, but it's actually a `.tsv` file.
+- `ggplot2` has `geom_col()`, but not `animint2`.
+
+
