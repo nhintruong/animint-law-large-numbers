@@ -80,16 +80,6 @@ ten_country <- num_country |> slice(1:10)
 ten_country
 ```
 
-First, let's see the number of responses per country:
-
-```{r}
-num_country_plot <- ggplot(data = b5, mapping = aes(x = country)) + 
-  geom_bar() + 
-  coord_flip()
-num_country_plot
-#ggsave(filename = "test.pdf", num_country, "pdf", height = 50, width = 50, units = "in", limitsize = FALSE)
-```
-
 Since just having the
 
 ### Sibling Rivalry
