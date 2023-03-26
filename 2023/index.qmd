@@ -20,6 +20,7 @@ knitr:
 #| include: FALSE
 
 library(knitr)        # file conversion
+library(tibble)       # tidyverse dfs
 library(readr)        # tidyverse file reader
 library(dplyr)        # tidyverse file manipulation
 library(animint2)     # animated ggplot2
@@ -42,7 +43,7 @@ Of course, my super top secret reason for doing this is so I can maybe eventuall
 
 
 
-## Easy Test
+## Easy Test: Personalities By Country
 
 The easy test asks us to do an exercise from the [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). Or,
 
@@ -50,7 +51,8 @@ The easy test asks us to do an exercise from the [`animint2` Manual](https://rcd
 
 So let's take a look at some psychometrics.
 
-### Personalities By Country
+
+### Data Wrangling
 
 Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big 5 dataset. [Personality psychology is not my area of expertise, so it was fun to play around with the data.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
 
@@ -75,14 +77,37 @@ num_country <- b5c |> count(country, sort = TRUE) |>
 num_country
 ```
 
-That's a lot of countries, and most of them have very few responses. For the sake of my visualization, I'm going to somewhat arbitrarily keep the ten countries with the largest sample sizes and drop the rest.
+That's a lot of countries, and most of them have very few responses. Generalizability is affected if _n_ is too small, so I'm going to somewhat arbitrarily keep the six countries with the largest sample sizes and drop the rest. Sorry, Italy.
 
 ```{r}
-ten_country <- num_country |> slice(1:10)
-ten_country
+six_c <- b5c |> filter(country == c("US", "GB", "IN", "AU", "CA", "PH"))
 ```
 
-Since just having the
+Lastly, the individual item responses aren't especially interesting to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
+
+```{r}
+row_tbl <- rowid_to_column(six_c, "id") |> rowwise(id)
+
+sumscores <- row_tbl |> 
+  summarize(country = country,
+         extraversion = sum(c_across(3:12)), 
+         neuroticism = sum(c_across(13:22)), 
+         agreeableness = sum(c_across(23:31)), 
+         conscientiousness = sum(c_across(33:42)), 
+         openness = sum(c_across(43:52))
+         )
+```
+
+And now we have our final dataset:
+
+```{r}
+sumscores
+```
+
+
+### Testing the Big 5
+
+Now that our data are cleaned.
 
 
 ### Sibling Rivalry
