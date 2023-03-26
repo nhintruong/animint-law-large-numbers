@@ -20,9 +20,10 @@ knitr:
 #| include: FALSE
 
 library(knitr)        # file conversion
-library(tibble)       # tidyverse dfs
+library(dplyr)        # tidyverse file manipulate
 library(readr)        # tidyverse file reader
-library(dplyr)        # tidyverse file manipulation
+library(stringr)      # tidyverse string manipulate
+library(tibble)       # tidyverse dfs
 library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
 ```
@@ -54,7 +55,7 @@ So let's take a look at some psychometrics.
 
 ### Data Wrangling
 
-Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big 5 dataset. [Personality psychology is not my area of expertise, so it was fun to play around with the data.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
+Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [Otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
 
 ```{r}
 b5 <- read_tsv("b5.tsv")
@@ -62,14 +63,7 @@ go_away <- c("race", "age", "engnat", "gender", "hand", "source")
 b5c <- b5 |> select(-any_of(go_away))
 ```
 
-How many countries are there in this dataset, anyway?
-
-```{r}
-count_country <- n_distinct(b5c$country)
-count_country
-```
-
-And what about the number of responses per country? [`"(nu"` is equivalent to `NA`.]{.aside}
+How many countries are there in this dataset, anyway? And what about the number of responses per country? [`"(nu"` is equivalent to `NA`.]{.aside}
 
 ```{r}
 num_country <- b5c |> count(country, sort = TRUE) |>
@@ -80,22 +74,32 @@ num_country
 That's a lot of countries, and most of them have very few responses. Generalizability is affected if _n_ is too small, so I'm going to somewhat arbitrarily keep the six countries with the largest sample sizes and drop the rest. Sorry, Italy.
 
 ```{r}
-six_c <- b5c |> filter(country == c("US", "GB", "IN", "AU", "CA", "PH"))
+six_countries <- b5c |> filter(country %in% c("US", "GB", "IN", "AU", "CA", "PH"))
 ```
 
-Lastly, the individual item responses aren't especially interesting to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
+Lastly, the individual item responses aren't especially interesting to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization. I'll also replace the [ISO 3166]{.smallcaps} codes with the actual country names.
 
 ```{r}
-row_tbl <- rowid_to_column(six_c, "id") |> rowwise(id)
+# add id column
+plus_id <- rowid_to_column(six_countries, "id") |> rowwise(id)
 
-sumscores <- row_tbl |> 
+# replace ISO 3166 codes with country names
+code2country <- plus_id$country |> 
+  case_match("US" ~ "United States", 
+             "GB" ~ "United Kingdom", 
+             "IN" ~ "India", 
+             "AU" ~ "Australia", 
+             "CA" ~ "Canada", 
+             "PH" ~ "Philippines")
+
+# generate table of sumscores
+sumscores <- code2country |> 
   summarize(country = country,
          extraversion = sum(c_across(3:12)), 
          neuroticism = sum(c_across(13:22)), 
          agreeableness = sum(c_across(23:31)), 
          conscientiousness = sum(c_across(33:42)), 
-         openness = sum(c_across(43:52))
-         )
+         openness = sum(c_across(43:52)))
 ```
 
 And now we have our final dataset:
@@ -105,9 +109,20 @@ sumscores
 ```
 
 
-### Testing the Big 5
+### The Big Five Under Pressure
 
-Now that our data are cleaned.
+Now that our data are cleaned, let's explore.
+
+The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
+
+```{r}
+correlations <- ggplot() + 
+  geom_point(data = sumscores, 
+             mapping = aes(x = neuroticism, 
+                           y = openness, 
+                           color = country))
+correlations
+```
 
 
 ### Sibling Rivalry
@@ -165,7 +180,7 @@ cat_bar
 
 Here are all the little technical bits that don't matter all that much, but which I noticed while taking the tests:
 
-- The Big 5 dataset is provided as a `.csv`, but it's actually a `.tsv` file.
+- The Big Five dataset is provided as a `.csv`, but it's actually a `.tsv` file.
 - `ggplot2` has `geom_col()`, but not `animint2`.
 
 

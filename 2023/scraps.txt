@@ -1,9 +1,10 @@
 
 # Scraps
 
-Bits of code and writing that aren't used in the application, but which I'm keeping around for sentimental reasons. And just in case they become useful again.
-_______________
 
+Bits of code and writing that aren't used in the application, but which I'm keeping around for sentimental reasons. And just in case they become useful again.
+
+##########
 
 ```{r setup}
 #| include: FALSE
@@ -12,17 +13,29 @@ knitr::opts_chunk$set(echo = TRUE,
                       autodep = TRUE)
 library(whatever)
 ```
-__________
+
+##########
 
 ^[C.D. van Borkulo, H.L.J. van der Maas, D. Borsboom, A.O.J. Cramer. [Vulnerability to Depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression). _Netlogo_. 2013.]
-__________
+
+##########
 
 ```{r}
 b5 <- read_tsv("b5.tsv")
 go_away <- c("race", "age", "engnat", "gender", "hand", "source")
 b5c <- b5 |> select(-any_of(go_away))
 ```
-__________
+
+##########
+
+How many countries are there in this dataset, anyway?
+
+```{r}
+count_country <- n_distinct(b5c$country)
+count_country
+```
+
+##########
 
 That's a lot of countries, and most of them have very few responses. Generalizability is affected if _n_ is too small, so I'm going to somewhat arbitrarily keep the ten countries with the largest sample sizes and drop the rest.
 
