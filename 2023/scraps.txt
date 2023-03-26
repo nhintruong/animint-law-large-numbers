@@ -43,3 +43,26 @@ That's a lot of countries, and most of them have very few responses. Generalizab
 ten_country <- num_country |> slice(1:10)
 ten_country
 ```
+
+##########
+
+# replace ISO 3166 codes with country names
+code2country <- plus_id$country |> 
+  case_match("US" ~ "United States", 
+             "GB" ~ "United Kingdom", 
+             "IN" ~ "India", 
+             "AU" ~ "Australia", 
+             "CA" ~ "Canada", 
+             "PH" ~ "Philippines") |>
+  as_tibble() |> mutate(.keep = "unused")
+  
+I'll also replace the [ISO 3166]{.smallcaps} codes with the actual country names.
+
+# replace ISO 3166 codes with country names
+code2country <- plus_id |> select(id, country) |>
+  case_match("US" ~ "United States", 
+             "GB" ~ "United Kingdom", 
+             "IN" ~ "India", 
+             "AU" ~ "Australia", 
+             "CA" ~ "Canada", 
+             "PH" ~ "Philippines")

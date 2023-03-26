@@ -20,10 +20,10 @@ knitr:
 #| include: FALSE
 
 library(knitr)        # file conversion
-library(dplyr)        # tidyverse file manipulate
-library(readr)        # tidyverse file reader
-library(stringr)      # tidyverse string manipulate
-library(tibble)       # tidyverse dfs
+library(dplyr)        # tidy file manipulation
+library(readr)        # tidy file reader
+library(stringr)      # tidy string manipulation
+library(tibble)       # tidyverse df's
 library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
 ```
@@ -77,23 +77,14 @@ That's a lot of countries, and most of them have very few responses. Generalizab
 six_countries <- b5c |> filter(country %in% c("US", "GB", "IN", "AU", "CA", "PH"))
 ```
 
-Lastly, the individual item responses aren't especially interesting to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization. I'll also replace the [ISO 3166]{.smallcaps} codes with the actual country names.
+Lastly, the individual item responses aren't especially useful to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
 
 ```{r}
 # add id column
 plus_id <- rowid_to_column(six_countries, "id") |> rowwise(id)
 
-# replace ISO 3166 codes with country names
-code2country <- plus_id$country |> 
-  case_match("US" ~ "United States", 
-             "GB" ~ "United Kingdom", 
-             "IN" ~ "India", 
-             "AU" ~ "Australia", 
-             "CA" ~ "Canada", 
-             "PH" ~ "Philippines")
-
 # generate table of sumscores
-sumscores <- code2country |> 
+sumscores <- plus_id |> 
   summarize(country = country,
          extraversion = sum(c_across(3:12)), 
          neuroticism = sum(c_across(13:22)), 
