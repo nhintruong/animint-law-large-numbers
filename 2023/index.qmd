@@ -37,7 +37,7 @@ Why apply to work on `animint2`? I think interactive models and visualizations a
 
 I'm never used `animint2` before, but I have used `ggplot2`. There's a family resemblance between the packages that should help me when contributing to the former.
 
-Of course, my super top secret reason for doing this is so I can eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That's just between you and me.
+Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That's just between you and me.
 
 
 ## Easy Test
@@ -55,7 +55,7 @@ Most psychological datasets have strict rules regarding their use. Luckily, The 
 ```{r}
 b5 <- read_tsv("b5.tsv")
 go_away <- c("race", "age", "engnat", "gender", "hand", "source")
-b5c <- b5 |> select(!(go_away))
+b5c <- b5 |> select(-any_of(go_away))
 ```
 
 How many countries are there in this dataset, anyway?
@@ -65,7 +65,7 @@ count_country <- n_distinct(b5c$country)
 count_country
 ```
 
-And what about the number of responses per country? [I used `filter()` to remove rows that don't provide a country.]{.aside}
+And what about the number of responses per country? [`"(nu"` is equivalent to `NA`.]{.aside}
 
 ```{r}
 num_country <- b5c |> count(country, sort = TRUE) |>
@@ -73,12 +73,12 @@ num_country <- b5c |> count(country, sort = TRUE) |>
 num_country
 ```
 
-```{r}
-test <- num_country |> filter(1:10)
-test
-```
+That's a lot of countries, and most of them have very few responses. For the sake of my visualization, I'm going to somewhat arbitrarily keep the ten countries with the largest sample sizes and drop the rest.
 
-That's a lot of countries, and most of them have very few responses. 
+```{r}
+ten_country <- num_country |> slice(1:10)
+ten_country
+```
 
 First, let's see the number of responses per country:
 
