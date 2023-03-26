@@ -1,7 +1,6 @@
 ---
 title: "animint2 GSOC Application"
 author: "J. Chen"
-bibliography: gsoc.bibtex
 format: html
 toc: true
 toc-location: left
@@ -11,16 +10,18 @@ mainfont: FiraGo
 monofont: Fira Code
 reference-location: margin
 cap-location: margin
+knitr:
+  opts_chunk: 
+    code-overflow: wrap
+    echo: TRUE
 ---
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE,
-                      cache = FALSE,
-                      autodep = TRUE)
+```{r setup}
+#| include: FALSE
+
 library(knitr)        # file conversion
-#library(tidyverse)    # data manipulation
-library(readr)
-library(dplyr)
+library(readr)        # tidyverse file reader
+library(dplyr)        # tidyverse file manipulation
 library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
 ```
