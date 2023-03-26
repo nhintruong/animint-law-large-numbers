@@ -26,6 +26,7 @@ library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
 ```
 
+
 ## Introduction
 
 Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in latter group, best of luck!)
@@ -97,7 +98,9 @@ The second part of the easy test asks me to
 
 There's no conflict with just loading the packages:
 
-```{r, eval = FALSE}
+```{r}
+#| eval: FALSE
+
 library(animint2)
 library(ggplot2)
 ```
@@ -106,16 +109,15 @@ library(ggplot2)
 But R throws up an error message when you run code that uses that syntax. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
 
 ```{r}
-#| column: margin
-
-cat_pop <- read_csv("meow.csv")
-cat_pop
+cat_pop <- read_csv("meow.csv",
+                    show_col_types = FALSE)
 ```
+```{r}
+#| eval: FALSE
 
-```{r, eval = FALSE}
 cat_bar <- ggplot(data = cat_pop, 
                   mapping = aes(cat_name, popularity)) + 
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity", color = purple)
 cat_bar
 ```
 
@@ -127,10 +129,10 @@ Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
 
 In other words, `animint2` and `ggplot2` don't get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.
 
-```{r, echo = FALSE}
+```{r}
+#| echo: FALSE
 #| label: fig-cat-popularity
 #| fig-cap: "Popularity of cat names on a scale of 1–3."
-#| column: margin
 
 cat_bar <- ggplot(data = cat_pop, 
                   mapping = aes(cat_name, popularity)) + 
