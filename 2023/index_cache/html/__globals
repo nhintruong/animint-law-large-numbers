@@ -1,0 +1,11 @@
+setup	library
+unnamed-chunk-1	any_of	c	read_tsv	select
+unnamed-chunk-2	!	==	b5c	count	country	filter
+unnamed-chunk-3	b5c	c	country	filter
+unnamed-chunk-4	c_across	country	id	rowid_to_column	rowwise	six_countries	sum	summarize
+unnamed-chunk-5	sumscores
+unnamed-chunk-6	aes	animint	country	geom_point	ggplot	neuroticism	openness	sumscores
+unnamed-chunk-7	library
+unnamed-chunk-8	read_csv
+unnamed-chunk-9	aes	cat_name	cat_pop	geom_bar	ggplot	popularity	purple
+fig-cat-popularity	aes	cat_pop	geom_bar	ggplot

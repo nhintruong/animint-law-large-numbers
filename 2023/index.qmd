@@ -14,6 +14,8 @@ knitr:
   opts_chunk: 
     code-overflow: wrap
     echo: TRUE
+    cache: TRUE
+    autodep: TRUE
 ---
 
 ```{r setup}
@@ -104,6 +106,7 @@ sumscores
 
 Now that our data are cleaned, let's explore.
 
+
 The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
 
 ```{r}
@@ -112,7 +115,7 @@ correlations <- ggplot() +
              mapping = aes(x = neuroticism, 
                            y = openness, 
                            color = country))
-correlations
+animint(correlations)
 ```
 
 
@@ -149,7 +152,7 @@ cat_bar
 
 What happens?
 
-```{r, eval = FALSE}
+```
 Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
 ```
 
