@@ -14,7 +14,7 @@ knitr:
   opts_chunk: 
     code-overflow: wrap
     echo: TRUE
-    cache: TRUE
+    cache: FALSE
     autodep: TRUE
     warning: FALSE
 ---
@@ -112,53 +112,54 @@ Now that our data are cleaned, let's explore.
 We have five personality traits and six countries. How do personality traits vary by country?
 
 ```{r}
+violinize <- list(geom_violin(
+  draw_quantiles = c(0.25, 0.5, 0.75)), 
+  coord_flip(),
+  y = NULL,
+  expand_limits(x = 100))
+```
+
+```{r}
 #| column: margin
 oc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
                        y = openness))
-oc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
-  expand_limits(y = 100)
+oc + violinize
 ```
 
 ```{r}
-#| eval: FALSE
-#| label: fig-violin-personalities
-#| fig-cap: "Violin plots of personality factors by country."
-#| layout-ncol: 2
-#| layout-nrow: 3
-#| out-width: 40%
-#| column: screen-inset-right
-
-oc <- sumscores |> 
-  ggplot(mapping = aes(x = country, 
-                       y = openness))
-oc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
-  expand_limits(y = 100)
-
+#| column: margin
 cc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
                        y = conscientiousness))
-cc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
-  expand_limits(y = 100)
+cc + violinize
+```
 
+```{r}
+#| column: margin
 ec <- sumscores |> 
   ggplot(mapping = aes(x = country, 
                        y = extraversion))
-ec + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))  + 
-  expand_limits(y = 100)
+ec + violinize
+```
 
+```{r}
+#| column: margin
 ac <- sumscores |> 
   ggplot(mapping = aes(x = country, 
                        y = agreeableness))
-ac + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
-  expand_limits(y = 100)
+ac + violinize
+```
 
+```{r}
+#| column: margin
 nc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
                        y = neuroticism))
-nc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
-  expand_limits(y = 100)
+nc + violinize
 ```
+
+It's impressive how much overlap. 
 
 The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
 

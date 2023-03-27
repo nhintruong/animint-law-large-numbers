@@ -4,12 +4,16 @@ unnamed-chunk-2	!	==	b5c	count	country	filter
 unnamed-chunk-3	b5c	c	country	filter
 unnamed-chunk-4	c_across	country	id	rowid_to_column	rowwise	six_countries	sum	summarize
 unnamed-chunk-5	sumscores
-unnamed-chunk-6	aes	c	country	expand_limits	geom_violin	ggplot	openness	sumscores
-unnamed-chunk-7	aes	animint	country	extraversion	geom_point	ggplot	neuroticism	sumscores
-unnamed-chunk-8	aes	animint	country	extraversion	geom_point	ggplot	neuroticism	sumscores
-unnamed-chunk-9	library
+unnamed-chunk-6	c	coord_flip	expand_limits	geom_violin	list
+unnamed-chunk-7	aes	country	ggplot	openness	sumscores	violin
+unnamed-chunk-8	aes	conscientiousness	country	ggplot	sumscores	violin
+unnamed-chunk-9	aes	country	extraversion	ggplot	sumscores	violin
 fig-cat-popularity	aes	cat_name	cat_pop	geom_bar	ggplot	popularity
-unnamed-chunk-10	read_csv
+unnamed-chunk-10	aes	agreeableness	country	ggplot	sumscores	violin
 fig-violin-personalities	aes	agreeableness	c	conscientiousness	country	expand_limits	extraversion	geom_violin	ggplot	neuroticism	openness	sumscores
-unnamed-chunk-11	aes	cat_name	cat_pop	geom_bar	ggplot	popularity	purple
+unnamed-chunk-11	aes	country	ggplot	neuroticism	sumscores	violin
 fig-violin-openness	aes	c	country	expand_limits	geom_violin	ggplot	openness	sumscores
+unnamed-chunk-12	aes	animint	country	extraversion	geom_point	ggplot	neuroticism	sumscores
+unnamed-chunk-13	library
+unnamed-chunk-14	read_csv
+unnamed-chunk-15	aes	cat_name	cat_pop	geom_bar	ggplot	popularity	purple

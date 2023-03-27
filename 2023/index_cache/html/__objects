@@ -4,12 +4,16 @@ unnamed-chunk-2	num_country
 unnamed-chunk-3	six_countries
 unnamed-chunk-4	plus_id	sumscores
 unnamed-chunk-5	
-unnamed-chunk-6	oc	.Random.seed
-unnamed-chunk-7	correlations	.index_cache/html/unnamed-chunk-7_c9c383f7d2809f9ce67e79feb0861b78_meta
-unnamed-chunk-8	correlations	.index_cache/html/unnamed-chunk-8_3c06042d9dd3fbcaae932dede3e1588d_meta
-unnamed-chunk-9	
-unnamed-chunk-10	cat_pop
+unnamed-chunk-6	violin
+unnamed-chunk-7	oc	.Random.seed
+unnamed-chunk-8	cc
+unnamed-chunk-9	ec
+unnamed-chunk-10	ac
 fig-cat-popularity	cat_bar
 fig-violin-personalities	
-unnamed-chunk-11	
+unnamed-chunk-11	nc
 fig-violin-openness	oc	.Random.seed
+unnamed-chunk-12	correlations	.index_cache/html/unnamed-chunk-12_e0647cbf0f325f04376d920222964e62_meta
+unnamed-chunk-13	
+unnamed-chunk-14	cat_pop
+unnamed-chunk-15	
