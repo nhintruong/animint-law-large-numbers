@@ -5,3 +5,4 @@ stringr
 tibble
 animint2
 kableExtra
+cowplot

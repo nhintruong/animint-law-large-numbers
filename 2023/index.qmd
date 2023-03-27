@@ -16,6 +16,7 @@ knitr:
     echo: TRUE
     cache: TRUE
     autodep: TRUE
+    warning: FALSE
 ---
 
 ```{r setup}
@@ -27,7 +28,6 @@ library(readr)        # tidy file reader
 library(stringr)      # tidy string manipulation
 library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
-library(patchwork)    # organize graphs
 library(kableExtra)   # make tables
 ```
 
@@ -112,33 +112,52 @@ Now that our data are cleaned, let's explore.
 We have five personality traits and six countries. How do personality traits vary by country?
 
 ```{r}
+#| column: margin
 oc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
-                       y = openness)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
-oc
+                       y = openness))
+oc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
+  expand_limits(y = 100)
+```
+
+```{r}
+#| eval: FALSE
+#| label: fig-violin-personalities
+#| fig-cap: "Violin plots of personality factors by country."
+#| layout-ncol: 2
+#| layout-nrow: 3
+#| out-width: 40%
+#| column: screen-inset-right
+
+oc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = openness))
+oc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
+  expand_limits(y = 100)
 
 cc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
-                       y = conscientiousness)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+                       y = conscientiousness))
+cc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
+  expand_limits(y = 100)
 
 ec <- sumscores |> 
   ggplot(mapping = aes(x = country, 
-                       y = extraversion)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+                       y = extraversion))
+ec + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))  + 
+  expand_limits(y = 100)
 
 ac <- sumscores |> 
   ggplot(mapping = aes(x = country, 
-                       y = agreeableness)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+                       y = agreeableness))
+ac + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
+  expand_limits(y = 100)
 
 nc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
-                       y = neuroticism)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
-
-wrap_plots(oc, cc, ec, ac, nc)
+                       y = neuroticism))
+nc + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + 
+  expand_limits(y = 100)
 ```
 
 The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
@@ -147,7 +166,7 @@ The Big Five's origins lie in factor analysis. The factors are meant to be ortho
 correlations <- ggplot() + 
   geom_point(data = sumscores, 
              mapping = aes(x = neuroticism, 
-                           y = openness, 
+                           y = extraversion, 
                            color = country))
 animint(correlations)
 ```
@@ -208,10 +227,11 @@ cat_bar
 
 ## Appendix: Observations
 
-`animint2` is a fork of `ggplot2`. This comes with some side effects:
+`animint2` is a fork of `ggplot2`. While playing around with `animint2`, I noticed that this comes with some side effects:
 
 - `ggplot2` has `geom_col()`, but not `animint2`.
 - `ggplot2` has `geom_boxplot()`, but not `animint2`.
-- An erroneous warning in `geom_violin` has been fixed in `ggplot2` but not in `animint2`.
+- An erroneous warning in `geom_violin` [has been fixed in `ggplot2`](https://github.com/tidyverse/ggplot2/pull/4654) but not in `animint2`.
 - Extensions of `ggplot2`, like `patchwork`, don't work for `animint2`.
 
+None of these side effects are surprising.
