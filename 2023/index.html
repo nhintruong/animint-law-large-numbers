@@ -165,26 +165,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="data-wrangling" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h3>
 <div class="page-columns page-full"><p>Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with <a href="https://openpsychometrics.org/_rawdata/">an abundance of personality data</a>. I’ve elected to use the Big Five dataset.  The dataset has data on participants’ age, race, and gender (amongst other information). But for the purposes of this test, I’ll limit myself to item responses by country and drop the other data:</p><div class="no-row-height column-margin column-container"><span class="">Otherwise known as the five-factor model of personality.</span></div></div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_332fe4c537ee66c6320728e89dbb5a97">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>b5 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"b5.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 19719 Columns: 57
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: "\t"
-chr  (1): country
-dbl (56): race, age, engnat, gender, hand, source, E1, E2, E3, E4, E5, E6, E...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>go_away <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"race"</span>, <span class="st">"age"</span>, <span class="st">"engnat"</span>, <span class="st">"gender"</span>, <span class="st">"hand"</span>, <span class="st">"source"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b5c <span class="ot">&lt;-</span> b5 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">any_of</span>(go_away))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-1_415dcdbdcae7f4cbcd31d139d7432e9d">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>b5 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"b5.tsv"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>go_away <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"race"</span>, <span class="st">"age"</span>, <span class="st">"engnat"</span>, <span class="st">"gender"</span>, <span class="st">"hand"</span>, <span class="st">"source"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>b5c <span class="ot">&lt;-</span> b5 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">any_of</span>(go_away))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="page-columns page-full"><p>How many countries are there in this dataset, anyway? And what about the number of responses per country? </p><div class="no-row-height column-margin column-container"><span class=""><code>"(nu"</code> is equivalent to <code>NA</code>.</span></div></div>
 <div class="cell" data-hash="index_cache/html/unnamed-chunk-2_3e1c08c918848e8156ca16653ce16fc9">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>num_country <span class="ot">&lt;-</span> b5c <span class="sc">|&gt;</span> <span class="fu">count</span>(country, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(country <span class="sc">==</span> <span class="st">"(nu"</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>num_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>num_country <span class="ot">&lt;-</span> b5c <span class="sc">|&gt;</span> <span class="fu">count</span>(country, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(country <span class="sc">==</span> <span class="st">"(nu"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>num_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 157 × 2
    country     n
@@ -204,29 +195,26 @@ dbl (56): race, age, engnat, gender, hand, source, E1, E2, E3, E4, E5, E6, E...
 </div>
 <p>That’s a lot of countries, and most of them have very few responses. Generalizability is affected if <em>n</em> is too small, so I’m going to somewhat arbitrarily keep the six countries with the largest sample sizes and drop the rest. Sorry, Italy.</p>
 <div class="cell" data-hash="index_cache/html/unnamed-chunk-3_aa65065a9ee75aa00e0456fba0561706">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>six_countries <span class="ot">&lt;-</span> b5c <span class="sc">|&gt;</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"US"</span>, <span class="st">"GB"</span>, <span class="st">"IN"</span>, <span class="st">"AU"</span>, <span class="st">"CA"</span>, <span class="st">"PH"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>six_countries <span class="ot">&lt;-</span> b5c <span class="sc">|&gt;</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"US"</span>, <span class="st">"GB"</span>, <span class="st">"IN"</span>, <span class="st">"AU"</span>, <span class="st">"CA"</span>, <span class="st">"PH"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="page-columns page-full"><p>Lastly, the individual item responses aren’t especially useful to me.  So I’m going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.</p><div class="no-row-height column-margin column-container"><span class="">I could use the individual items to estimate a psychometric network. But as far as I can tell, neither <code>animint2</code> nor <code>ggplot2</code> support that.</span></div></div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-4_6759d157d4cd2a9edbbf3017b1dbaccc">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add id column</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plus_id <span class="ot">&lt;-</span> <span class="fu">rowid_to_column</span>(six_countries, <span class="st">"id"</span>) <span class="sc">|&gt;</span> <span class="fu">rowwise</span>(id)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generate table of sumscores</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> plus_id <span class="sc">|&gt;</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">country =</span> country,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">extraversion =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">12</span>)), </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">neuroticism =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">22</span>)), </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">agreeableness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">23</span><span class="sc">:</span><span class="dv">31</span>)), </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">conscientiousness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">33</span><span class="sc">:</span><span class="dv">42</span>)), </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">openness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">43</span><span class="sc">:</span><span class="dv">52</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'id'. You can override using the `.groups`
-argument.</code></pre>
-</div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-4_2df9c81e859a765132d9111989c432e3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add id column</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plus_id <span class="ot">&lt;-</span> <span class="fu">rowid_to_column</span>(six_countries, <span class="st">"id"</span>) <span class="sc">|&gt;</span> <span class="fu">rowwise</span>(id)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generate table of sumscores</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> plus_id <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">country =</span> country,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">extraversion =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">12</span>)), </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">neuroticism =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">22</span>)), </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">agreeableness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">23</span><span class="sc">:</span><span class="dv">31</span>)), </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">conscientiousness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">33</span><span class="sc">:</span><span class="dv">42</span>)), </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">openness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">43</span><span class="sc">:</span><span class="dv">52</span>)),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">.groups =</span> <span class="st">"keep"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now we have our final dataset:</p>
 <div class="cell" data-hash="index_cache/html/unnamed-chunk-5_a299befd3a90ac16b3889df2a7d263ef">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sumscores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sumscores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14,295 × 7
 # Groups:   id [14,295]
@@ -250,26 +238,35 @@ argument.</code></pre>
 <section id="the-big-five-under-pressure" class="level3">
 <h3 class="anchored" data-anchor-id="the-big-five-under-pressure">The Big Five Under Pressure</h3>
 <p>Now that our data are cleaned, let’s explore.</p>
-<p>The Big Five’s origins lie in factor analysis. The factors are meant to be orthogonal—i.e., independent from one another. Do our data support that claim? I’ll generate an interactive scatterplot for the reader to explore:</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-6_d831b54111c79c60beec62c3f6c4abaf">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sumscores, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> neuroticism, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> openness, </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">color =</span> country))</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">animint</span>(correlations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We have five personality traits and six countries. How do personality traits vary by country?</p>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-6_981ebe15ff6c5c9079aae440e9f9b7a0">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pxc <span class="ot">&lt;-</span> sumscores <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> country,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">y =</span> extraversion))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>pxc <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="at">draw_quantiles =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<script type="text/javascript" src="unnamedchunk6/vendor/d3.v3.js"></script>
-<script type="text/javascript" src="unnamedchunk6/animint.js"></script>
-<script type="text/javascript" src="unnamedchunk6/vendor/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="unnamedchunk6/vendor/selectize.min.js"></script>
-<link rel="stylesheet" type="text/css" href="unnamedchunk6/vendor/selectize.css">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The Big Five’s origins lie in factor analysis. The factors are meant to be orthogonal—i.e., independent from one another. Do our data support that claim? I’ll generate an interactive scatterplot for the reader to explore:</p>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-7_6958c82d76405edde5a75b9aa06983e4">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sumscores, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> neuroticism, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> openness, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">color =</span> country))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">animint</span>(correlations)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<script type="text/javascript" src="unnamedchunk7/vendor/d3.v3.js"></script>
+<script type="text/javascript" src="unnamedchunk7/animint.js"></script>
+<script type="text/javascript" src="unnamedchunk7/vendor/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="unnamedchunk7/vendor/selectize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="unnamedchunk7/vendor/selectize.css">
 <p>
 </p>
-<div id="unnamedchunk6">
+<div id="unnamedchunk7">
 
 </div>
-<script>var unnamedchunk6 = new animint("#unnamedchunk6", "unnamedchunk6/plot.json");</script>
+<script>var unnamedchunk7 = new animint("#unnamedchunk7", "unnamedchunk7/plot.json");</script>
 </div>
 </div>
 </section>
@@ -280,25 +277,25 @@ argument.</code></pre>
 <p>Show an example of an error that you see when animint2 is loaded/attached at the same time as standard ggplot2.</p>
 </blockquote>
 <p>There’s no conflict with just loading the packages:</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-7_f6092b5922adeaf29b2363a8cc123837">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animint2)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-8_bfaeb583b6fd7e99be5795b6794c9b9b">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animint2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>But R throws up an error message when you run code that uses that syntax. As a quick example, I’ll load up a toy dataset and try to generate a bar chart.</p>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-8_d95b6d50777f3860a31b02c3a03c294c">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cat_pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"meow.csv"</span>,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-9_3b892a99d11a4027d833044824780e56">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cat_pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"meow.csv"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="index_cache/html/unnamed-chunk-9_0064c7d5758b9afa95b04cdb3967aecd">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cat_bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cat_pop, </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">mapping =</span> <span class="fu">aes</span>(cat_name, popularity)) <span class="sc">+</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">color =</span> purple)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>cat_bar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="index_cache/html/unnamed-chunk-10_acd368bdac067d2c57776d07c15a83b2">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cat_bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cat_pop, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">mapping =</span> <span class="fu">aes</span>(cat_name, popularity)) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">color =</span> purple)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cat_bar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What happens?</p>
 <pre><code>Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"</code></pre>
 <p>In other words, <code>animint2</code> and <code>ggplot2</code> don’t get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.</p>
-<div class="cell page-columns page-full" data-hash="index_cache/html/fig-cat-popularity_559cba2af184d74bb583d2554c0d0149">
+<div class="cell page-columns page-full" data-hash="index_cache/html/fig-cat-popularity_87bf0ecf8b1b4a1975c3d16f989beb61">
 <div class="cell-output-display page-columns page-full">
 <div id="fig-cat-popularity" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
@@ -316,6 +313,7 @@ argument.</code></pre>
 <ul>
 <li>The Big Five dataset is provided as a <code>.csv</code>, but it’s actually a <code>.tsv</code> file.</li>
 <li><code>ggplot2</code> has <code>geom_col()</code>, but not <code>animint2</code>.</li>
+<li><code>ggplot2</code> has <code>geom_boxplot()</code>, but not <code>animint2</code>.</li>
 </ul>
 </section>
 

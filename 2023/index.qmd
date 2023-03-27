@@ -21,12 +21,13 @@ knitr:
 ```{r setup}
 #| include: FALSE
 
-library(knitr)        # file conversion
+library(knitr)        # tidy file conversion
 library(dplyr)        # tidy file manipulation
 library(readr)        # tidy file reader
 library(stringr)      # tidy string manipulation
-library(tibble)       # tidyverse df's
+library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
+library(patchwork)    # organize graphs
 library(kableExtra)   # make tables
 ```
 
@@ -60,7 +61,8 @@ So let's take a look at some psychometrics.
 Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [Otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
 
 ```{r}
-b5 <- read_tsv("b5.tsv")
+b5 <- read_tsv("b5.tsv",
+               show_col_types = FALSE)
 go_away <- c("race", "age", "engnat", "gender", "hand", "source")
 b5c <- b5 |> select(-any_of(go_away))
 ```
@@ -92,7 +94,8 @@ sumscores <- plus_id |>
          neuroticism = sum(c_across(13:22)), 
          agreeableness = sum(c_across(23:31)), 
          conscientiousness = sum(c_across(33:42)), 
-         openness = sum(c_across(43:52)))
+         openness = sum(c_across(43:52)),
+         .groups = "keep")
 ```
 
 And now we have our final dataset:
@@ -106,6 +109,37 @@ sumscores
 
 Now that our data are cleaned, let's explore.
 
+We have five personality traits and six countries. How do personality traits vary by country?
+
+```{r}
+oc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = openness)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+oc
+
+cc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = conscientiousness)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+
+ec <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = extraversion)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+
+ac <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = agreeableness)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+
+nc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = neuroticism)) +
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+
+wrap_plots(oc, cc, ec, ac, nc)
+```
 
 The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
 
@@ -141,6 +175,7 @@ But R throws up an error message when you run code that uses that syntax. As a q
 cat_pop <- read_csv("meow.csv",
                     show_col_types = FALSE)
 ```
+
 ```{r}
 #| eval: FALSE
 
@@ -150,7 +185,7 @@ cat_bar <- ggplot(data = cat_pop,
 cat_bar
 ```
 
-What happens?
+What happens? 
 
 ```
 Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
@@ -170,11 +205,13 @@ cat_bar
 ```
 
 
-## Technical Appendix
 
-Here are all the little technical bits that don't matter all that much, but which I noticed while taking the tests:
+## Appendix: Observations
 
-- The Big Five dataset is provided as a `.csv`, but it's actually a `.tsv` file.
+`animint2` is a fork of `ggplot2`. This comes with some side effects:
+
 - `ggplot2` has `geom_col()`, but not `animint2`.
-
+- `ggplot2` has `geom_boxplot()`, but not `animint2`.
+- An erroneous warning in `geom_violin` has been fixed in `ggplot2` but not in `animint2`.
+- Extensions of `ggplot2`, like `patchwork`, don't work for `animint2`.
 
