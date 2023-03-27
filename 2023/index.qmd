@@ -6,8 +6,8 @@ toc: true
 toc-location: left
 toc-title: "Contents:"
 linkcolor: "#043521"
-mainfont: FiraGo
-monofont: Fira Code
+mainfont: Roboto Condensed
+monofont: Roboto Mono
 reference-location: margin
 cap-location: margin
 knitr:
@@ -58,7 +58,7 @@ So let's take a look at some psychometrics.
 
 ### Data Wrangling
 
-Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [Otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
+Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [The Big Five is otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
 
 ```{r}
 b5 <- read_tsv("b5.tsv",
@@ -112,10 +112,11 @@ Now that our data are cleaned, let's explore.
 We have five personality traits and six countries. How do personality traits vary by country?
 
 ```{r}
+# limit redundancy
 violinize <- list(geom_violin(
   draw_quantiles = c(0.25, 0.5, 0.75)), 
   coord_flip(),
-  y = NULL,
+  x = NULL,
   expand_limits(x = 100))
 ```
 
