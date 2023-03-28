@@ -1,8 +1,8 @@
 {
  "geoms": {
- "geom1_point_corr": {
+ "geom1_point_corrdensed": {
  "geom": "point",
-"classed": "geom1_point_corr",
+"classed": "geom1_point_corrdensed",
 "aes": {
  "x": "neuroticism",
 "y": "extraversion",
@@ -11,8 +11,7 @@
 },
 "params": {
  "na.rm": false,
-"na.rm": false,
-"alpha":     0.25 
+"na.rm": false 
 },
 "types": {
  "colour": "rgb",
@@ -40,15 +39,15 @@
 "legend": true,
 "is.variable.value": false,
 "showSelected": true,
-"selected": "US",
+"selected": "PH",
 "levels": [ "US", "IN", "GB", "CA", "PH", "AU" ],
 "update": [
- "geom1_point_corr" 
+ "geom1_point_corrdensed" 
 ] 
 } 
 },
 "plots": {
- "corr": {
+ "corrdensed": {
  "panel_margin_lines":     0.25,
 "legend": {
  "country": {
@@ -66,7 +65,6 @@
  "pointcolour": "#F8766D",
 "pointshape":       19,
 "pointsize":      1.5,
-"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "AU" 
 },
@@ -74,7 +72,6 @@
  "pointcolour": "#B79F00",
 "pointshape":       19,
 "pointsize":      1.5,
-"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "CA" 
 },
@@ -82,7 +79,6 @@
  "pointcolour": "#00BA38",
 "pointshape":       19,
 "pointsize":      1.5,
-"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "GB" 
 },
@@ -90,7 +86,6 @@
  "pointcolour": "#00BFC4",
 "pointshape":       19,
 "pointsize":      1.5,
-"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "IN" 
 },
@@ -98,7 +93,6 @@
  "pointcolour": "#619CFF",
 "pointshape":       19,
 "pointsize":      1.5,
-"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "PH" 
 },
@@ -106,7 +100,6 @@
  "pointcolour": "#F564E3",
 "pointshape":       19,
 "pointsize":      1.5,
-"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "US" 
 } 
@@ -152,22 +145,20 @@
 "loc": {
  "x": [
  [
-        0,
-      10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ] 
 ],
 "y": [
  [
-        0,
-      10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ] 
 ] 
 } 
@@ -180,73 +171,65 @@
 "loc": {
  "x": [
  [
-        0,
-       5,
-      10,
-      15,
-      20,
+       20,
+    22.5,
       25,
+    27.5,
       30,
+    32.5,
       35,
-      40,
-      45,
-      50 
+    37.5,
+      40 
 ] 
 ],
 "y": [
  [
-        0,
-       5,
-      10,
-      15,
-      20,
+       20,
+    22.5,
       25,
+    27.5,
       30,
+    32.5,
       35,
-      40,
-      45,
-      50 
+    37.5,
+      40 
 ] 
 ] 
 } 
 },
 "axis1": {
  "x": [
-        0,
-      10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ],
 "xlab": [
- "0",
-"10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
-"xrange": [ -2.926625, 52.92771 ],
+"xrange": [       19,       41 ],
 "xline": true,
 "xticks": true,
 "y": [
-        0,
-      10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ],
 "ylab": [
- "0",
-"10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
-"yrange": [ -2.564024, 52.75776 ],
+"yrange": [       19,       41 ],
 "yline": true,
 "yticks": true 
 },
@@ -261,20 +244,18 @@
 "yangle":        0,
 "yanchor": "end",
 "xlabs": [
- "0",
-"10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
 "ylabs": [
- "0",
-"10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
 "title_size": "13.2pt",
 "options": {
@@ -282,7 +263,7 @@
 "height":      400 
 },
 "geoms": [
- "geom1_point_corr" 
+ "geom1_point_corrdensed" 
 ] 
 } 
 } 
