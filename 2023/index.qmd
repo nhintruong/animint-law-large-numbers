@@ -16,7 +16,7 @@ knitr:
     echo: TRUE
     cache: FALSE
     autodep: TRUE
-    warning: FALSE
+    warning: TRUE
 ---
 
 ```{r setup}
@@ -35,7 +35,7 @@ library(kableExtra)   # make tables
 
 ## Introduction
 
-Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in latter group, best of luck!)
+Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in the latter group, best of luck!)
 
 Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. I've used and relied on a lot of R packages for ...
 
@@ -58,9 +58,9 @@ So let's take a look at some psychometrics.
 
 ### Data Wrangling
 
-Most psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [The Big Five is otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
+Many psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [The Big Five is otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
 
-```{r}
+```{r only-countries}
 b5 <- read_tsv("b5.tsv",
                show_col_types = FALSE)
 go_away <- c("race", "age", "engnat", "gender", "hand", "source")
@@ -69,7 +69,7 @@ b5c <- b5 |> select(-any_of(go_away))
 
 How many countries are there in this dataset, anyway? And what about the number of responses per country? [`"(nu"` is equivalent to `NA`.]{.aside}
 
-```{r}
+```{r country-count}
 num_country <- b5c |> count(country, sort = TRUE) |>
   filter(!(country == "(nu"))
 num_country
@@ -77,13 +77,13 @@ num_country
 
 That's a lot of countries, and most of them have very few responses. Generalizability is affected if _n_ is too small, so I'm going to somewhat arbitrarily keep the six countries with the largest sample sizes and drop the rest. Sorry, Italy.
 
-```{r}
+```{r six-countries}
 six_countries <- b5c |> filter(country %in% c("US", "GB", "IN", "AU", "CA", "PH"))
 ```
 
 Lastly, the individual item responses aren't especially useful to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
 
-```{r}
+```{r sumscore-tbl-1}
 # add id column
 plus_id <- rowid_to_column(six_countries, "id") |> rowwise(id)
 
@@ -100,27 +100,40 @@ sumscores <- plus_id |>
 
 And now we have our final dataset:
 
-```{r}
+```{r sumscore-tbl-2}
+#| column: screen-inset-right
+
 sumscores
 ```
 
 
-### The Big Five Under Pressure
+### Big Five Data Viz
 
 Now that our data are cleaned, let's explore.
 
+```{r code2country-tbl}
+#| echo: FALSE
+#| column: margin
+
+iso2c <- read_csv("iso2country.csv",
+                  show_col_types = FALSE)
+iso2c_tbl <- kbl(iso2c) |> kable_paper(html_font = "Roboto Condensed",
+                                       full_width = FALSE)
+iso2c_tbl
+```
+
 We have five personality traits and six countries. How do personality traits vary by country?
 
-```{r}
+```{r f-violinize}
 # limit redundancy
 violinize <- list(geom_violin(
   draw_quantiles = c(0.25, 0.5, 0.75)), 
   coord_flip(),
-  x = NULL,
-  expand_limits(x = 100))
+  labs(x = NULL),
+  expand_limits(y = 100))
 ```
 
-```{r}
+```{r oc}
 #| column: margin
 oc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
@@ -128,7 +141,7 @@ oc <- sumscores |>
 oc + violinize
 ```
 
-```{r}
+```{r cc}
 #| column: margin
 cc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
@@ -136,7 +149,7 @@ cc <- sumscores |>
 cc + violinize
 ```
 
-```{r}
+```{r ec}
 #| column: margin
 ec <- sumscores |> 
   ggplot(mapping = aes(x = country, 
@@ -144,7 +157,7 @@ ec <- sumscores |>
 ec + violinize
 ```
 
-```{r}
+```{r ac}
 #| column: margin
 ac <- sumscores |> 
   ggplot(mapping = aes(x = country, 
@@ -152,7 +165,7 @@ ac <- sumscores |>
 ac + violinize
 ```
 
-```{r}
+```{r nc}
 #| column: margin
 nc <- sumscores |> 
   ggplot(mapping = aes(x = country, 
@@ -160,19 +173,50 @@ nc <- sumscores |>
 nc + violinize
 ```
 
-It's impressive how much overlap. 
+It's impressive how similar the scores are between countries. Due to one Indian individual with a sumscore of 0 for all factors, test results from India have the largest range. But the average scores between countries do not seriously differ.
+
+Here's another look at at the similarities between test scores: a density plot for agreeableness. In this plot, we can see the literal overlap between the distribution of test scores. [Agreeableness refers to phenomena like the tendency for compliance and altruism.]{.aside} I'll come back to the inter-country overlap when I use `animint()`.
+
+```{r density-plot}
+#| column: margin
+a_density <- sumscores |> 
+  ggplot(mapping = aes(x = agreeableness,
+                       color = country,
+                       fill = country)) +
+  geom_density(alpha = 0.1)
+a_density
+```
+
+There is more variance between personality factors. Compared to the other factors, openness is unusually high and the distribution of scores for neuroticism is unusually wide. Maybe they're artifacts of the kinds of people attracted to the website. Or maybe it's something else. Personality science isn't my specialty in psychology---I can only speculate.
+
+
+### Interacting with Personality
+
+All right. Time for the most relevant part of the test: using `animint()` to showcase my data.
 
 The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
 
-```{r}
+```{r ani-nxe}
 correlations <- ggplot() + 
-  geom_point(data = sumscores, 
+  geom_jitter(data = sumscores, 
              mapping = aes(x = neuroticism, 
                            y = extraversion, 
                            color = country))
 animint(correlations)
 ```
 
+
+
+If I'm lucky, maybe I'll become the change I want to see.
+
+As an aside, it turns out that "`showSelected` does not work with `StatDensity`."
+
+```{r}
+#| eval: FALSE
+#| warning: FALSE
+
+Warning: showSelected does not work with StatDensity
+```
 
 ### Sibling Rivalry
 
@@ -208,7 +252,9 @@ cat_bar
 
 What happens? 
 
-```
+```{r}
+#| eval: FALSE
+#| warning: FALSE
 Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
 ```
 
@@ -233,7 +279,8 @@ cat_bar
 
 - `ggplot2` has `geom_col()`, but not `animint2`.
 - `ggplot2` has `geom_boxplot()`, but not `animint2`.
-- An erroneous warning in `geom_violin` [has been fixed in `ggplot2`](https://github.com/tidyverse/ggplot2/pull/4654) but not in `animint2`.
+- An erroneous warning in `geom_violin` [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`.
+- "`showSelected` does not work with `StatDensity`"---but I haven't been able to find documentation about this anywhere. (Maybe I missed it.)
 - Extensions of `ggplot2`, like `patchwork`, don't work for `animint2`.
 
-None of these side effects are surprising.
+[Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is also buggy and moves up by itself.
