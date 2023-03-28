@@ -101,6 +101,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="index_files/libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="index_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -201,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>six_countries <span class="ot">&lt;-</span> b5c <span class="sc">|&gt;</span> <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"US"</span>, <span class="st">"GB"</span>, <span class="st">"IN"</span>, <span class="st">"AU"</span>, <span class="st">"CA"</span>, <span class="st">"PH"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="page-columns page-full"><p>Lastly, the individual item responses aren’t especially useful to me.  So I’m going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.</p><div class="no-row-height column-margin column-container"><span class="">I could use the individual items to estimate a psychometric network. But as far as I can tell, neither <code>animint2</code> nor <code>ggplot2</code> support that.</span></div></div>
+<div class="page-columns page-full"><p>Lastly, the individual item responses aren’t especially useful to me.  So I’m going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.</p><div class="no-row-height column-margin column-container"><span class="">Individual items are useful for estimating psychometric networks. But as far as I can tell, <code>animint2</code> doesn’t support them.</span></div></div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add id column</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plus_id <span class="ot">&lt;-</span> <span class="fu">rowid_to_column</span>(six_countries, <span class="st">"id"</span>) <span class="sc">|&gt;</span> <span class="fu">rowwise</span>(id)</span>
@@ -379,13 +380,13 @@ collapsing to unique 'x' values</code></pre>
 </ul>
 </li></div></div>
 <!-- footnote -->
-<p>What do our data show? I’ll generate an interactive scatterplot for the reader to explore:</p>
+<div class="page-columns page-full"><p>What do our data show? Here’s an interactive scatterplot—extraversion is plotted against neuroticism.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.</p></li></div></div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">data =</span> sumscores, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> neuroticism, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> extraversion, </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">color =</span> country))</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> sumscores <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> neuroticism,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> extraversion,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">color =</span> country)) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ani_corr <span class="ot">&lt;-</span> <span class="fu">animint</span>(correlations)</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>ani_corr<span class="sc">$</span>first <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">country =</span> <span class="st">"US"</span>)</span>
@@ -414,6 +415,8 @@ geom1_point_correlations</code></pre>
 <script>var anicorr = new animint("#anicorr", "anicorr/plot.json");</script>
 </div>
 </div>
+<p>The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. Pretty neat. I’ve also made the data points semi-transparent so the data density is visible.</p>
+<p>I haven’t bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps <span class="math inline">\(r &gt; 0\)</span>.</p>
 <p>The overlap between countries is again apparent.</p>
 <p>If I’m lucky, maybe I’ll become the change I want to see.</p>
 <p>As an aside, it turns out that “<code>showSelected</code> does not work with <code>StatDensity</code>.”</p>

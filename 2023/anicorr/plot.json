@@ -11,7 +11,8 @@
 },
 "params": {
  "na.rm": false,
-"na.rm": false 
+"na.rm": false,
+"alpha":     0.25 
 },
 "types": {
  "colour": "rgb",
@@ -65,6 +66,7 @@
  "pointcolour": "#F8766D",
 "pointshape":       19,
 "pointsize":      1.5,
+"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "AU" 
 },
@@ -72,6 +74,7 @@
  "pointcolour": "#B79F00",
 "pointshape":       19,
 "pointsize":      1.5,
+"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "CA" 
 },
@@ -79,6 +82,7 @@
  "pointcolour": "#00BA38",
 "pointshape":       19,
 "pointsize":      1.5,
+"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "GB" 
 },
@@ -86,6 +90,7 @@
  "pointcolour": "#00BFC4",
 "pointshape":       19,
 "pointsize":      1.5,
+"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "IN" 
 },
@@ -93,6 +98,7 @@
  "pointcolour": "#619CFF",
 "pointshape":       19,
 "pointsize":      1.5,
+"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "PH" 
 },
@@ -100,6 +106,7 @@
  "pointcolour": "#F564E3",
 "pointshape":       19,
 "pointsize":      1.5,
+"pointalpha":     0.25,
 "pointstroke":      0.5,
 "label": "US" 
 } 
@@ -220,7 +227,7 @@
 "40",
 "50" 
 ],
-"xrange": [ -2.191124,  52.7525 ],
+"xrange": [ -2.238455, 52.61429 ],
 "xline": true,
 "xticks": true,
 "y": [
@@ -239,7 +246,7 @@
 "40",
 "50" 
 ],
-"yrange": [ -2.113821, 52.83056 ],
+"yrange": [ -2.833482, 52.90082 ],
 "yline": true,
 "yticks": true 
 },

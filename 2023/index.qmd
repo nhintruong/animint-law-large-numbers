@@ -203,23 +203,40 @@ The factors in the five-factor model of personality are meant to be mostly indep
     - D. Borsboom. [The attack of the psychometricians](https://link.springer.com/10.1007/s11336-006-1447-6). _Psychometrika._ 2006.
 <!-- /footnote -->
 
-What do our data show? Here's an interactive scatterplot---extraversion is plotted against neuroticism.^[Extraversion refers to phenomena like outgoingness, while neuroticism refers to pheomena like emotional stability.]
+What do our data show? Here's an interactive scatterplot---extraversion is plotted against neuroticism.^[Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.]
 
 ```{r ani-corr}
-correlations <- ggplot() + 
-  geom_jitter(data = sumscores, 
-             mapping = aes(x = neuroticism, 
-                           y = extraversion, 
-                           color = country))
+correlations <- sumscores |> 
+  ggplot(mapping = aes(x = neuroticism,
+                       y = extraversion,
+                       color = country))
+corr <- correlations + geom_jitter(alpha = 0.25)
 
-ani_corr <- animint(correlations)
+ani_corr <- animint(corr)
 ani_corr$first <- list(country = "US")
 ani_corr
 ```
 
-The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between personalities by countries. Pretty neat. I've also made the data points semi-transparent so the 
+The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. Pretty neat. I've also made the data points semi-transparent so the data density is visible.
 
-The data look like paint splatches
+I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps $r > 0$, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.
+
+I think that's a hypothesis worthy of exploration. Let's take a look at one last `animint()` before concluding this part of the easy test.
+
+```{r ani-corr-zoom}
+corr_densed <- correlations +
+  geom_point() + 
+  xlim(20, 40) + 
+  ylim(20, 40)
+
+ani_corr_zoom <- animint(corr_densed)
+ani_corr_zoom$first <- list(country = "PH")
+ani_corr_zoom
+```
+
+This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, without jitter, the discrete nature of the data become visable. You can have an extraversion sumscore 
+
+Pretty cool! This kind of exploratory research would be harder without the interactive benefits of `animint2`.
 
 The overlap between countries is again apparent.
 
