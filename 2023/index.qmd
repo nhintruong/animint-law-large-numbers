@@ -6,8 +6,8 @@ toc: true
 toc-location: left
 toc-title: "Contents:"
 linkcolor: "#043521"
-mainfont: Roboto Condensed
-monofont: Roboto Mono
+mainfont: Roboto Condensed, sans-serif
+monofont: Roboto Mono, monospace
 reference-location: margin
 cap-location: margin
 knitr:
@@ -39,7 +39,7 @@ Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, 
 
 Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. I've used and relied on a lot of R packages for ...
 
-Why apply to work on `animint2`? I think interactive models and visualizations are important for exploratory science. Here's an example from my domain of expertise. In network psychopathology, an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. It continues to be an important part of network theory.^[D. Borsboom. ["A network theory of mental disorders."](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375) _World Psychiatry_. 2017.] 
+Why apply to work on `animint2`? I think interactive models and visualizations are important for exploratory science. Here's an example from my domain of expertise. In network psychopathology, an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. It continues to be an important part of network theory.^[D. Borsboom. [A network theory of mental disorders](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375). _World Psychiatry_. 2017.] 
 
 I'm never used `animint2` before, but I have used `ggplot2`. There's a family resemblance between the packages that should help me when contributing to the former.
 
@@ -81,7 +81,7 @@ That's a lot of countries, and most of them have very few responses. Generalizab
 six_countries <- b5c |> filter(country %in% c("US", "GB", "IN", "AU", "CA", "PH"))
 ```
 
-Lastly, the individual item responses aren't especially useful to me. [I could use the individual items to estimate a psychometric network. But as far as I can tell, neither `animint2` nor `ggplot2` support that.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
+Lastly, the individual item responses aren't especially useful to me. [Individual items are useful for estimating psychometric networks. But as far as I can tell, `animint2` doesn't support them.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
 
 ```{r sumscore-tbl-1}
 # add id column
@@ -187,25 +187,41 @@ a_density <- sumscores |>
 a_density
 ```
 
-There is more variance between personality factors. Compared to the other factors, openness is unusually high and the distribution of scores for neuroticism is unusually wide. Maybe they're artifacts of the kinds of people attracted to the website. Or maybe it's something else. Personality science isn't my specialty in psychology---I can only speculate.
+There is more variance between personality factors. Compared to the other factors, openness is unusually high and the distribution of scores for neuroticism is unusually wide. Maybe they're statistical artifacts related to the kinds of people attracted to the website. Or maybe it's something else. Personality science isn't my specialty in psychology---I can only speculate.
 
 
 ### Interacting with Personality
 
 All right. Time for the most relevant part of the test: using `animint()` to showcase my data.
 
-The Big Five's origins lie in factor analysis. The factors are meant to be orthogonal---i.e., independent from one another. Do our data support that claim? I'll generate an interactive scatterplot for the reader to explore:
+The factors in the five-factor model of personality are meant to be mostly independent from one another.[^2] That partly means we don't expect the factors, when plotted against one another, to have any particularly strong relationships. In contrast, if we obtain a Pearson's _r_ close to 1 or −1, we may seriously consider that the two factors are actually one.
 
-```{r ani-nxe}
+<!-- footnote -->
+[^2]: There are empirical and theoretical reasons to question this, but that's outside the scope of the test. For further reading, see:
+
+    - D. van der Linden et al. [The general factor of personality](doi.org/10.1016/j.jrp.2010.03.003). _J. Res. Pers._ 2010.
+    - D. Borsboom. [The attack of the psychometricians](https://link.springer.com/10.1007/s11336-006-1447-6). _Psychometrika._ 2006.
+<!-- /footnote -->
+
+What do our data show? Here's an interactive scatterplot---extraversion is plotted against neuroticism.^[Extraversion refers to phenomena like outgoingness, while neuroticism refers to pheomena like emotional stability.]
+
+```{r ani-corr}
 correlations <- ggplot() + 
   geom_jitter(data = sumscores, 
              mapping = aes(x = neuroticism, 
                            y = extraversion, 
                            color = country))
-animint(correlations)
+
+ani_corr <- animint(correlations)
+ani_corr$first <- list(country = "US")
+ani_corr
 ```
 
+The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between personalities by countries. Pretty neat. I've also made the data points semi-transparent so the 
 
+The data look like paint splatches
+
+The overlap between countries is again apparent.
 
 If I'm lucky, maybe I'll become the change I want to see.
 
@@ -237,12 +253,15 @@ library(ggplot2)
 But R throws up an error message when you run code that uses that syntax. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
 
 ```{r}
+#| echo: FALSE
 cat_pop <- read_csv("meow.csv",
                     show_col_types = FALSE)
 ```
 
 ```{r}
 #| eval: FALSE
+cat_pop <- read_csv("meow.csv",
+                    show_col_types = FALSE)
 
 cat_bar <- ggplot(data = cat_pop, 
                   mapping = aes(cat_name, popularity)) + 
@@ -282,5 +301,8 @@ cat_bar
 - An erroneous warning in `geom_violin` [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`.
 - "`showSelected` does not work with `StatDensity`"---but I haven't been able to find documentation about this anywhere. (Maybe I missed it.)
 - Extensions of `ggplot2`, like `patchwork`, don't work for `animint2`.
+
+- "Error: Use of clickSelects and showSelected as aesthetics has been deprecated. Please use as parameters."
+- "Warning: showSelected only works with position=identity"
 
 [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is also buggy and moves up by itself.
