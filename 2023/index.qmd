@@ -10,13 +10,15 @@ mainfont: Roboto Condensed, sans-serif
 monofont: Roboto Mono, monospace
 reference-location: margin
 cap-location: margin
+website:
+  cookie-consent: express
 knitr:
   opts_chunk: 
     code-overflow: wrap
     echo: TRUE
     cache: FALSE
     autodep: TRUE
-    warning: TRUE
+    warning: FALSE
 ---
 
 ```{r setup}
@@ -194,7 +196,7 @@ There is more variance between personality factors. Compared to the other factor
 
 All right. Time for the most relevant part of the test: using `animint()` to showcase my data.
 
-The factors in the five-factor model of personality are meant to be mostly independent from one another.[^2] That partly means we don't expect the factors, when plotted against one another, to have any particularly strong relationships. In contrast, if we obtain a Pearson's _r_ close to 1 or −1, we may seriously consider that the two factors are actually one.
+The factors in the five-factor model of personality are meant to be mostly independent from one another.[^2] That partly means we don't expect the factors, when plotted against one another, to have any particularly strong relationships. In contrast, if we obtain a Pearson's _r_ close to 1 or −1, it may be the case that the two factors are actually one.
 
 <!-- footnote -->
 [^2]: There are empirical and theoretical reasons to question this, but that's outside the scope of the test. For further reading, see:
@@ -203,9 +205,11 @@ The factors in the five-factor model of personality are meant to be mostly indep
     - D. Borsboom. [The attack of the psychometricians](https://link.springer.com/10.1007/s11336-006-1447-6). _Psychometrika._ 2006.
 <!-- /footnote -->
 
-What do our data show? Here's an interactive scatterplot---extraversion is plotted against neuroticism.^[Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.]
+What do the data show?
 
 ```{r ani-corr}
+#| message: FALSE
+
 correlations <- sumscores |> 
   ggplot(mapping = aes(x = neuroticism,
                        y = extraversion,
@@ -217,15 +221,14 @@ ani_corr$first <- list(country = "US")
 ani_corr
 ```
 
-The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. Pretty neat. I've also made the data points semi-transparent so the data density is visible.
+Here, extraversion is plotted against neuroticism. [Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.]{.aside} The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I've also made the data points semi-transparent so the data density is visible.
 
 I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps $r > 0$, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.
 
-I think that's a hypothesis worthy of exploration. Let's take a look at one last `animint()` before concluding this part of the easy test.
+Let's see if that's true.
 
 ```{r ani-corr-zoom}
-corr_densed <- correlations +
-  geom_point() + 
+corr_densed <- corr + 
   xlim(20, 40) + 
   ylim(20, 40)
 
@@ -234,22 +237,23 @@ ani_corr_zoom$first <- list(country = "PH")
 ani_corr_zoom
 ```
 
-This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, without jitter, the discrete nature of the data become visable. You can have an extraversion sumscore 
+This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (For example, it's possible to have an extraversion sumscore of 25 or 26, but nothing in-between.)
 
-Pretty cool! This kind of exploratory research would be harder without the interactive benefits of `animint2`.
+And, of course, it's immediately obvious without jitter. Last interactive scatterplot of the easy test:
 
-The overlap between countries is again apparent.
+```{r ani-corr-discrete}
+#| label: fig-personality-discrete
+#| fig-cap: "The discrete nature of the Big Five data."
 
-If I'm lucky, maybe I'll become the change I want to see.
-
-As an aside, it turns out that "`showSelected` does not work with `StatDensity`."
-
-```{r}
-#| eval: FALSE
-#| warning: FALSE
-
-Warning: showSelected does not work with StatDensity
+corr_discrete <- correlations +
+  geom_point(alpha = 0.25) + 
+  xlim(20, 40) + 
+  ylim(20, 40)
+animint(corr_discrete)
 ```
+
+Pretty cool! Being able to explore and present this kind of research would be harder without the interactive benefits of `animint2`.
+
 
 ### Sibling Rivalry
 
@@ -261,15 +265,13 @@ There's no conflict with just loading the packages:
 
 ```{r}
 #| eval: FALSE
-
 library(animint2)
 library(ggplot2)
 ```
 
-
 But R throws up an error message when you run code that uses that syntax. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
 
-```{r}
+```{r cat-tbl}
 #| echo: FALSE
 cat_pop <- read_csv("meow.csv",
                     show_col_types = FALSE)
@@ -296,7 +298,7 @@ Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
 
 In other words, `animint2` and `ggplot2` don't get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.
 
-```{r}
+```{r bar-cat-pop}
 #| echo: FALSE
 #| label: fig-cat-popularity
 #| fig-cap: "Popularity of cat names on a scale of 1–3."
@@ -311,6 +313,8 @@ cat_bar
 
 ## Appendix: Observations
 
+If I'm lucky, maybe I'll become the change I want to see.
+
 `animint2` is a fork of `ggplot2`. While playing around with `animint2`, I noticed that this comes with some side effects:
 
 - `ggplot2` has `geom_col()`, but not `animint2`.
@@ -319,7 +323,24 @@ cat_bar
 - "`showSelected` does not work with `StatDensity`"---but I haven't been able to find documentation about this anywhere. (Maybe I missed it.)
 - Extensions of `ggplot2`, like `patchwork`, don't work for `animint2`.
 
+- multiple plots don't work
+
+- "#| column: margin" and "fig-cap" don't work well together
+
+-"fig-cap" appears differently ?
+
 - "Error: Use of clickSelects and showSelected as aesthetics has been deprecated. Please use as parameters."
 - "Warning: showSelected only works with position=identity"
 
 [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is also buggy and moves up by itself.
+
+
+
+## Appendix: Mistakes
+
+Mistakes I made while doing these tests (and then subsequently caught). This list is not comprehensive and only records major mistakes.
+
+
+### Easy Test
+
+My sumscores were erroneous.
