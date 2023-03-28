@@ -1,5 +1,5 @@
 ---
-title: "animint2 GSOC Application"
+title: "animint2 GSOC Examination"
 author: "J. Chen"
 format: html
 toc: true
@@ -18,7 +18,7 @@ knitr:
     echo: TRUE
     cache: FALSE
     autodep: TRUE
-    warning: FALSE
+    warning: TRUE
 ---
 
 ```{r setup}
@@ -89,15 +89,18 @@ Lastly, the individual item responses aren't especially useful to me. [Individua
 # add id column
 plus_id <- rowid_to_column(six_countries, "id") |> rowwise(id)
 
-# generate table of sumscores
-sumscores <- plus_id |> 
-  summarize(country = country,
-         extraversion = sum(c_across(3:12)), 
-         neuroticism = sum(c_across(13:22)), 
-         agreeableness = sum(c_across(23:31)), 
-         conscientiousness = sum(c_across(33:42)), 
-         openness = sum(c_across(43:52)),
-         .groups = "keep")
+# generate columns of sumscores
+plus_sumscores <- plus_id |> 
+  mutate(extraversion = sum(across(starts_with("E"))),
+         neuroticism = sum(across(starts_with("N"))),
+         agreeableness = sum(across(starts_with("A"))),
+         conscientiousness = sum(across(starts_with("C", ignore.case = FALSE))),
+         openness = sum(across(starts_with("O"))),
+         )
+
+# remove individual items
+sumscores <- plus_sumscores |> 
+  select(id, country, extraversion:openness)
 ```
 
 And now we have our final dataset:
@@ -131,8 +134,7 @@ We have five personality traits and six countries. How do personality traits var
 violinize <- list(geom_violin(
   draw_quantiles = c(0.25, 0.5, 0.75)), 
   coord_flip(),
-  labs(x = NULL),
-  expand_limits(y = 100))
+  labs(x = NULL))
 ```
 
 ```{r oc}
@@ -223,7 +225,7 @@ ani_corr
 
 Here, extraversion is plotted against neuroticism. [Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.]{.aside} The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I've also made the data points semi-transparent so the data density is visible.
 
-I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps $r > 0$, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.
+I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps $r \neq 0$, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.
 
 Let's see if that's true.
 
@@ -343,4 +345,4 @@ Mistakes I made while doing these tests (and then subsequently caught). This lis
 
 ### Easy Test
 
-My sumscores were erroneous.
+My sumscores were erroneous, but it took me an embarassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. I then 

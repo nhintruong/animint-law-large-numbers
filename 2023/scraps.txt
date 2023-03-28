@@ -46,6 +46,17 @@ ten_country
 
 ##########
 
+sumscores <- plus_id |> 
+  summarize(country = country,
+         extraversion = sum(c_across(3:12)), 
+         neuroticism = sum(c_across(13:22)), 
+         agreeableness = sum(c_across(23:31)), 
+         conscientiousness = sum(c_across(33:42)), 
+         openness = sum(c_across(43:52)),
+         .groups = "keep")
+
+##########
+
 # replace ISO 3166 codes with country names
 code2country <- plus_id$country |> 
   case_match("US" ~ "United States", 

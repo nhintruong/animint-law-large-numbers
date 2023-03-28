@@ -8,7 +8,7 @@
 
 <meta name="author" content="J. Chen">
 
-<title>animint2 GSOC Application</title>
+<title>animint2 GSOC Examination</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,6 +122,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#sibling-rivalry" id="toc-sibling-rivalry" class="nav-link" data-scroll-target="#sibling-rivalry">Sibling Rivalry</a></li>
   </ul></li>
   <li><a href="#appendix-observations" id="toc-appendix-observations" class="nav-link" data-scroll-target="#appendix-observations">Appendix: Observations</a></li>
+  <li><a href="#appendix-mistakes" id="toc-appendix-mistakes" class="nav-link" data-scroll-target="#appendix-mistakes">Appendix: Mistakes</a>
+  <ul class="collapse">
+  <li><a href="#easy-test" id="toc-easy-test" class="nav-link" data-scroll-target="#easy-test">Easy Test</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -131,7 +135,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">animint2 GSOC Application</h1>
+<h1 class="title">animint2 GSOC Examination</h1>
 </div>
 
 
@@ -187,7 +191,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    &lt;chr&gt;   &lt;int&gt;
  1 US       8753
  2 GB       1531
- 3 IN       1464
+ 3 IN       1463
  4 AU        974
  5 CA        924
  6 PH        649
@@ -207,35 +211,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add id column</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plus_id <span class="ot">&lt;-</span> <span class="fu">rowid_to_column</span>(six_countries, <span class="st">"id"</span>) <span class="sc">|&gt;</span> <span class="fu">rowwise</span>(id)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generate table of sumscores</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> plus_id <span class="sc">|&gt;</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">country =</span> country,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">extraversion =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">12</span>)), </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">neuroticism =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">22</span>)), </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">agreeableness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">23</span><span class="sc">:</span><span class="dv">31</span>)), </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">conscientiousness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">33</span><span class="sc">:</span><span class="dv">42</span>)), </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">openness =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">43</span><span class="sc">:</span><span class="dv">52</span>)),</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">.groups =</span> <span class="st">"keep"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># generate columns of sumscores</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plus_sumscores <span class="ot">&lt;-</span> plus_id <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">extraversion =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"E"</span>))),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">neuroticism =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"N"</span>))),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">agreeableness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"A"</span>))),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">conscientiousness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"C"</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>))),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">openness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"O"</span>))),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># remove individual items</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> plus_sumscores <span class="sc">|&gt;</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, country, extraversion<span class="sc">:</span>openness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now we have our final dataset:</p>
 <div class="cell column-screen-inset-right">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sumscores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 14,295 × 7
-# Groups:   id [14,295]
+<pre><code># A tibble: 14,294 × 7
+# Rowwise:  id
       id country extraversion neuroticism agreeableness conscientiousn…¹ openn…²
    &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;
- 1     1 US                29          19            31               31      56
- 2     2 US                28          28            30               27      51
- 3     3 US                26          34            35               26      45
- 4     4 US                28          33            32               39      59
- 5     5 US                29          28            32               31      55
- 6     6 IN                32          20            29               29      59
- 7     7 US                30          36            32               34      64
- 8     8 US                33          30            25               31      62
- 9     9 IN                30          31            33               34      61
-10    10 US                30          27            31               32      58
-# … with 14,285 more rows, and abbreviated variable names ¹​conscientiousness,
+ 1     1 US                32          19            32               31      31
+ 2     2 US                28          29            31               28      26
+ 3     3 US                26          32            40               26      22
+ 4     4 US                28          32            34               37      35
+ 5     5 US                32          25            37               30      29
+ 6     6 IN                35          19            31               30      30
+ 7     7 US                31          37            33               35      37
+ 8     8 US                29          33            27               32      33
+ 9     9 IN                32          28            37               34      34
+10    10 US                30          29            32               33      31
+# … with 14,284 more rows, and abbreviated variable names ¹​conscientiousness,
 #   ²​openness</code></pre>
 </div>
 </div>
@@ -289,8 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>violinize <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">geom_violin</span>(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">draw_quantiles =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)), </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>(),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>oc <span class="ot">&lt;-</span> sumscores <span class="sc">|&gt;</span> </span>
@@ -379,6 +385,10 @@ geom_point: na.rm = FALSE
 stat_identity: na.rm = FALSE
 position_jitter </code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in f(...): showSelected only works with position=identity, problem:
+geom1_point_corr</code></pre>
+</div>
 <div class="cell-output-display">
 <script type="text/javascript" src="anicorr/vendor/d3.v3.js"></script>
 <script type="text/javascript" src="anicorr/animint.js"></script>
@@ -397,18 +407,22 @@ position_jitter </code></pre>
 <p>I haven’t bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps <span class="math inline">\(r &gt; 0\)</span>, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.</p>
 <p>Let’s see if that’s true.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>corr_densed <span class="ot">&lt;-</span> corr <span class="sc">+</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">40</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom <span class="ot">&lt;-</span> <span class="fu">animint</span>(corr_densed)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom<span class="sc">$</span>first <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">country =</span> <span class="st">"PH"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>corr_densed <span class="ot">&lt;-</span> corr <span class="sc">+</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">40</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom <span class="ot">&lt;-</span> <span class="fu">animint</span>(corr_densed)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom<span class="sc">$</span>first <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">country =</span> <span class="st">"PH"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mapping: x = neuroticism, y = extraversion, colour = country, showSelectedlegendcolour = country 
 geom_point: na.rm = FALSE
 stat_identity: na.rm = FALSE
 position_jitter </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in f(...): showSelected only works with position=identity, problem:
+geom1_point_corrdensed</code></pre>
 </div>
 <div class="cell-output-display">
 <p></p>
@@ -419,11 +433,11 @@ position_jitter </code></pre>
 <p>This time I’ve opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries—or just the United States—the discrete nature of the data becomes visible even with jittered points. (For example, it’s possible to have an extraversion sumscore of 25 or 26, but nothing in-between.)</p>
 <p>And, of course, it’s immediately obvious without jitter. Last interactive scatterplot of the easy test:</p>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>corr_discrete <span class="ot">&lt;-</span> correlations <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">40</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">animint</span>(corr_discrete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>corr_discrete <span class="ot">&lt;-</span> correlations <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">40</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">animint</span>(corr_discrete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-personality-discrete" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
 <p>
@@ -432,7 +446,7 @@ position_jitter </code></pre>
 
 </div>
 <script>var figpersonalitydiscrete = new animint("#figpersonalitydiscrete", "figpersonalitydiscrete/plot.json");</script>
-<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;1: The discrete nature of the data without jitter.</figcaption><p></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;1: The discrete nature of the Big Five data.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -446,25 +460,25 @@ position_jitter </code></pre>
 </blockquote>
 <p>There’s no conflict with just loading the packages:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animint2)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animint2)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>But R throws up an error message when you run code that uses that syntax. As a quick example, I’ll load up a toy dataset and try to generate a bar chart.</p>
 <div class="cell">
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cat_pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"meow.csv"</span>,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>cat_bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cat_pop, </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">mapping =</span> <span class="fu">aes</span>(cat_name, popularity)) <span class="sc">+</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">color =</span> purple)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>cat_bar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cat_pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"meow.csv"</span>,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>cat_bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cat_pop, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">mapping =</span> <span class="fu">aes</span>(cat_name, popularity)) <span class="sc">+</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">color =</span> purple)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>cat_bar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What happens?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Incompatible <span class="fu">methods</span> (<span class="st">"+.gganimint"</span>, <span class="st">"+.gg"</span>) <span class="cf">for</span> <span class="st">"+"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Incompatible <span class="fu">methods</span> (<span class="st">"+.gganimint"</span>, <span class="st">"+.gg"</span>) <span class="cf">for</span> <span class="st">"+"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In other words, <code>animint2</code> and <code>ggplot2</code> don’t get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.</p>
 <div class="cell page-columns page-full">
@@ -498,6 +512,14 @@ position_jitter </code></pre>
 <li>“Warning: showSelected only works with position=identity”</li>
 </ul>
 <p><a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html">Chapter 7</a> of the <code>animint2</code> Manual is also buggy and moves up by itself.</p>
+</section>
+<section id="appendix-mistakes" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-mistakes">Appendix: Mistakes</h2>
+<p>Mistakes I made while doing these tests (and then subsequently caught). This list is not comprehensive and only records major mistakes.</p>
+<section id="easy-test" class="level3">
+<h3 class="anchored" data-anchor-id="easy-test">Easy Test</h3>
+<p>My sumscores were erroneous, but it took me an embarassingly long time to notice and check.</p>
+</section>
 </section>
 
 
