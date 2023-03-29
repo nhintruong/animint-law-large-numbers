@@ -114,7 +114,7 @@ sumscores <- plus_sumscores |>
 And now we have our final dataset:
 
 ```{r sumscore-tbl-2}
-#| column: page-inset-right
+#| column: body-outset-right
 sumscores
 ```
 
@@ -349,13 +349,13 @@ If I'm lucky, maybe I'll become the change I want to see.
 
 [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is also buggy and moves up by itself.
 
-
+- Warning: showSelected only works with position=identity, problem: geom1_point_corrdensed
 
 ## Appendix: Mistakes
 
-Mistakes I made while doing these tests (and then subsequently caught). This list is not comprehensive and only records major mistakes.
+Major Mistakes I made while doing these tests (and then subsequently caught).
 
 
 ### Easy Test
 
-My sumscores were erroneous, but it took me an embarassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. I then 
+My sumscores were erroneous, but it took me an embarassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. I believe my mistake was using `c_across()` and then messing up the selection syntax, but I didn't really have the time to experiment and check.
