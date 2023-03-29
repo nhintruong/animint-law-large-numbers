@@ -32,10 +32,11 @@ library(dplyr)        # tidy file manipulation
 library(readr)        # tidy file reader
 library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
-library(hrbrthemes)   # graph typography
 library(kableExtra)   # make tables
 
-theme_set(theme_ipsum())
+theme_set(theme_gray() + 
+            theme(panel.background = 
+                    element_rect(fill = "#f1f3f5")))
 ```
 
 
