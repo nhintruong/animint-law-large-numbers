@@ -1,8 +1,11 @@
 ---
 title: "animint2 GSOC Examination"
 author: "J. Chen"
-format: html
-toc: true
+format: 
+  html:
+    css: changes.css
+number-sections: FALSE
+toc: TRUE
 toc-location: left
 toc-title: "Contents:"
 linkcolor: "#043521"
@@ -27,10 +30,12 @@ knitr:
 library(knitr)        # tidy file conversion
 library(dplyr)        # tidy file manipulation
 library(readr)        # tidy file reader
-library(stringr)      # tidy string manipulation
 library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
+library(hrbrthemes)   # graph typography
 library(kableExtra)   # make tables
+
+theme_set(theme_ipsum())
 ```
 
 
@@ -39,13 +44,15 @@ library(kableExtra)   # make tables
 
 Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in the latter group, best of luck!)
 
-Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. I've used and relied on a lot of R packages for ...
+Why am I applying to work on `animint2`? In my field of expertise---network psychometrics---an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. Later on, this became a crucial component of network theory.^[D. Borsboom. [A network theory of mental disorders](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375). _World Psychiatry_. 2017.] So I've become an enthusiast for interactive models and visualizations in science.
 
-Why apply to work on `animint2`? I think interactive models and visualizations are important for exploratory science. Here's an example from my domain of expertise. In network psychopathology, an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. It continues to be an important part of network theory.^[D. Borsboom. [A network theory of mental disorders](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375). _World Psychiatry_. 2017.] 
+If I'm lucky, I hope to spend my summer improving `animint2`. I'm especially interested in writing and editing documentation. But I'm comfortable doing whatever has priority. [Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number down to a 4. But shhhh. That's just between you and me.]{.aside}
 
-I'm never used `animint2` before, but I have used `ggplot2`. There's a family resemblance between the packages that should help me when contributing to the former.
+Here's my `.qmd` file, if you'd prefer to look at it directly. And here's my repository.
 
-Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That's just between you and me.
+Lastly, there's been an explosion of AI tools this year. I hereby certify that I haven't used them for any of my writing or code. In fact, I haven't used them at all.
+
+All right. Onto the tests.
 
 
 
@@ -60,7 +67,7 @@ So let's take a look at some psychometrics.
 
 ### Data Wrangling
 
-Many psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [The Big Five is otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (amongst other information). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
+Many psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [The Big Five is otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (among other things). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
 
 ```{r only-countries}
 b5 <- read_tsv("b5.tsv",
@@ -106,8 +113,7 @@ sumscores <- plus_sumscores |>
 And now we have our final dataset:
 
 ```{r sumscore-tbl-2}
-#| column: screen-inset-right
-
+#| column: page-inset-right
 sumscores
 ```
 
@@ -177,9 +183,11 @@ nc <- sumscores |>
 nc + violinize
 ```
 
-It's impressive how similar the scores are between countries. Due to one Indian individual with a sumscore of 0 for all factors, test results from India have the largest range. But the average scores between countries do not seriously differ.
+There's some limited differences between personality factors. The distribution of scores for neuroticism is unusually wide, and openness seems to be slightly higher than the other personality factors. I'm not sure why. Maybe it's an artifact of the kinds of people attracted to the website. Personality science isn't my specialty in psychology---I can only speculate.
 
-Here's another look at at the similarities between test scores: a density plot for agreeableness. In this plot, we can see the literal overlap between the distribution of test scores. [Agreeableness refers to phenomena like the tendency for compliance and altruism.]{.aside} I'll come back to the inter-country overlap when I use `animint()`.
+It's also impressive how similar the scores are between countries. Their median scores do not seriously differ.
+
+Here's another look at at the similarities between test scores: a density plot for agreeableness. In this plot, we can see the literal overlap between the distribution of test scores. [Agreeableness refers to phenomena like the tendency for compliance and altruism.]{.aside} I'll come back to the inter-country overlap later.
 
 ```{r density-plot}
 #| column: margin
@@ -191,8 +199,6 @@ a_density <- sumscores |>
 a_density
 ```
 
-There is more variance between personality factors. Compared to the other factors, openness is unusually high and the distribution of scores for neuroticism is unusually wide. Maybe they're statistical artifacts related to the kinds of people attracted to the website. Or maybe it's something else. Personality science isn't my specialty in psychology---I can only speculate.
-
 
 ### Interacting with Personality
 
@@ -203,17 +209,20 @@ The factors in the five-factor model of personality are meant to be mostly indep
 <!-- footnote -->
 [^2]: There are empirical and theoretical reasons to question this, but that's outside the scope of the test. For further reading, see:
 
-    - D. van der Linden et al. [The general factor of personality](doi.org/10.1016/j.jrp.2010.03.003). _J. Res. Pers._ 2010.
     - D. Borsboom. [The attack of the psychometricians](https://link.springer.com/10.1007/s11336-006-1447-6). _Psychometrika._ 2006.
+    - D. van der Linden et al. [The general factor of personality](doi.org/10.1016/j.jrp.2010.03.003). _J. Res. Pers._ 2010.
+
 <!-- /footnote -->
 
 What do the data show?
 
 ```{r ani-corr}
 #| message: FALSE
+#| label: fig-personality-us
+#| fig-cap: "The US's data seriously overlap with other countries'."
 
 correlations <- sumscores |> 
-  ggplot(mapping = aes(x = neuroticism,
+  ggplot(mapping = aes(x = conscientiousness,
                        y = extraversion,
                        color = country))
 corr <- correlations + geom_jitter(alpha = 0.25)
@@ -223,13 +232,16 @@ ani_corr$first <- list(country = "US")
 ani_corr
 ```
 
-Here, extraversion is plotted against neuroticism. [Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.]{.aside} The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I've also made the data points semi-transparent so the data density is visible.
+Here, extraversion is plotted against conscientiousness. [Extraversion refers to phenomena like outgoingness, while conscientiousness refers to phenomena like diligence.]{.aside} The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I've also made the data points semi-transparent so the data density is visible.
 
-I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps $r \neq 0$, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.
+I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. Outliers distort our hypothetical regression line and render $r > 0$, but if we zoom in where the data are most dense, perhaps even that fluke of a pattern will fade.
 
 Let's see if that's true.
 
 ```{r ani-corr-zoom}
+#| message: FALSE
+#| label: fig-personality-ph
+#| fig-cap: "There seems to be no relationship between the two factors."
 corr_densed <- corr + 
   xlim(20, 40) + 
   ylim(20, 40)
@@ -239,7 +251,7 @@ ani_corr_zoom$first <- list(country = "PH")
 ani_corr_zoom
 ```
 
-This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (For example, it's possible to have an extraversion sumscore of 25 or 26, but nothing in-between.)
+This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (The sumscores can only be integers.)
 
 And, of course, it's immediately obvious without jitter. Last interactive scatterplot of the easy test:
 
@@ -313,7 +325,7 @@ cat_bar
 
 
 
-## Appendix: Observations
+## Appendix: Observations {#sec-observations}
 
 If I'm lucky, maybe I'll become the change I want to see.
 

@@ -1,10 +1,10 @@
 {
  "geoms": {
- "geom1_point_corr": {
+ "geom1_point_corrdensed": {
  "geom": "point",
-"classed": "geom1_point_corr",
+"classed": "geom1_point_corrdensed",
 "aes": {
- "x": "neuroticism",
+ "x": "conscientiousness",
 "y": "extraversion",
 "colour": "country",
 "showSelectedlegendcolour": "country" 
@@ -40,16 +40,16 @@
 "legend": true,
 "is.variable.value": false,
 "showSelected": true,
-"selected": "US",
+"selected": "PH",
 "levels": [ "US", "IN", "GB", "CA", "PH", "AU" ],
 "update": [
- "geom1_point_corr" 
+ "geom1_point_corrdensed" 
 ] 
 } 
 },
 "plots": {
- "corr": {
- "panel_margin_lines":     0.25,
+ "corrdensed": {
+ "panel_margin_lines":     0.27,
 "legend": {
  "country": {
  "guide": "legend",
@@ -59,8 +59,8 @@
 "selector": "country",
 "is_discrete": true,
 "legend_type": "colour",
-"text_size": "8.8pt",
-"title_size": "11pt",
+"text_size": "9.6pt",
+"title_size": "12pt",
 "entries": [
  {
  "pointcolour": "#F8766D",
@@ -138,139 +138,144 @@
 "height_proportion": [        1 ] 
 },
 "panel_background": {
- "fill": "#EBEBEB",
+ "fill": "#FFFFFF",
 "colour": "transparent",
 "size":      0.5,
 "linetype":        1 
 },
-"panel_border": [],
-"grid_major": {
- "colour": "#FFFFFF",
+"panel_border": {
+ "fill": "transparent",
+"colour": "#7F7F7F",
 "size":      0.5,
+"linetype":        1 
+},
+"grid_major": {
+ "colour": "#E5E5E5",
+"size":      0.2,
 "linetype":        1,
 "lineend": "butt",
 "loc": {
  "x": [
  [
-       10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ] 
 ],
 "y": [
  [
-       10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ] 
 ] 
 } 
 },
 "grid_minor": {
- "colour": "#FFFFFF",
-"size":     0.25,
+ "colour": "#FAFAFA",
+"size":      0.5,
 "linetype":        1,
 "lineend": "butt",
 "loc": {
  "x": [
  [
-       10,
-      15,
-      20,
+       20,
+    22.5,
       25,
+    27.5,
       30,
+    32.5,
       35,
-      40,
-      45,
-      50 
+    37.5,
+      40 
 ] 
 ],
 "y": [
  [
-       10,
-      15,
-      20,
+       20,
+    22.5,
       25,
+    27.5,
       30,
+    32.5,
       35,
-      40,
-      45,
-      50 
+    37.5,
+      40 
 ] 
 ] 
 } 
 },
 "axis1": {
  "x": [
-       10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ],
 "xlab": [
- "10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
-"xrange": [ 7.771081, 52.36015 ],
+"xrange": [       19,       41 ],
 "xline": true,
 "xticks": true,
 "y": [
-       10,
-      20,
+       20,
+      25,
       30,
-      40,
-      50 
+      35,
+      40 
 ],
 "ylab": [
- "10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
-"yrange": [ 7.771555, 52.30523 ],
+"yrange": [       19,       41 ],
 "yline": true,
 "yticks": true 
 },
-"xtitle": "neuroticism",
-"strip_text_xsize": "11pt",
-"xsize": "11pt",
+"xtitle": "conscientiousness",
+"strip_text_xsize": "12pt",
+"xsize": "12pt",
 "xangle":        0,
 "xanchor": "middle",
 "ytitle": "extraversion",
-"strip_text_ysize": "11pt",
-"ysize": "11pt",
+"strip_text_ysize": "12pt",
+"ysize": "12pt",
 "yangle":        0,
 "yanchor": "end",
 "xlabs": [
- "10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
 "ylabs": [
- "10",
-"20",
+ "20",
+"25",
 "30",
-"40",
-"50" 
+"35",
+"40" 
 ],
-"title_size": "13.2pt",
+"title_size": "14.4pt",
 "options": {
  "width":      400,
 "height":      400 
 },
 "geoms": [
- "geom1_point_corr" 
+ "geom1_point_corrdensed" 
 ] 
 } 
 } 

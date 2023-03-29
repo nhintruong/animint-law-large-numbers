@@ -1,0 +1,11 @@
+/* changes to the default style */
+
+* {
+    /* hyphens: auto; */
+}
+
+p {
+	margin-top: 1rem;
+	margin-bottom: 0;
+}
+

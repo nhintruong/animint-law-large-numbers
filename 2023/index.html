@@ -103,6 +103,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="changes.css">
 </head>
 
 <body>
@@ -121,7 +122,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#interacting-with-personality" id="toc-interacting-with-personality" class="nav-link" data-scroll-target="#interacting-with-personality">Interacting with Personality</a></li>
   <li><a href="#sibling-rivalry" id="toc-sibling-rivalry" class="nav-link" data-scroll-target="#sibling-rivalry">Sibling Rivalry</a></li>
   </ul></li>
-  <li><a href="#appendix-observations" id="toc-appendix-observations" class="nav-link" data-scroll-target="#appendix-observations">Appendix: Observations</a></li>
+  <li><a href="#sec-observations" id="toc-sec-observations" class="nav-link" data-scroll-target="#sec-observations">Appendix: Observations</a></li>
   <li><a href="#appendix-mistakes" id="toc-appendix-mistakes" class="nav-link" data-scroll-target="#appendix-mistakes">Appendix: Mistakes</a>
   <ul class="collapse">
   <li><a href="#easy-test" id="toc-easy-test" class="nav-link" data-scroll-target="#easy-test">Easy Test</a></li>
@@ -159,10 +160,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="introduction" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Hello! If you’re reading this, you’re probably Toby Dylan Hocking, Faizan Khan, or someone else who’s applying to GSOC 2023. (And if you’re in the latter group, best of luck!)</p>
-<p>Why apply to GSOC for the R Project? I figured it would be a good way to improve my R skills and start contributing to something open source. I’ve used and relied on a lot of R packages for …</p>
-<div class="page-columns page-full"><p>Why apply to work on <code>animint2</code>? I think interactive models and visualizations are important for exploratory science. Here’s an example from my domain of expertise. In network psychopathology, an <a href="https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression">interactive model of depression</a> led to the discovery of hysteresis in symptom networks. It continues to be an important part of network theory.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;D. Borsboom. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375">A network theory of mental disorders</a>. <em>World Psychiatry</em>. 2017.</p></li></div></div>
-<p>I’m never used <code>animint2</code> before, but I have used <code>ggplot2</code>. There’s a family resemblance between the packages that should help me when contributing to the former.</p>
-<p>Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number to a 4. But shhhhh. That’s just between you and me.</p>
+<div class="page-columns page-full"><p>Why am I applying to work on <code>animint2</code>? In my field of expertise—network psychometrics—an <a href="https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression">interactive model of depression</a> led to the discovery of hysteresis in symptom networks. Later on, this became a crucial component of network theory.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> So I’ve become an enthusiast for interactive models and visualizations in science.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;D. Borsboom. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375">A network theory of mental disorders</a>. <em>World Psychiatry</em>. 2017.</p></li></div></div>
+<div class="page-columns page-full"><p>If I’m lucky, I hope to spend my summer improving <code>animint2</code>. I’m especially interested in writing and editing documentation. But I’m comfortable doing whatever has priority. </p><div class="no-row-height column-margin column-container"><span class="">Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number down to a 4. But shhhh. That’s just between you and me.</span></div></div>
+<p>Here’s my <code>.qmd</code> file, if you’d prefer to look at it directly. And here’s my repository.</p>
+<p>Lastly, there’s been an explosion of AI tools this year. I hereby certify that I haven’t used them for any of my writing or code. In fact, I haven’t used them at all.</p>
+<p>All right. Onto the tests.</p>
 </section>
 <section id="easy-test-personalities-by-country" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="easy-test-personalities-by-country">Easy Test: Personalities By Country</h2>
@@ -173,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So let’s take a look at some psychometrics.</p>
 <section id="data-wrangling" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="data-wrangling">Data Wrangling</h3>
-<div class="page-columns page-full"><p>Many psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with <a href="https://openpsychometrics.org/_rawdata/">an abundance of personality data</a>. I’ve elected to use the Big Five dataset.  The dataset has data on participants’ age, race, and gender (amongst other information). But for the purposes of this test, I’ll limit myself to item responses by country and drop the other data:</p><div class="no-row-height column-margin column-container"><span class="">The Big Five is otherwise known as the five-factor model of personality.</span></div></div>
+<div class="page-columns page-full"><p>Many psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with <a href="https://openpsychometrics.org/_rawdata/">an abundance of personality data</a>. I’ve elected to use the Big Five dataset.  The dataset has data on participants’ age, race, and gender (among other things). But for the purposes of this test, I’ll limit myself to item responses by country and drop the other data:</p><div class="no-row-height column-margin column-container"><span class="">The Big Five is otherwise known as the five-factor model of personality.</span></div></div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>b5 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"b5.tsv"</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
@@ -225,7 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, country, extraversion<span class="sc">:</span>openness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now we have our final dataset:</p>
-<div class="cell column-screen-inset-right">
+<div class="cell column-page-inset-right">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sumscores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14,294 × 7
@@ -343,8 +345,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <p><img src="index_files/figure-html/nc-1.png" class="img-fluid" width="672"></p>
 </div></div></div>
-<p>It’s impressive how similar the scores are between countries. Due to one Indian individual with a sumscore of 0 for all factors, test results from India have the largest range. But the average scores between countries do not seriously differ.</p>
-<div class="page-columns page-full"><p>Here’s another look at at the similarities between test scores: a density plot for agreeableness. In this plot, we can see the literal overlap between the distribution of test scores.  I’ll come back to the inter-country overlap when I use <code>animint()</code>.</p><div class="no-row-height column-margin column-container"><span class="">Agreeableness refers to phenomena like the tendency for compliance and altruism.</span></div></div>
+<p>There’s some limited differences between personality factors. The distribution of scores for neuroticism is unusually wide, and openness seems to be slightly higher than the other personality factors. I’m not sure why. Maybe it’s an artifact of the kinds of people attracted to the website. Personality science isn’t my specialty in psychology—I can only speculate.</p>
+<p>It’s also impressive how similar the scores are between countries. Their median scores do not seriously differ.</p>
+<div class="page-columns page-full"><p>Here’s another look at at the similarities between test scores: a density plot for agreeableness. In this plot, we can see the literal overlap between the distribution of test scores.  I’ll come back to the inter-country overlap later.</p><div class="no-row-height column-margin column-container"><span class="">Agreeableness refers to phenomena like the tendency for compliance and altruism.</span></div></div>
 <div class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>a_density <span class="ot">&lt;-</span> sumscores <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> agreeableness,</span>
@@ -356,22 +359,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="no-row-height column-margin column-container"><div class="cell-output-display">
 <p><img src="index_files/figure-html/density-plot-1.png" class="img-fluid" width="672"></p>
 </div></div></div>
-<p>There is more variance between personality factors. Compared to the other factors, openness is unusually high and the distribution of scores for neuroticism is unusually wide. Maybe they’re statistical artifacts related to the kinds of people attracted to the website. Or maybe it’s something else. Personality science isn’t my specialty in psychology—I can only speculate.</p>
 </section>
 <section id="interacting-with-personality" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="interacting-with-personality">Interacting with Personality</h3>
 <p>All right. Time for the most relevant part of the test: using <code>animint()</code> to showcase my data.</p>
 <div class="page-columns page-full"><p>The factors in the five-factor model of personality are meant to be mostly independent from one another.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> That partly means we don’t expect the factors, when plotted against one another, to have any particularly strong relationships. In contrast, if we obtain a Pearson’s <em>r</em> close to 1 or −1, it may be the case that the two factors are actually one.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;There are empirical and theoretical reasons to question this, but that’s outside the scope of the test. For further reading, see:</p>
 <ul>
+<li>D. Borsboom. <a href="https://link.springer.com/10.1007/s11336-006-1447-6">The attack of the psychometricians</a>. <em>Psychometrika.</em> 2006.</li>
 <li>D. van der Linden et al.&nbsp;<a href="doi.org/10.1016/j.jrp.2010.03.003">The general factor of personality</a>. <em>J. Res. Pers.</em> 2010.</li>
-<li>D. Borsboom. <a href="https://link.springer.com/10.1007/s11336-006-1447-6">The attack of the psychometricians</a>. <em>Psychometrika.</em> 2006. <!-- /footnote --></li>
 </ul>
 </li></div></div>
 <!-- footnote -->
+<!-- /footnote -->
 <p>What do the data show?</p>
-<div class="cell">
+<div class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> sumscores <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> neuroticism,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> conscientiousness,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> extraversion,</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">color =</span> country))</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>corr <span class="ot">&lt;-</span> correlations <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>)</span>
@@ -380,7 +383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>ani_corr<span class="sc">$</span>first <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">country =</span> <span class="st">"US"</span>)</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>ani_corr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>mapping: x = neuroticism, y = extraversion, colour = country, showSelectedlegendcolour = country 
+<pre><code>mapping: x = conscientiousness, y = extraversion, colour = country, showSelectedlegendcolour = country 
 geom_point: na.rm = FALSE
 stat_identity: na.rm = FALSE
 position_jitter </code></pre>
@@ -389,24 +392,27 @@ position_jitter </code></pre>
 <pre><code>Warning in f(...): showSelected only works with position=identity, problem:
 geom1_point_corr</code></pre>
 </div>
-<div class="cell-output-display">
-<script type="text/javascript" src="anicorr/vendor/d3.v3.js"></script>
-<script type="text/javascript" src="anicorr/animint.js"></script>
-<script type="text/javascript" src="anicorr/vendor/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="anicorr/vendor/selectize.min.js"></script>
-<link rel="stylesheet" type="text/css" href="anicorr/vendor/selectize.css">
+<div id="fig-personality-us" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<script type="text/javascript" src="figpersonalityus/vendor/d3.v3.js"></script>
+<script type="text/javascript" src="figpersonalityus/animint.js"></script>
+<script type="text/javascript" src="figpersonalityus/vendor/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="figpersonalityus/vendor/selectize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="figpersonalityus/vendor/selectize.css">
 <p>
 </p>
-<div id="anicorr">
+<div id="figpersonalityus">
 
 </div>
-<script>var anicorr = new animint("#anicorr", "anicorr/plot.json");</script>
+<script>var figpersonalityus = new animint("#figpersonalityus", "figpersonalityus/plot.json");</script>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;1: The US’s data seriously overlap with other countries’.</figcaption><p></p>
+</figure>
 </div>
 </div>
-<div class="page-columns page-full"><p>Here, extraversion is plotted against neuroticism.  The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I’ve also made the data points semi-transparent so the data density is visible.</p><div class="no-row-height column-margin column-container"><span class="">Extraversion refers to phenomena like outgoingness, while neuroticism refers to phenomena like emotional stability.</span></div></div>
-<p>I haven’t bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. The data seem to trail vaguely upward. Perhaps <span class="math inline">\(r &gt; 0\)</span>, but only a little. If we zoom in where the data are most dense, perhaps even that minor pattern will fade.</p>
+<div class="page-columns page-full"><p>Here, extraversion is plotted against conscientiousness.  The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I’ve also made the data points semi-transparent so the data density is visible.</p><div class="no-row-height column-margin column-container"><span class="">Extraversion refers to phenomena like outgoingness, while conscientiousness refers to phenomena like diligence.</span></div></div>
+<p>I haven’t bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. Outliers distort our hypothetical regression line and render <span class="math inline">\(r &gt; 0\)</span>, but if we zoom in where the data are most dense, perhaps even that fluke of a pattern will fade.</p>
 <p>Let’s see if that’s true.</p>
-<div class="cell">
+<div class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>corr_densed <span class="ot">&lt;-</span> corr <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">20</span>, <span class="dv">40</span>) <span class="sc">+</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">20</span>, <span class="dv">40</span>)</span>
@@ -415,7 +421,7 @@ geom1_point_corr</code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom<span class="sc">$</span>first <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">country =</span> <span class="st">"PH"</span>)</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ani_corr_zoom</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>mapping: x = neuroticism, y = extraversion, colour = country, showSelectedlegendcolour = country 
+<pre><code>mapping: x = conscientiousness, y = extraversion, colour = country, showSelectedlegendcolour = country 
 geom_point: na.rm = FALSE
 stat_identity: na.rm = FALSE
 position_jitter </code></pre>
@@ -424,13 +430,19 @@ position_jitter </code></pre>
 <pre><code>Warning in f(...): showSelected only works with position=identity, problem:
 geom1_point_corrdensed</code></pre>
 </div>
-<div class="cell-output-display">
-<p></p>
-<div id="anicorrzoom"></div>
-<script>var anicorrzoom = new animint("#anicorrzoom", "anicorrzoom/plot.json");</script>
+<div id="fig-personality-ph" class="quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="figure page-columns page-full">
+<p>
+</p>
+<div id="figpersonalityph">
+
+</div>
+<script>var figpersonalityph = new animint("#figpersonalityph", "figpersonalityph/plot.json");</script>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;2: There seems to be no relationship between the two factors.</figcaption><p></p>
+</figure>
 </div>
 </div>
-<p>This time I’ve opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries—or just the United States—the discrete nature of the data becomes visible even with jittered points. (For example, it’s possible to have an extraversion sumscore of 25 or 26, but nothing in-between.)</p>
+<p>This time I’ve opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries—or just the United States—the discrete nature of the data becomes visible even with jittered points. (The sumscores can only be integers.)</p>
 <p>And, of course, it’s immediately obvious without jitter. Last interactive scatterplot of the easy test:</p>
 <div class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>corr_discrete <span class="ot">&lt;-</span> correlations <span class="sc">+</span></span>
@@ -446,7 +458,7 @@ geom1_point_corrdensed</code></pre>
 
 </div>
 <script>var figpersonalitydiscrete = new animint("#figpersonalitydiscrete", "figpersonalitydiscrete/plot.json");</script>
-<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;1: The discrete nature of the Big Five data.</figcaption><p></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;3: The discrete nature of the Big Five data.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -486,15 +498,15 @@ geom1_point_corrdensed</code></pre>
 <div id="fig-cat-popularity" class="quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="figure page-columns page-full">
 <p><img src="index_files/figure-html/fig-cat-popularity-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;2: Popularity of cat names on a scale of 1–3.</figcaption><p></p>
+<p></p><figcaption class="figure-caption margin-caption">Figure&nbsp;4: Popularity of cat names on a scale of 1–3.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="appendix-observations" class="level2">
-<h2 class="anchored" data-anchor-id="appendix-observations">Appendix: Observations</h2>
+<section id="sec-observations" class="level2">
+<h2 class="anchored" data-anchor-id="sec-observations">Appendix: Observations</h2>
 <p>If I’m lucky, maybe I’ll become the change I want to see.</p>
 <p><code>animint2</code> is a fork of <code>ggplot2</code>. While playing around with <code>animint2</code>, I noticed that this comes with some side effects:</p>
 <ul>
@@ -518,7 +530,7 @@ geom1_point_corrdensed</code></pre>
 <p>Mistakes I made while doing these tests (and then subsequently caught). This list is not comprehensive and only records major mistakes.</p>
 <section id="easy-test" class="level3">
 <h3 class="anchored" data-anchor-id="easy-test">Easy Test</h3>
-<p>My sumscores were erroneous, but it took me an embarassingly long time to notice and check.</p>
+<p>My sumscores were erroneous, but it took me an embarassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high—each sumscore has a ceiling of 50, which openness sumscores exceeded. I then</p>
 </section>
 </section>
 

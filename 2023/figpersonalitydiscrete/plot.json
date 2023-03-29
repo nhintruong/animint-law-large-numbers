@@ -4,7 +4,7 @@
  "geom": "point",
 "classed": "geom1_point_corrdiscrete",
 "aes": {
- "x": "neuroticism",
+ "x": "conscientiousness",
 "y": "extraversion",
 "colour": "country",
 "showSelectedlegendcolour": "country" 
@@ -49,7 +49,7 @@
 },
 "plots": {
  "corrdiscrete": {
- "panel_margin_lines":     0.25,
+ "panel_margin_lines":     0.27,
 "legend": {
  "country": {
  "guide": "legend",
@@ -59,8 +59,8 @@
 "selector": "country",
 "is_discrete": true,
 "legend_type": "colour",
-"text_size": "8.8pt",
-"title_size": "11pt",
+"text_size": "9.6pt",
+"title_size": "12pt",
 "entries": [
  {
  "pointcolour": "#F8766D",
@@ -138,15 +138,20 @@
 "height_proportion": [        1 ] 
 },
 "panel_background": {
- "fill": "#EBEBEB",
+ "fill": "#FFFFFF",
 "colour": "transparent",
 "size":      0.5,
 "linetype":        1 
 },
-"panel_border": [],
-"grid_major": {
- "colour": "#FFFFFF",
+"panel_border": {
+ "fill": "transparent",
+"colour": "#7F7F7F",
 "size":      0.5,
+"linetype":        1 
+},
+"grid_major": {
+ "colour": "#E5E5E5",
+"size":      0.2,
 "linetype":        1,
 "lineend": "butt",
 "loc": {
@@ -171,8 +176,8 @@
 } 
 },
 "grid_minor": {
- "colour": "#FFFFFF",
-"size":     0.25,
+ "colour": "#FAFAFA",
+"size":      0.5,
 "linetype":        1,
 "lineend": "butt",
 "loc": {
@@ -240,14 +245,14 @@
 "yline": true,
 "yticks": true 
 },
-"xtitle": "neuroticism",
-"strip_text_xsize": "11pt",
-"xsize": "11pt",
+"xtitle": "conscientiousness",
+"strip_text_xsize": "12pt",
+"xsize": "12pt",
 "xangle":        0,
 "xanchor": "middle",
 "ytitle": "extraversion",
-"strip_text_ysize": "11pt",
-"ysize": "11pt",
+"strip_text_ysize": "12pt",
+"ysize": "12pt",
 "yangle":        0,
 "yanchor": "end",
 "xlabs": [
@@ -264,7 +269,7 @@
 "35",
 "40" 
 ],
-"title_size": "13.2pt",
+"title_size": "14.4pt",
 "options": {
  "width":      400,
 "height":      400 
