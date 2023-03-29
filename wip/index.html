@@ -122,8 +122,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#interacting-with-personality" id="toc-interacting-with-personality" class="nav-link" data-scroll-target="#interacting-with-personality">Interacting with Personality</a></li>
   <li><a href="#sibling-rivalry" id="toc-sibling-rivalry" class="nav-link" data-scroll-target="#sibling-rivalry">Sibling Rivalry</a></li>
   </ul></li>
-  <li><a href="#sec-observations" id="toc-sec-observations" class="nav-link" data-scroll-target="#sec-observations">Appendix: Observations</a></li>
-  <li><a href="#appendix-mistakes" id="toc-appendix-mistakes" class="nav-link" data-scroll-target="#appendix-mistakes">Appendix: Mistakes</a>
+  <li><a href="#appendix-observations" id="toc-appendix-observations" class="nav-link" data-scroll-target="#appendix-observations">Appendix: Observations</a>
+  <ul class="collapse">
+  <li><a href="#thoughts" id="toc-thoughts" class="nav-link" data-scroll-target="#thoughts">Thoughts</a></li>
+  <li><a href="#possible-bugs" id="toc-possible-bugs" class="nav-link" data-scroll-target="#possible-bugs">Possible Bugs?</a></li>
+  </ul></li>
+  <li><a href="#appendix-my-mistakes" id="toc-appendix-my-mistakes" class="nav-link" data-scroll-target="#appendix-my-mistakes">Appendix: My Mistakes</a>
   <ul class="collapse">
   <li><a href="#easy-test" id="toc-easy-test" class="nav-link" data-scroll-target="#easy-test">Easy Test</a></li>
   </ul></li>
@@ -162,7 +166,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Hello! If you’re reading this, you’re probably Toby Dylan Hocking, Faizan Khan, or someone else who’s applying to GSOC 2023. (And if you’re in the latter group, best of luck!)</p>
 <div class="page-columns page-full"><p>Why am I applying to work on <code>animint2</code>? In my field of expertise—network psychometrics—an <a href="https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression">interactive model of depression</a> led to the discovery of hysteresis in symptom networks. Later on, this became a crucial component of network theory.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> So I’ve become an enthusiast for interactive models and visualizations in science.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;D. Borsboom. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375">A network theory of mental disorders</a>. <em>World Psychiatry</em>. 2017.</p></li></div></div>
 <div class="page-columns page-full"><p>If I’m lucky, I hope to spend my summer improving <code>animint2</code>. I’m especially interested in writing and editing documentation. But I’m comfortable doing whatever has priority. </p><div class="no-row-height column-margin column-container"><span class="">Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number down to a 4. But shhhh. That’s just between you and me.</span></div></div>
-<p>Here’s my <code>.qmd</code> file, if you’d prefer to look at it directly. And here’s my repository.</p>
+<p>Here’s my repository. And here’s my <code>.qmd</code> file, if you’d prefer to look at that or knit it yourself. Note that there may be slight aesthetic differences between your rendered <span class="smallcaps">HTML</span> file and this website. Some small portion of how the website looks simply could not be effected through the <code>.qmd</code>. So I made changes by directly altering the <span class="smallcaps">HTML</span> and <span class="smallcaps">CSS</span>.</p>
 <p>Lastly, there’s been an explosion of AI tools this year. I hereby certify that I haven’t used them for any of my writing or code. In fact, I haven’t used them at all.</p>
 <p>All right. Onto the tests.</p>
 </section>
@@ -227,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, country, extraversion<span class="sc">:</span>openness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now we have our final dataset:</p>
-<div class="cell column-page-inset-right">
+<div class="cell column-body-outset-right">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sumscores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14,294 × 7
@@ -366,11 +370,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="page-columns page-full"><p>The factors in the five-factor model of personality are meant to be mostly independent from one another.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> That partly means we don’t expect the factors, when plotted against one another, to have any particularly strong relationships. In contrast, if we obtain a Pearson’s <em>r</em> close to 1 or −1, it may be the case that the two factors are actually one.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;There are empirical and theoretical reasons to question this, but that’s outside the scope of the test. For further reading, see:</p>
 <ul>
 <li>D. Borsboom. <a href="https://link.springer.com/10.1007/s11336-006-1447-6">The attack of the psychometricians</a>. <em>Psychometrika.</em> 2006.</li>
-<li>D. van der Linden et al.&nbsp;<a href="doi.org/10.1016/j.jrp.2010.03.003">The general factor of personality</a>. <em>J. Res. Pers.</em> 2010.</li>
+<li>D. van der Linden et al.&nbsp;<a href="doi.org/10.1016/j.jrp.2010.03.003">The general factor of personality</a>. <em>J. Res. Pers.</em> 2010. <!-- /footnote --></li>
 </ul>
 </li></div></div>
 <!-- footnote -->
-<!-- /footnote -->
 <p>What do the data show?</p>
 <div class="cell page-columns page-full">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> sumscores <span class="sc">|&gt;</span> </span>
@@ -505,32 +508,39 @@ geom1_point_corrdensed</code></pre>
 </div>
 </section>
 </section>
-<section id="sec-observations" class="level2">
-<h2 class="anchored" data-anchor-id="sec-observations">Appendix: Observations</h2>
-<p>If I’m lucky, maybe I’ll become the change I want to see.</p>
-<p><code>animint2</code> is a fork of <code>ggplot2</code>. While playing around with <code>animint2</code>, I noticed that this comes with some side effects:</p>
-<ul>
-<li><p><code>ggplot2</code> has <code>geom_col()</code>, but not <code>animint2</code>.</p></li>
-<li><p><code>ggplot2</code> has <code>geom_boxplot()</code>, but not <code>animint2</code>.</p></li>
-<li><p>An erroneous warning in <code>geom_violin</code> <a href="https://github.com/tidyverse/ggplot2/pull/4654">has been fixed</a> in <code>ggplot2</code> but not in <code>animint2</code>.</p></li>
-<li><p>“<code>showSelected</code> does not work with <code>StatDensity</code>”—but I haven’t been able to find documentation about this anywhere. (Maybe I missed it.)</p></li>
-<li><p>Extensions of <code>ggplot2</code>, like <code>patchwork</code>, don’t work for <code>animint2</code>.</p></li>
-<li><p>multiple plots don’t work</p></li>
-<li><p>“#| column: margin” and “fig-cap” don’t work well together</p></li>
-</ul>
-<p>-“fig-cap” appears differently ?</p>
-<ul>
-<li>“Error: Use of clickSelects and showSelected as aesthetics has been deprecated. Please use as parameters.”</li>
-<li>“Warning: showSelected only works with position=identity”</li>
-</ul>
-<p><a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html">Chapter 7</a> of the <code>animint2</code> Manual is also buggy and moves up by itself.</p>
+<section id="appendix-observations" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="appendix-observations">Appendix: Observations</h2>
+<p>Here are some things that I noticed while reading the documentation and playing around with the package. Since I’m new to <code>animint2</code>, I make no claim that my observations are novel, noteworthy, or even correct. But I think they’re still useful. My guess is that many users of <code>animint2</code> are also “new” to it, in the sense that they’re working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs’.</p>
+<section id="thoughts" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="thoughts">Thoughts</h3>
+<p>I know that <code>animint2</code> is a fork of <code>ggplot2</code>, not an extension. But the family resemblance between <code>animint2</code> and <code>ggplot2</code> is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use <code>geom_col()</code> and then <code>geom_boxplot()</code> before checking the <a href="https://cran.r-project.org/web/packages/animint2/">reference manual</a> and realizing they were not part of <code>animint2</code>. I also foolishly tried to use packages that depend on <code>ggplot2</code>. Since I had <code>animint2</code> loaded instead, that obviously didn’t work.</p>
+<div class="page-columns page-full"><p><a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> documentation</a> is available as a website, but <a href="https://cran.r-project.org/web/packages/animint2/"><code>animint2</code> documentation</a> is only available as a <span class="smallcaps">PDF</span>.  Of course, there’s the valuable <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html"><code>animint2</code> Manual</a>. But that’s more like a book than a reference site—something like a counterpart to the <a href="https://ggplot2-book.org/"><code>ggplot2</code> book</a>. Since the <code>ggplot2</code> reference was a lot more accessible, I found myself using their reference and only going back to the <code>animint2</code> reference when necessary.</p><div class="no-row-height column-margin column-container"><span class="">Grumpy aside: why is the R documentation default a <span class="smallcaps">PDF</span>? It’s the same with , but at least there’s an obvious technical reason for that.</span></div></div>
+<p>I’m not sure if I’ll have enough time, and I’m not sure it’s what you mean when you wrote that <code>animint2</code> will “have even more… documentation.” But as part of that documentation boost, I’d like to generate a reference site for the unique features of <code>animint2</code>. I think that’d make the package more accessible to <code>animint2</code>’s users.</p>
 </section>
-<section id="appendix-mistakes" class="level2">
-<h2 class="anchored" data-anchor-id="appendix-mistakes">Appendix: Mistakes</h2>
-<p>Mistakes I made while doing these tests (and then subsequently caught). This list is not comprehensive and only records major mistakes.</p>
+<section id="possible-bugs" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="possible-bugs">Possible Bugs?</h3>
+<p>Here’s a list of <code>animint2</code>’s unexpected behaviors. My mistaken observations are probably most concentrated here. It’s possible that the unexpected behavior is not the fault of <code>animint2</code>, but instead the fault of another package or user error. Honestly? Probably user error.</p>
+<ul>
+<li><p><a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html">Chapter 7</a> of the <code>animint2</code> Manual is buggy and scrolls up by itself.  The effect begins happening around this sentence: “Note how we used <code>geom_segment</code> instead of <code>geom_bar</code>, but their appearance is similar.”</p></li>
+<li><p>It’s difficult to lay out multiple plots in a grid, or on a line. Quarto will not knit them properly. My workaround is to have a codeblock for each graph. There’s <a href="https://github.com/tdhock/animint/issues/150">an open issue</a> about it for <code>animint</code>, but not for <code>animint2</code>. So I’m not sure if it’s still a problem, or if I messed up somehow.</p></li>
+<li><p>When I tried to make an interactive density plot, I was warned that “<code>showSelected</code> does not work with <code>StatDensity</code>.” Items in the legend are selectable, but selecting one removes the density plot currently on screen. The end result is that only one plot shows at a time. I haven’t been able to find documentation about this anywhere.</p></li>
+<li><p>When I make interactive scatterplots, I’m warned that “<code>showSelected</code> only works with <code>position=identity</code>, problem: geom1_point_foobar.” This is confusing, since:</p>
+<ul>
+<li>It’s already the case that <code>position = identity</code>, since it’s the default for <code>geom_point()</code> and <code>geom_jitter()</code>.</li>
+<li>The problem it points out is the <code>.tsv</code> file that <code>animint()</code> generates.</li>
+<li>It correctly renders the scatterplot.</li>
+</ul></li>
+<li><p>When I make violin plots, I’m warned that the graph is “collapsing to unique ‘x’ values.” This <a href="https://github.com/tidyverse/ggplot2/pull/4654">has been fixed</a> in <code>ggplot2</code> but not in <code>animint2</code>, possibly since the fix happened after the fork. </p></li>
+<li><p>When I try to place a static <code>animint2</code> graph in the margins, I can’t place a caption, or else the graph doesn’t render correctly. <code>column: margin</code> and <code>fig-cap</code> don’t work well together.</p></li>
+</ul>
+<div class="no-row-height column-margin column-container"><span class="">Technically not about <code>animint2</code> itself, but it’s <code>animint2</code> adjacent.</span><span class="">I’m least certain about this observation.</span></div></section>
+</section>
+<section id="appendix-my-mistakes" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-my-mistakes">Appendix: My Mistakes</h2>
+<p>Major mistakes I made while doing these tests and then subsequently caught. This excludes mistakes re: the number of brackets, the placement of a function, or spelling.</p>
 <section id="easy-test" class="level3">
 <h3 class="anchored" data-anchor-id="easy-test">Easy Test</h3>
-<p>My sumscores were erroneous, but it took me an embarassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high—each sumscore has a ceiling of 50, which openness sumscores exceeded. I then</p>
+<p>My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high—each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using <code>c_across()</code> and then messing up the selection syntax, but I didn’t really have the time to experiment and check.</p>
 </section>
 </section>
 
