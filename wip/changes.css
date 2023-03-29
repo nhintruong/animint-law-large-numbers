@@ -9,6 +9,15 @@ p {
 	margin-bottom: 0;
 }
 
+.quarto-title-meta-contents > p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+blockquote > p {
+	margin-top:0;
+}
+
 span {
-	margin-top: 1rem;
+	/*margin-top: 1rem;*/
 }

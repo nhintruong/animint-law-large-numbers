@@ -223,19 +223,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">neuroticism =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"N"</span>))),</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">agreeableness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"A"</span>))),</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">conscientiousness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"C"</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>))),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">openness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"O"</span>))),</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># remove individual items</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> plus_sumscores <span class="sc">|&gt;</span> </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, country, extraversion<span class="sc">:</span>openness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">openness =</span> <span class="fu">sum</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"O"</span>))))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># remove individual items</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>sumscores <span class="ot">&lt;-</span> plus_sumscores <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, country, extraversion<span class="sc">:</span>openness)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now we have our final dataset:</p>
 <div class="cell column-body-outset-right">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sumscores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14,294 × 7
-# Rowwise:  id
       id country extraversion neuroticism agreeableness conscientiousn…¹ openn…²
    &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;
  1     1 US                32          19            32               31      31
@@ -478,7 +476,7 @@ geom1_point_corrdensed</code></pre>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(animint2)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>But R throws up an error message when you run code that uses that syntax. As a quick example, I’ll load up a toy dataset and try to generate a bar chart.</p>
+<p>But R throws up an error message when you run code that uses syntax common to both. As a quick example, I’ll load up a toy dataset and try to generate a bar chart.</p>
 <div class="cell">
 
 </div>
@@ -514,7 +512,7 @@ geom1_point_corrdensed</code></pre>
 <section id="thoughts" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="thoughts">Thoughts</h3>
 <p>I know that <code>animint2</code> is a fork of <code>ggplot2</code>, not an extension. But the family resemblance between <code>animint2</code> and <code>ggplot2</code> is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use <code>geom_col()</code> and then <code>geom_boxplot()</code> before checking the <a href="https://cran.r-project.org/web/packages/animint2/">reference manual</a> and realizing they were not part of <code>animint2</code>. I also foolishly tried to use packages that depend on <code>ggplot2</code>. Since I had <code>animint2</code> loaded instead, that obviously didn’t work.</p>
-<div class="page-columns page-full"><p><a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> documentation</a> is available as a website, but <a href="https://cran.r-project.org/web/packages/animint2/"><code>animint2</code> documentation</a> is only available as a <span class="smallcaps">PDF</span>.  Of course, there’s the valuable <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html"><code>animint2</code> Manual</a>. But that’s more like a book than a reference site—something like a counterpart to the <a href="https://ggplot2-book.org/"><code>ggplot2</code> book</a>. Since the <code>ggplot2</code> reference was a lot more accessible, I found myself using their reference and only going back to the <code>animint2</code> reference when necessary.</p><div class="no-row-height column-margin column-container"><span class="">Grumpy aside: why is the R documentation default a <span class="smallcaps">PDF</span>? It’s the same with , but at least there’s an obvious technical reason for that.</span></div></div>
+<div class="page-columns page-full"><p><a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> documentation</a> is available as a website, but <a href="https://cran.r-project.org/web/packages/animint2/"><code>animint2</code> documentation</a> is only available as a <span class="smallcaps">PDF</span>.  Of course, there’s the valuable <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html"><code>animint2</code> Manual</a>. But that’s more like a book than a reference site—something like a counterpart to the <a href="https://ggplot2-book.org/"><code>ggplot2</code> book</a>. Since the <code>ggplot2</code> reference was a lot more accessible, I found myself using their reference and only going back to the <code>animint2</code> reference when necessary.</p><div class="no-row-height column-margin column-container"><span class="">Grumpy aside: why is the R documentation default a <span class="smallcaps">PDF</span>? It’s the same with <span class="math inline">\(\LaTeX\)</span>, but at least there’s an obvious technical reason for that.</span></div></div>
 <p>I’m not sure if I’ll have enough time, and I’m not sure it’s what you mean when you wrote that <code>animint2</code> will “have even more… documentation.” But as part of that documentation boost, I’d like to generate a reference site for the unique features of <code>animint2</code>. I think that’d make the package more accessible to <code>animint2</code>’s users.</p>
 </section>
 <section id="possible-bugs" class="level3 page-columns page-full">
@@ -523,17 +521,17 @@ geom1_point_corrdensed</code></pre>
 <ul>
 <li><p><a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html">Chapter 7</a> of the <code>animint2</code> Manual is buggy and scrolls up by itself.  The effect begins happening around this sentence: “Note how we used <code>geom_segment</code> instead of <code>geom_bar</code>, but their appearance is similar.”</p></li>
 <li><p>It’s difficult to lay out multiple plots in a grid, or on a line. Quarto will not knit them properly. My workaround is to have a codeblock for each graph. There’s <a href="https://github.com/tdhock/animint/issues/150">an open issue</a> about it for <code>animint</code>, but not for <code>animint2</code>. So I’m not sure if it’s still a problem, or if I messed up somehow.</p></li>
-<li><p>When I tried to make an interactive density plot, I was warned that “<code>showSelected</code> does not work with <code>StatDensity</code>.” Items in the legend are selectable, but selecting one removes the density plot currently on screen. The end result is that only one plot shows at a time. I haven’t been able to find documentation about this anywhere.</p></li>
+<li><p>When I tried to make an interactive density plot, I was warned that “<code>showSelected</code> does not work with <code>StatDensity</code>.” Items in the legend are selectable, but selecting one removes the density curve currently on screen. The end result is that only one curve shows at a time. I haven’t been able to find documentation about this anywhere.</p></li>
 <li><p>When I make interactive scatterplots, I’m warned that “<code>showSelected</code> only works with <code>position=identity</code>, problem: geom1_point_foobar.” This is confusing, since:</p>
 <ul>
 <li>It’s already the case that <code>position = identity</code>, since it’s the default for <code>geom_point()</code> and <code>geom_jitter()</code>.</li>
 <li>The problem it points out is the <code>.tsv</code> file that <code>animint()</code> generates.</li>
 <li>It correctly renders the scatterplot.</li>
 </ul></li>
-<li><p>When I make violin plots, I’m warned that the graph is “collapsing to unique ‘x’ values.” This <a href="https://github.com/tidyverse/ggplot2/pull/4654">has been fixed</a> in <code>ggplot2</code> but not in <code>animint2</code>, possibly since the fix happened after the fork. </p></li>
+<li><p>When I make violin plots, I’m warned that the graph is “collapsing to unique ‘x’ values.” This <a href="https://github.com/tidyverse/ggplot2/pull/4654">has been fixed</a> in <code>ggplot2</code> but not in <code>animint2</code>, possibly since the fix happened after the fork. (I’m least certain about this observation.)</p></li>
 <li><p>When I try to place a static <code>animint2</code> graph in the margins, I can’t place a caption, or else the graph doesn’t render correctly. <code>column: margin</code> and <code>fig-cap</code> don’t work well together.</p></li>
 </ul>
-<div class="no-row-height column-margin column-container"><span class="">Technically not about <code>animint2</code> itself, but it’s <code>animint2</code> adjacent.</span><span class="">I’m least certain about this observation.</span></div></section>
+<div class="no-row-height column-margin column-container"><span class="">Technically not about <code>animint2</code> itself, but it’s <code>animint2</code> adjacent.</span></div></section>
 </section>
 <section id="appendix-my-mistakes" class="level2">
 <h2 class="anchored" data-anchor-id="appendix-my-mistakes">Appendix: My Mistakes</h2>

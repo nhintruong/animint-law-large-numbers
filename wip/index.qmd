@@ -1,6 +1,6 @@
 ---
 title: "animint2 GSOC Examination"
-author: "J. Chen"
+author: J. Chen
 format: 
   html:
     css: changes.css
@@ -21,7 +21,7 @@ knitr:
     echo: TRUE
     cache: FALSE
     autodep: TRUE
-    warning: TRUE
+    warning: FALSE
 ---
 
 ```{r setup}
@@ -43,13 +43,13 @@ theme_set(theme_gray() +
 
 ## Introduction
 
-Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone else who's applying to GSOC 2023. (And if you're in the latter group, best of luck!)
+Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone who's applying to GSOC 2023. (And if you're in the latter group, best of luck!)
 
 Why am I applying to work on `animint2`? In my field of expertise---network psychometrics---an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. Later on, this became a crucial component of network theory.^[D. Borsboom. [A network theory of mental disorders](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375). _World Psychiatry_. 2017.] So I've become an enthusiast for interactive models and visualizations in science.
 
 If I'm lucky, I hope to spend my summer improving `animint2`. I'm especially interested in writing and editing documentation. But I'm comfortable doing whatever has priority. [Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number down to a 4. But shhhh. That's just between you and me.]{.aside}
 
-Here's my repository. And here's my `.qmd` file, if you'd prefer to look at that or knit it yourself. Note that there may be slight aesthetic differences between your rendered [HTML]{.smallcaps} file and this website. Some small portion of how the website looks simply could not be effected through the `.qmd`. So I made changes by directly altering the [HTML]{.smallcaps} and [CSS]{.smallcaps}.
+Here's my repository. And here's my `.qmd` file, if you'd prefer to look at that or knit it yourself. Unless you also use the accompanying CSS file, there may be slight aesthetic differences between your rendered HTML file and this website.
 
 Lastly, there's been an explosion of AI tools this year. I hereby certify that I haven't used them for any of my writing or code. In fact, I haven't used them at all.
 
@@ -103,11 +103,10 @@ plus_sumscores <- plus_id |>
          neuroticism = sum(across(starts_with("N"))),
          agreeableness = sum(across(starts_with("A"))),
          conscientiousness = sum(across(starts_with("C", ignore.case = FALSE))),
-         openness = sum(across(starts_with("O"))),
-         )
+         openness = sum(across(starts_with("O"))))
 
 # remove individual items
-sumscores <- plus_sumscores |> 
+sumscores <- plus_sumscores |> ungroup() |>
   select(id, country, extraversion:openness)
 ```
 
@@ -283,7 +282,7 @@ library(animint2)
 library(ggplot2)
 ```
 
-But R throws up an error message when you run code that uses that syntax. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
+But R throws up an error message when you run code that uses syntax common to both. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
 
 ```{r cat-tbl}
 #| echo: FALSE
@@ -334,7 +333,7 @@ Here are some things that I noticed while reading the documentation and playing 
 
 I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work.
 
-[`ggplot2` documentation](https://ggplot2.tidyverse.org/reference/index.html) is available as a website, but [`animint2` documentation](https://cran.r-project.org/web/packages/animint2/) is only available as a [PDF]{.smallcaps}. [Grumpy aside: why is the R documentation default a [PDF]{.smallcaps}? It's the same with \LaTeX, but at least there's an obvious technical reason for that.]{.aside} Of course, there's the valuable [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). But that's more like a book than a reference site---something like a counterpart to the [`ggplot2` book](https://ggplot2-book.org/). Since the `ggplot2` reference was a lot more accessible, I found myself using their reference and only going back to the `animint2` reference when necessary.
+[`ggplot2` documentation](https://ggplot2.tidyverse.org/reference/index.html) is available as a website, but [`animint2` documentation](https://cran.r-project.org/web/packages/animint2/) is only available as a PDF. [Grumpy aside: why are PDFs R's default documentation format? It's the same with $\LaTeX$, but at least there's an obvious technical reason for that.]{.aside} Of course, there's the valuable [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). But that's more like a book than a reference site---something like a counterpart to the [`ggplot2` book](https://ggplot2-book.org/). Since the `ggplot2` reference was a lot more accessible, I found myself using their reference and only going back to the `animint2` reference when necessary.
 
 I'm not sure if I'll have enough time, and I'm not sure it's what you mean when you wrote that `animint2` will "have even more... documentation." But as part of that documentation boost, I'd like to generate a reference site for the unique features of `animint2`. I think that'd make the package more accessible to `animint2`'s users.
 
@@ -345,14 +344,14 @@ Here's a list of `animint2`'s unexpected behaviors. My mistaken observations are
 
 - [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is buggy and scrolls up by itself. [Technically not about `animint2` itself, but it's `animint2` adjacent.]{.aside} The effect begins happening around this sentence: "Note how we used `geom_segment` instead of `geom_bar`, but their appearance is similar."
 - It's difficult to lay out multiple plots in a grid, or on a line. Quarto will not knit them properly. My workaround is to have a codeblock for each graph. There's [an open issue](https://github.com/tdhock/animint/issues/150) about it for `animint`, but not for `animint2`. So I'm not sure if it's still a problem, or if I messed up somehow.
-- When I tried to make an interactive density plot, I was warned that "`showSelected` does not work with `StatDensity`." Items in the legend are selectable, but selecting one removes the density plot currently on screen. The end result is that only one plot shows at a time. I haven't been able to find documentation about this anywhere.
+- When I tried to make an interactive density plot, I was warned that "`showSelected` does not work with `StatDensity`." Items in the legend are selectable, but selecting one removes the density curve currently on screen. The end result is that only one curve shows at a time. I haven't been able to find documentation about this anywhere.
 - When I make interactive scatterplots, I'm warned that "`showSelected` only works with `position=identity`, problem: geom1_point_foobar." This is confusing, since:
 
     + It's already the case that `position = identity`, since it's the default for `geom_point()` and `geom_jitter()`.
     + The problem it points out is the `.tsv` file that `animint()` generates.
     + It correctly renders the scatterplot.
 
-- When I make violin plots, I'm warned that the graph is "collapsing to unique 'x' values." This [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`, possibly since the fix happened after the fork. [I'm least certain about this observation.]{.aside}
+- When I make violin plots, I'm warned that the graph is "collapsing to unique 'x' values." This [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`, possibly since the fix happened after the fork. (I'm least certain about this observation.)
 - When I try to place a static `animint2` graph in the margins, I can't place a caption, or else the graph doesn't render correctly. `column: margin` and `fig-cap` don't work well together.
 
 
