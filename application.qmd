@@ -1,0 +1,103 @@
+---
+title: "GSOC animint2 Application"
+format: 
+  pdf: default
+reference-location: margin
+cap-location: margin
+---
+
+## Project Info
+
+**Project Title:** `animint2` Documentation and Bug Fix Project
+
+**Project Short Title:** `animint2` Documentation Project
+
+**URL:** [https://gsoc.joss.cat](https://gsoc.joss.cat)
+
+
+
+## Contributor Biography
+
+Hello! I am currently an unaffiliated researcher, which is a fancy way of saying that I work on papers without getting paid for it. [One's hopefully getting published this year.]{.aside} Formerly, I was a graduate student in psychology, though I also have an undergraduate background in philosophy. 
+
+More relevantly, 
+
+I'm a former graduate student with a background in philosophy and psychology. My specialty is in network psychometrics and substance use disorders. I have a strong interest in computational psychopathology, as well as other computational models in the cognitive sciences.
+
+Like many other scientists, I use R for my research.
+
+Provide a brief (text) biography, and why you think your background qualifies you for this project.
+
+Currently I am an unaffiliated researcher, which is a fancy way of saying that 
+
+background is in research and academia. I've also been a teaching assistant.
+
+Subjectwise, my background is in philosophy and psychology. where I specialized in network psychometrics and substance use disorders. 
+
+
+
+## Contact Information
+
+**Name:** J. Chen
+
+**Postal Address:** `not publicly unavailable`.
+
+**Telephone:** `not publicly unavailable`. Text is preferred, since sometimes my phone won't ring when people call.
+
+**Other Communication Channels:** I'm fine communicating through whatever means my mentors want. I have Slack, Telegram, and Signal, but I have no problem with using another service.
+
+
+
+## Contributor Affiliation
+
+I currently have no affiliation. I used to study and work at the New School for Social Research. I was previously an extern clinician at the Lower East Side Harm Reduction Center.
+
+
+
+## Schedule Conflicts
+
+I'm not applying anywhere else, and I have no other conflicting commitments. I have a weekly ASL class that I attend, which may affect my weekly video call availability, but that's all.
+
+
+
+## Mentors
+
+**Evaluating Mentor:** Toby Dylan Hocking (tdhock5@gmail.com)
+
+**Co-mentor:** Faizan Khan (faizan.khan.iitbhu@gmail.com)
+
+**Have I been in contact?** Yes. I first contacted them via email on either the 28th or the 29th of March, depending on the time zone.
+
+
+
+## Proposal Summary
+
+
+
+## Coding Plan and Methods
+
+empty
+
+
+
+## Timeline
+
+empty
+
+
+
+## Management of Coding Project
+
+empty
+
+
+
+## Tests
+
+See the test pages for the tests that I took. Credit to Toby Dylan Hocking for advice regarding changes to the easy test.
+
+
+
+## Anything Else?
+
+Have a great day!
