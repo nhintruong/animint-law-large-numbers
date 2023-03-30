@@ -49,7 +49,7 @@ Why am I applying to work on `animint2`? In my field of expertise---network psyc
 
 If I'm lucky, I hope to spend my summer improving `animint2`. I'm especially interested in writing and editing documentation. But I'm comfortable doing whatever has priority. [Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number down to a 4. But shhhh. That's just between you and me.]{.aside}
 
-Here's my repository. And here's my `.qmd` file, if you'd prefer to look at that or knit it yourself. Unless you also use the accompanying CSS file, there may be slight aesthetic differences between your rendered HTML file and this website.
+[Here's my repository](https://github.com/ampurr/gsoc/tree/public). It has my `.qmd` file, if you'd prefer to look at that or knit it yourself. Unless you also use the accompanying CSS file, there may be slight aesthetic differences between your rendered HTML file and this website.
 
 Lastly, there's been an explosion of AI tools this year. I hereby certify that I haven't used them for any of my writing or code. In fact, I haven't used them at all.
 
@@ -326,7 +326,7 @@ cat_bar
 
 ## Appendix: Observations
 
-Here are some things that I noticed while reading the documentation and playing around with the package. Since I'm new to `animint2`, I make no claim that my observations are novel, noteworthy, or even correct. But I think they're still useful. My guess is that many users of `animint2` are also "new" to it, in the sense that they're working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs'.
+Here are some things that I noticed while reading the documentation and playing around with the package. Since I'm new to `animint2`, I make no claim that my observations are novel, noteworthy, or even correct. But I think they're still useful. My guess is that many users of `animint2` are also "new" to it, in the sense that they're working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs.
 
 
 ### Thoughts
