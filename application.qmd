@@ -3,13 +3,14 @@ title: "animint2 Documentation and Bug Fix Project: An Application"
 format: 
   pdf:
     documentclass: article
+    include-in-header: changes.tex
 ---
 
 <!-- note to self:
 *** remove `not publicly available`. and replace with real info for Google! ***
 -->
 
-_There's been an explosion of AI tools this year. I hereby certify that I haven't used them for this application in any way, shape, or form._
+_There's been an explosion of AI tools this year. I hereby certify that I haven't used them for this application in any way._
 
 ## Project Info
 
@@ -43,17 +44,6 @@ This will involve:
 
 
 
-## Contributor Biography
-
-Hello! I am currently an unaffiliated researcher, which is a fancy way of saying that I do research without getting paid for it.^[One paper's been in the works for a while and will hopefully be published this year!] Until recently, I was a graduate student in psychology at the New School for Social Research, though I also have an undergraduate background in philosophy. I specialize in network psychometrics and substance use disorders. I also have a strong interest in computational psychopathology, and I'm hoping this project will let me focus on the computational side for a few months.
-
-I'm familiar with R, though mostly as a tool for research and data analysis. I have no formal training in R and am entirely self-taught---I imagine that this kind of programming background is not uncommon among scientists. I'm sure this means that my knowledge of R has many holes, even as I've worked to close them up. For this project, though, I think it gives me a couple of advantages:
-
-1. Many of the scientists who are likely to use `animint2` have similar programming backgrounds, which I can take into account when documenting `animint2`.
-2. I'm self-sufficient and used to resolving programming problems without the assistance of other people.
-
-
-
 ## Contact Information
 
 **Name:** J. Chen
@@ -65,6 +55,17 @@ I'm familiar with R, though mostly as a tool for research and data analysis. I h
 **Email:** `not publicly available`.
 
 **Other Communication Channels:** I'm fine communicating through whatever means my mentors want. I have Slack, Telegram, and Signal, but I have no problem with using another service.
+
+
+
+## Contributor Biography
+
+I am currently an unaffiliated researcher, which is a fancy way of saying that I do research without getting paid for it.^[One paper's been in the works for a while and will hopefully be published this year!] Until recently, I was a graduate student in psychology at the New School for Social Research, though I also have an undergraduate background in philosophy. I specialize in network psychometrics and substance use disorders. I also have a strong interest in computational psychopathology, and I'm hoping this project will let me focus on the computational side for a few months.
+
+I'm familiar with R, though mostly as a tool for research and data analysis. I have no formal training in R and am entirely self-taught---I imagine that this kind of programming background is not uncommon among scientists. I'm sure this means that my knowledge of R has many holes, even as I've worked to close them up. For this project, though, I think it gives me a couple of advantages:
+
+1. Many of the scientists who are likely to use `animint2` have similar programming backgrounds, which I can take into account when documenting `animint2`.
+2. I'm self-sufficient and used to resolving programming problems without the assistance of other people. Since I'll be working alone practically all of time, this will be a big help.
 
 
 
@@ -92,36 +93,39 @@ I'm not applying anywhere else, and I have no other conflicting commitments (e.g
 
 ## Coding Plan and Methods
 
+Two likely problems haunt projects like this one. Those problems are: (a) the project will be delivered late, or (b) the project will not be delivered at all. I've tried my best to address those problems by:
 
-### On Timing
+a. Ensuring that the scope of the project is limited and realistic, with allotted time slots for delays; and
+b. Ensuring that the project is modular, which means a failure in one module will not affect other modules. Each module is either a week or a fortnight, with room for delays, and there are seven of them.
 
-Two of the most important questions 
+For example: even if I don't manage to fix `animint2`'s layout problem with multiple graphs, the reference website will be still be there and totally usable. It's still one project with a united goal of improved usability, but failure is now a matter of degree.
 
-Google only allocates 175 hours (and 14 weeks) to each project, and I assume I'll make mistakes and run into problems that will take longer than expected to resolve. Therefore, I tried to keep each week's scope limited and realistic.
-
-Each week
-
-I plan on spending at least three days a week coding (which will exceed the 12.5 hours/week, but shhh.) 
-
-If things go exceedingly well and I finish up before the week is over, I'll start on tasks for next week. If things go poorly, 
-
-I'll also keep a notebook of what I've done each week.
-
-The project is modular. 
+\begin{table}[b]
+\begin{tabular}{@{}lll@{}}
+\toprule
+Module & Duration & When \\ \midrule
+Reference website & Fortnight & Weeks 1 and 2 \\
+Clarifying animint2 features in documentation & Fortnight & Weeks 3 and 4 \\
+GitHub Issues completionist & Week & Week 5 \\
+Fixing Chapter 7 & Week & Week 6 \\
+Useful webpage for animint2 users & Week & Week 8 \\
+Get rid of erroneous showSelect message & Week & Week 10 \\
+Multiple graphs layout & Fortnight & Weeks 11 and 12 \\ \bottomrule
+\end{tabular}
+\end{table}
 
 
 
 ## Coding Timeline
 
+### Community Bonding Period (May 4 to May 28)
 
-### Community Bonding Period 1 (May 4 to May 7)
+The goal for this bonding period is to (a) read through the entire [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html), (b) refresh my knowledge of JavaScript, (c) improve my knowledge of R, and (d) begin looking through the files in the `animint2` repository: 
 
-### Community Bonding Period 2 (May 8 to May 14)
-
-### Community Bonding Period 3 (May 15 to May 21)
-
-### Community Bonding Period 4 (May 22 to May 28)
-
+a. I've read many chapters of the Manual already, but certainly not the whole thing. Since the `animint2` Manual is the key source of `animint2` information, I ought to study it carefully.
+b. I'm thinking of reading some chapters of _Eloquent JavaScript_ and (if time allows) maybe doing a small JavaScript project.
+c. I'll read through some chapters of _Advanced R_ (or all of it, if time allows). I mean to read through it all eventually---maybe that time is now.
+d. Mostly I want to get a sense of what code `animint2` has borrowed from `ggplot2`, what code it's developed independent of `ggplot2`, and what code it's changed. I know that at least one bug is present in `animint2` that isn't in `ggplot2`.
 
 
 ### Week 1 (May 29 to June 4)
@@ -231,7 +235,6 @@ The goal this week is to figure out why [`animint2` fails to correctly lay out m
     + `ggplot2` outputs multiple graphs correctly, but the problem was present when `animint2` depended on `ggplot2`---before `animint2` was a fork. It follows that there must be a problem with `animint2`-exclusive code, and not with `ggplot2`'s. Maybe that's a place to start.
 
 
-
 ### Week 12 (August 14 to August 20)
 
 Having diagnosed the problem, the goal this week is to fix the problem with multiple graph layouts.
@@ -256,7 +259,9 @@ The goal this week is to catch up on unfinished work and submit mentor evaluatio
 
 ## Management of Coding Project
 
-Commitments will have 
+I expect to commit at least once a week, and almost certainly more. I have a bad habit of committing exceedingly often at random intervals.^[A likely artifact of being self-taught re: Git.] For this project, I'll be more mindful of when and what I'm committing---when some component of a module is started, serious progress has been made, and that component is complete.
+
+I'll also keep a public-facing notebook about what I've at done (and what I'm struggling with), the techniques that I used, and resources that I accessed. I'll publish at least once a week. That should keep me accountable, prevent me from making the same mistake too many times, and help me learn.
 
 
 
