@@ -60,7 +60,7 @@ This will involve:
 
 ## Contributor Biography
 
-I am currently an unaffiliated researcher, which is a fancy way of saying that I do research without getting paid for it.^[One paper's been in the works for a while and will hopefully be published this year!] Until recently, I was a graduate student in psychology at the New School for Social Research, though I also have an undergraduate background in philosophy. I specialize in network psychometrics and substance use disorders. I also have a strong interest in computational psychopathology, and I'm hoping this project will let me focus on the computational side for a few months.
+I am currently an unaffiliated researcher, which is a fancy way of saying that I do research without getting paid for it.^[One paper's just been submitted will hopefully be published this year!] Until recently, I was a graduate student in psychology at the New School for Social Research, though I also have an undergraduate background in philosophy. I specialize in network psychometrics and substance use disorders. I also have a strong interest in computational psychopathology, and I'm hoping this project will let me focus on the computational side for a few months.
 
 I'm familiar with R, though mostly as a tool for research and data analysis. I have no formal training in R and am entirely self-taught---I imagine that this kind of programming background is not uncommon among scientists. I'm sure this means that my knowledge of R has many holes, even as I've worked to close them up. For this project, though, I think it gives me a couple of advantages:
 
@@ -87,7 +87,7 @@ I'm not applying anywhere else, and I have no other conflicting commitments (e.g
 
 **Co-mentor:** Faizan Khan (faizan.khan.iitbhu@gmail.com)
 
-**Have I been in contact?** Yes. I first contacted them via email on either the 28th or the 29th of March, depending on the time zone.
+**Have I been in contact?** Yes. I first contacted them via email on either the 28th or the 29th of March, depending on the time zone. I've maintained contact since.
 
 
 
@@ -114,6 +114,8 @@ Multiple graphs layout & Fortnight & Weeks 11 and 12 \\ \bottomrule
 \end{tabular}
 \end{table}
 
+\pagebreak
+
 
 
 ## Coding Timeline
@@ -133,7 +135,7 @@ d. Mostly I want to get a sense of what code `animint2` has borrowed from `ggplo
 The goal this week is to reorganize files and get a draft of the reference website ready.
 
 - 1st weekly meeting.
-- Fork the [`animint2` GitHub page](https://github.com/tdhock/animint2). Begin reorganizing files in a way that [`pkgdown` recognizes](https://pkgdown.r-lib.org/articles/pkgdown.html). `pkgdown` mostly wants a vignettes folder and a README that's a `.md` and not an `org`.
+- Work on a branch of [`animint2`](https://github.com/tdhock/animint2). Begin reorganizing files in a way that [`pkgdown` recognizes](https://pkgdown.r-lib.org/articles/pkgdown.html). `pkgdown` mostly wants a vignettes folder and a README that's a `.md` and not an `org`.
 - Compile preliminary `pkgdown` website.
 
 
@@ -158,7 +160,7 @@ The goal this week is to begin diagnosing and clearing up errors in both the PDF
 - There are a number of functions in the [`animint2` reference](https://cran.r-project.org/web/packages/animint2/) that just don't work. Test all the functions present in `animint2` and examine their code. Compile a list of functions that either just output a message or exhibit buggy behavior.
 
     + For example, `geom_bin2d` is present, but when actually using it, `animint2` outputs: "`bin2d` is not supported in `animint`. Try using `geom_tile()` and binning the data yourself." This is confusing for the user, since `geom_bin2d` is listed as one of `animint2`'s functions.
-    + Discuss this with my mentors. The output is intentional, so is there a reason `geom_bin2d` (and the like) are present?
+    + Discuss this with my mentors. Toby has suggested either implementing functionality or simply removing them and their documentation.
     
 
 ### Week 4 (June 19 to June 25)
@@ -168,6 +170,8 @@ The goal this week is to continue diagnosing and clearing up errors in the docum
 - 4th weekly meeting.
 - If necessary, continue compiling the list of problematic functions.
 - Either remove those functions from documentation, note (in the documentation) why they function they way they do, or mark them as bugs to be placed in GitHub Issues. The goal is not to fix them---I wouldn't have time for that.
+
+    + It's possible that some functions will be straightforward to fix. If it takes a couple of hours to take something from `ggplot2` and implement it in `animint2`, and if I have some extra time, I imagine I might do it. That's up for discussion with my mentors.
 
 
 ### Week 5 (June 26 to July 2)
@@ -194,7 +198,7 @@ The goal this week is to diagnose and repair Chapter 7 of the [`animint` Manual]
 It looks like Google [designates this a non-coding period](https://developers.google.com/open-source/gsoc/timeline). Midterm evaluations are due.
 
 - 7th weekly meeting.
-- Finish midterm evaluations this by the 14th.
+- Finish midterm evaluations by the 14th.
 
 
 ### Week 8 (July 17 to July 23)
@@ -222,6 +226,8 @@ The goal this week is to figure out why using `showSelect` in interactive scatte
 - `animint()` incorrectly informs me that "`showSelected` only works with `position=identity`, problem: geom1_point_foobar." 
 - Convert `showSelect` into a failing test, then repair the function so that the test passes.
 
+    + I played around with `testthat` re: this error. Curiously, despite displaying a warning message, `expect_warning` fails (and as a corollary, `expect_no_warning` succeeds).^[It's very possible that I made a mistake when generating my quick and dirty test.]
+
 
 ### Week 11 (August 7 to August 13)
 
@@ -232,6 +238,7 @@ The goal this week is to figure out why [`animint2` fails to correctly lay out m
 
     + In my experience, `animint2` doesn't throw up any error messages---it just fails to correctly output the graphs.
     + I wonder if the problem is not just with `animint2` but with how it interacts with other packages (or with Markdown, HTML, or \LaTeX).
+    + Toby mentioned that `animint()` just renders them one after another. In Quarto, when knit into a webpage's margins, they instead overlap with one another in such a way that no graph is usefully visible.
     + `ggplot2` outputs multiple graphs correctly, but the problem was present when `animint2` depended on `ggplot2`---before `animint2` was a fork. It follows that there must be a problem with `animint2`-exclusive code, and not with `ggplot2`'s. Maybe that's a place to start.
 
 
@@ -245,6 +252,8 @@ Having diagnosed the problem, the goal this week is to fix the problem with mult
     + Without knowing why the package fails to lay out the graphs, it's hard to explain what exactly I'll be doing.
     + Another trouble here is that I can't just isolate a function to test.
     + Toby Dylan Hocking suggests borrowing code from `flexdashboard`.
+
+\pagebreak
 
 
 ### Week 13 (August 21 to August 28)
@@ -267,10 +276,12 @@ I'll also keep a public-facing notebook about what I've at done (and what I'm st
 
 ## Tests
 
-See the [`animint2` examination website](https://gsoc.joss.cat) for the tests that I took. Thanks to Toby Dylan Hocking for advice regarding changes to the easy test.
+See the [`animint2` examination website](https://gsoc.joss.cat) for the tests that I took.
 
 
 
 ## Anything Else?
 
-Have a great day! :>
+Thanks to Toby Dylan Hocking for advice regarding changes to the easy test, as well as advice regarding changes to this application.
+
+Have a great day! `:>`
