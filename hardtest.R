@@ -46,12 +46,13 @@ corr <- correlations + geom_jitter(alpha = 0.25)
 
 ani_corr <- animint(corr)
 ani_corr$first <- list(country = "US")
-ani_corr
+
+
 
 
 
 # testing
 
 test_that("scatterplot generates error message", {
-  expect_warning(ani_corr)
+  expect_warning(ani_corr, "position=identity")
 })

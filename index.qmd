@@ -9,8 +9,8 @@ toc: TRUE
 toc-location: left
 toc-title: "Contents:"
 linkcolor: "#043521"
-mainfont: Roboto Condensed, sans-serif
-monofont: Roboto Mono, monospace
+mainfont: "Roboto Condensed", sans-serif
+monofont: "Roboto Mono", monospace
 reference-location: margin
 cap-location: margin
 website:
@@ -241,6 +241,7 @@ Let's see if that's true.
 #| message: FALSE
 #| label: fig-personality-ph
 #| fig-cap: "There seems to be no relationship between the two factors."
+
 corr_densed <- corr + 
   xlim(20, 40) + 
   ylim(20, 40)
@@ -252,16 +253,19 @@ ani_corr_zoom
 
 This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (The sumscores can only be integers.)
 
-And, of course, it's immediately obvious without jitter. Last interactive scatterplot of the easy test:
+And, of course, it's immediately obvious without jitter. Last interactive scatterplot of the easy test: [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside}
 
 ```{r ani-corr-discrete}
 #| label: fig-personality-discrete
 #| fig-cap: "The discrete nature of the Big Five data."
 
+count_ex <- sumscores |> count(extraversion)
+count_co <- sumscores |> count(conscientiousness)
+
 corr_discrete <- correlations +
-  geom_point(alpha = 0.25) + 
-  xlim(20, 40) + 
-  ylim(20, 40)
+  geom_tile(aes(fill = country)) +
+  scale_colour_gradient()
+corr_discrete
 animint(corr_discrete)
 ```
 
@@ -331,11 +335,15 @@ Here are some things that I noticed while reading the documentation and playing 
 
 ### Thoughts
 
-I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work.
+I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work. 
+
+<!-- My sense is that forking `ggplot2` is a double-edged sword. -->
 
 [`ggplot2` documentation](https://ggplot2.tidyverse.org/reference/index.html) is available as a website, but [`animint2` documentation](https://cran.r-project.org/web/packages/animint2/) is only available as a PDF. [Grumpy aside: why are PDFs R's default documentation format? It's the same with $\LaTeX$, but at least there's an obvious technical reason for that.]{.aside} Of course, there's the valuable [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). But that's more like a book than a reference site---something like a counterpart to the [`ggplot2` book](https://ggplot2-book.org/). Since the `ggplot2` reference was a lot more accessible, I found myself using their reference and only going back to the `animint2` reference when necessary.
 
 I'm not sure if I'll have enough time, and I'm not sure it's what you mean when you wrote that `animint2` will "have even more... documentation." But as part of that documentation boost, I'd like to generate a reference site for the unique features of `animint2`. I think that'd make the package more accessible to `animint2`'s users.
+
+<!-- fun fact: the ggplot2 book mentioned animint -->
 
 
 ### Possible Bugs?
@@ -353,6 +361,9 @@ Here's a list of `animint2`'s unexpected behaviors. My mistaken observations are
 
 - When I make violin plots, I'm warned that the graph is "collapsing to unique 'x' values." This [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`, possibly since the fix happened after the fork. (I'm least certain about this observation.)
 - When I try to place a static `animint2` graph in the margins, I can't place a caption, or else the graph doesn't render correctly. `column: margin` and `fig-cap` don't work well together.
+- When I try to use `geom_bin2d()`, I'm informed that "`bin2d` is not supported in `animint`. Try using `geom_tile()` and binning the data yourself." But the `animint2` reference mentions that it does support `geom_bin2d`.
+- When I use `geom_raster()`, `animint2` correctly renders it as a static graph. But it will not render the data or the legend when I use `animint2`. This [is documented](https://github.com/tdhock/animint2/issues/53).
+<!-- - When using `geom_hex, I'm warned that "no data in geom1_hex_corrdiscrete." -->
 
 
 
@@ -364,3 +375,5 @@ Major mistakes I made while doing these tests and then subsequently caught. This
 ### Easy Test
 
 My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using `c_across()` and then messing up the selection syntax, but I didn't really have the time to experiment and check.
+
+I also messed up with the heatmap, possibly because I'm unfamiliar with them. [Note to self: do more research beforehand.]{.aside}

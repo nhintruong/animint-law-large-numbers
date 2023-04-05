@@ -77,3 +77,31 @@ code2country <- plus_id |> select(id, country) |>
              "AU" ~ "Australia", 
              "CA" ~ "Canada", 
              "PH" ~ "Philippines")
+			 
+##########
+
+And, of course, it's immediately obvious without jitter. Last interactive scatterplot of the easy test:
+
+```{r ani-corr-discrete}
+#| label: fig-personality-discrete
+#| fig-cap: "The discrete nature of the Big Five data."
+
+corr_discrete <- correlations +
+  geom_point(alpha = 0.25) + 
+  xlim(20, 40) + 
+  ylim(20, 40)
+animint(corr_discrete)
+```
+
+
+# Scraps from App
+
+##########
+
+### Week 6 (July 3 to July 9)
+
+The goal this week is to figure out why `animint()` won't correctly render interactive density plots, and then to fix it. [My birthday is this week, so I'll probably take that day off and make up the hours elsewhen.]{.aside}
+
+- 6th weekly meeting.
+- The error is that `animint()` fails to render the interactive density plots correctly. It also informs me that "`showSelected` does not work with `StatDensity`."
+-

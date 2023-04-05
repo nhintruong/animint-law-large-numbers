@@ -1,9 +1,5 @@
 /* changes to the default style */
 
-* {
-    /* hyphens: auto; */
-}
-
 p {
 	margin-top: 1rem;
 	margin-bottom: 0;
@@ -15,9 +11,5 @@ p {
 }
 
 blockquote > p {
-	margin-top:0;
-}
-
-span {
-	/*margin-top: 1rem;*/
+	margin-top: 0;
 }
