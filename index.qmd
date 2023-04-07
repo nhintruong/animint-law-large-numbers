@@ -30,6 +30,7 @@ knitr:
 library(knitr)        # tidy file conversion
 library(dplyr)        # tidy file manipulation
 library(readr)        # tidy file reader
+library(stringr)      # tidy string manipulation
 library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
@@ -253,20 +254,35 @@ ani_corr_zoom
 
 This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (The sumscores can only be integers.)
 
-And, of course, it's immediately obvious without jitter. Last interactive scatterplot of the easy test: [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside}
+Of course, it's immediately obvious without jitter. In the following heatmap, we can see both the discreteness and distribution of the data. [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside} However, generating the heatmap is not as straightforward as generating a scatterplot.
+
+First, we need to count the frequency of each sumscore for both extraversion and conscientiousness. Then we need to concatenate the two personality factors and calculate all possible combinations between them. Conceptually simple, but computationally painful.
+
+```{r heatmap-tbl}
+von_count <- sumscores |> 
+  count(Pair = str_c(pmin(extraversion, conscientiousness), ' - ',
+                     pmax(extraversion, conscientiousness)), name = "Count")
+
+count_ex <- sumscores |> count(extraversion, name = "nex")
+count_co <- sumscores |> count(conscientiousness, name = "nco")
+```
+
+Finally, we can generate our heatmap:
 
 ```{r ani-corr-discrete}
 #| label: fig-personality-discrete
 #| fig-cap: "The discrete nature of the Big Five data."
 
-count_ex <- sumscores |> count(extraversion)
-count_co <- sumscores |> count(conscientiousness)
+corr_discrete <- von_count +
+  ggplot(mapping = aes(x = conscientiousness,
+                          y = extraversion)) +
+  geom_tile()
 
-corr_discrete <- correlations +
-  geom_tile(aes(fill = country)) +
-  scale_colour_gradient()
-corr_discrete
-animint(corr_discrete)
+#corr_discrete <- correlations +
+#  geom_tile(aes(fill = country)) +
+#  scale_colour_gradient()
+#corr_discrete
+#animint(corr_discrete)
 ```
 
 Pretty cool! Being able to explore and present this kind of research would be harder without the interactive benefits of `animint2`.
