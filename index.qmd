@@ -31,6 +31,7 @@ library(knitr)        # tidy file conversion
 library(dplyr)        # tidy file manipulation
 library(readr)        # tidy file reader
 library(stringr)      # tidy string manipulation
+library(tidyr)        # tidy uhhh tidying
 library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
@@ -256,15 +257,16 @@ This time I've opted to show the Philippines, the country with the sparsest data
 
 Of course, it's immediately obvious without jitter. In the following heatmap, we can see both the discreteness and distribution of the data. [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside} However, generating the heatmap is not as straightforward as generating a scatterplot.
 
-First, we need to count the frequency of each sumscore for both extraversion and conscientiousness. Then we need to concatenate the two personality factors and calculate all possible combinations between them. Conceptually simple, but computationally painful.
+First, we need to generate all combinations between the extraversion and conscientiousness factors. Then we need to count them:
 
 ```{r heatmap-tbl}
-von_count <- sumscores |> 
-  count(Pair = str_c(pmin(extraversion, conscientiousness), ' - ',
-                     pmax(extraversion, conscientiousness)), name = "Count")
+combo_tbl <- sumscores |> 
+  select(extraversion, conscientiousness) |>
+  expand_grid(.name_repair = "minimal")
 
-count_ex <- sumscores |> count(extraversion, name = "nex")
-count_co <- sumscores |> count(conscientiousness, name = "nco")
+von_count <- combo_tbl |> 
+  group_by(across(extraversion:conscientiousness)) |>
+  count()
 ```
 
 Finally, we can generate our heatmap:

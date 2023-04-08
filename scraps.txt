@@ -93,6 +93,23 @@ corr_discrete <- correlations +
 animint(corr_discrete)
 ```
 
+##########
+
+von_count <- combo_tbl |>
+  rowwise(extraversion) |>
+  count()
+von_count <- sumscores |>
+  count(Pair = str_c(pmin(extraversion, conscientiousness), "-",
+                     pmax(extraversion, conscientiousness)), name = "Count")
+
+penguin <- pmin(sumscores$extraversion, sumscores$conscientiousness)
+
+test_count <- sumscores |> count(penguin,
+                                 pmax(extraversion, conscientiousness))
+
+count_ex <- sumscores |> count(extraversion, name = "nex")
+count_co <- sumscores |> count(conscientiousness, name = "nco")
+
 
 # Scraps from App
 
@@ -104,4 +121,3 @@ The goal this week is to figure out why `animint()` won't correctly render inter
 
 - 6th weekly meeting.
 - The error is that `animint()` fails to render the interactive density plots correctly. It also informs me that "`showSelected` does not work with `StatDensity`."
--
