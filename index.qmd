@@ -4,13 +4,13 @@ author: J. Chen
 format: 
   html:
     css: changes.css
+mainfont: "Roboto Condensed"
+monofont: "Roboto Mono"
 number-sections: FALSE
 toc: TRUE
 toc-location: left
 toc-title: "Contents:"
 linkcolor: "#043521"
-mainfont: "Roboto Condensed"
-monofont: "Roboto Mono"
 reference-location: margin
 cap-location: margin
 website:

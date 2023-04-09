@@ -1,5 +1,7 @@
 /* changes to the default style */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&family=Roboto+Mono&display=swap');
+
 p {
 	margin-top: 1rem;
 	margin-bottom: 0;
