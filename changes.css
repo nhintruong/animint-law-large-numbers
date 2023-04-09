@@ -13,3 +13,7 @@ p {
 blockquote > p {
 	margin-top: 0;
 }
+
+details {
+	margin-top: 1rem;
+}

@@ -110,6 +110,44 @@ test_count <- sumscores |> count(penguin,
 count_ex <- sumscores |> count(extraversion, name = "nex")
 count_co <- sumscores |> count(conscientiousness, name = "nco")
 
+##########
+
+### Heatmap Limitations in animint2
+
+There are limitations to what heatmaps can do in `animint2`. There is no interactive heatmap akin to an interactive scatterplot. Since this section is auxiliary to the previous section, I've elected to place my demonstration in a `<details>` element:
+
+<details>
+<summary>Click Me for the Demonstration</summary>
+
+First, we generate a similar tibble to the one used by our heatmap. The difference is that our heatmap includes the country column and uses it for the count. For example: in `von_count`, there are 5 rows where both personality factors have a sumscore of 10. In `demon_count`, those 5 rows are still there, but they're divided between Australia and the United States:
+
+```{r demon-tbl}
+demon_tbl <- sumscores |> 
+  select(country, extraversion, conscientiousness) |>
+  expand_grid(.name_repair = "minimal")
+
+demon_count <- demon_tbl |> 
+  group_by(across(country:conscientiousness)) |>
+  count() |> arrange(extraversion)
+demon_count
+```
+
+Here is our interactive heatmap. The principal problem with it is that it is not actually interactive, no matter what I do:
+
+```{r demon-heatmap}
+#| label: demon-heatmap
+#| fig-cap: "Nonresponsive heatmap."
+
+demon_discrete <- demon_count |>
+  ggplot(mapping = aes(x = conscientiousness,
+                       y = extraversion,
+                       fill = n)) +
+  geom_tile() + coord_fixed()
+animint(demon_discrete)
+```
+
+</details>
+
 
 # Scraps from App
 

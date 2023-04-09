@@ -9,8 +9,8 @@ toc: TRUE
 toc-location: left
 toc-title: "Contents:"
 linkcolor: "#043521"
-mainfont: "Roboto Condensed", sans-serif
-monofont: "Roboto Mono", monospace
+mainfont: "Roboto Condensed"
+monofont: "Roboto Mono"
 reference-location: margin
 cap-location: margin
 website:
@@ -255,9 +255,7 @@ ani_corr_zoom
 
 This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (The sumscores can only be integers.)
 
-Of course, it's immediately obvious without jitter. In the following heatmap, we can see both the discreteness and distribution of the data. [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside} However, generating the heatmap is not as straightforward as generating a scatterplot.
-
-First, we need to generate all combinations between the extraversion and conscientiousness factors. Then we need to count them:
+Of course, it's immediately obvious without jitter. In the following heatmap, we can see both the discreteness and distribution of the data. [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside} However, generating the heatmap is not as straightforward as generating a scatterplot. First, we need to generate all combinations between the extraversion and conscientiousness factors. Then we need to count them:
 
 ```{r heatmap-tbl}
 combo_tbl <- sumscores |> 
@@ -271,20 +269,16 @@ von_count <- combo_tbl |>
 
 Finally, we can generate our heatmap:
 
-```{r ani-corr-discrete}
+```{r fig-personality-discrete}
 #| label: fig-personality-discrete
-#| fig-cap: "The discrete nature of the Big Five data."
+#| fig-cap: "Discreteness and density of the Big Five data."
 
-corr_discrete <- von_count +
+corr_discrete <- von_count |>
   ggplot(mapping = aes(x = conscientiousness,
-                          y = extraversion)) +
-  geom_tile()
-
-#corr_discrete <- correlations +
-#  geom_tile(aes(fill = country)) +
-#  scale_colour_gradient()
-#corr_discrete
-#animint(corr_discrete)
+                       y = extraversion,
+                       fill = n)) +
+  geom_tile() + coord_fixed()
+corr_discrete
 ```
 
 Pretty cool! Being able to explore and present this kind of research would be harder without the interactive benefits of `animint2`.
