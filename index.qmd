@@ -388,4 +388,4 @@ Major mistakes I made while doing these tests and then subsequently caught. This
 
 My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using `c_across()` and then messing up the selection syntax, but I didn't really have the time to experiment and check.
 
-I also messed up with the heatmap, possibly because I'm unfamiliar with them. [Note to self: do more research beforehand.]{.aside}
+I took a long time figuring out the details of the heatmap. The code is straightforward, but that is the result of a long process of experimentation. Most of this was because I was unfamiliar with both heatmaps and the functions necessary for combinatorics (e.g. I was unaware of `expand_grid()`). But it was a good learning experience.
