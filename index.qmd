@@ -340,6 +340,30 @@ cat_bar
 
 
 
+## Medium Test: The Central Limit Theorem
+
+There are multiple medium tests. The first one requires that the test-taker:
+
+> translate an example of the animation package into an Animint.
+
+So let's look at the Central Limit Theorem (CLT). [[Here's the CLT `animination` example](https://yihui.org/animation/example/clt-ani/).]{.aside}
+
+
+### About the CLT
+
+My name for this test is inaccurate for two separate reasons.
+
+The first is that "the Central Limit Theorem" itself is a misnomer. There is no one single central limit theorem. The name refers to many theorems and mathematical concepts, bound together by history and a kind of family resemblance. The principal connection between them is that they all have something to do with random variables and normal distributions.^[H. Fischer. [Chapter 1](https://link.springer.com/chapter/10.1007/978-0-387-87857-7_1) in _A History of the Central Limit Theorem_. 2010.]
+
+The second is that this test is not really about the central limit theorem as a theorem. What I am actually going to depict is a normal distribution, constructed from psuedo-random data, as described by the CLT.
+
+
+### Pseudo-random Data
+
+empty
+
+
+
 ## Appendix: Observations
 
 Here are some things that I noticed while reading the documentation and playing around with the package. Since I'm new to `animint2`, I make no claim that my observations are novel, noteworthy, or even correct. But I think they're still useful. My guess is that many users of `animint2` are also "new" to it, in the sense that they're working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs.
