@@ -327,7 +327,7 @@ Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
 
 In other words, `animint2` and `ggplot2` don't get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.
 
-```{r bar-cat-pop}
+```{r fig-cat-pop}
 #| echo: FALSE
 #| label: fig-cat-popularity
 #| fig-cap: "Popularity of cat names on a scale of 1–3."
@@ -340,27 +340,33 @@ cat_bar
 
 
 
-## Medium Test: The Central Limit Theorem
+## Medium Test: IQ and the Central Limit Theorem
 
-There are multiple medium tests. The first one requires that the test-taker:
+There are multiple medium tests. The first one requires that the test-taker
 
 > translate an example of the animation package into an Animint.
 
-So let's look at the Central Limit Theorem (CLT). [[Here's the CLT `animination` example](https://yihui.org/animation/example/clt-ani/).]{.aside}
+So let's look at the Central Limit Theorem (CLT). [The CLT `animination` example [can be found here]](https://yihui.org/animation/example/clt-ani/).]{.aside} To continue with the psychology theme from the easy test, I'll construct a CLT function and then showcase it with a hypothetical distribution of IQ scores.
 
 
 ### About the CLT
 
-My name for this test is inaccurate for two separate reasons.
+"The Central Limit Theorem" is a misnomer, because there is no one central limit theorem. The name refers to a variety of mathematical ideas and research programs bound together by history and a kind of family resemblance.^[H. Fischer. [Chapter 1](https://link.springer.com/chapter/10.1007/978-0-387-87857-7_1) in _A History of the Central Limit Theorem_. 2010.] Generally, central limit theorems describe a normal distribution that emerges from a large number of independent and random variables.
 
-The first is that "the Central Limit Theorem" itself is a misnomer. There is no one single central limit theorem. The name refers to many theorems and mathematical concepts, bound together by history and a kind of family resemblance. The principal connection between them is that they all have something to do with random variables and normal distributions.^[H. Fischer. [Chapter 1](https://link.springer.com/chapter/10.1007/978-0-387-87857-7_1) in _A History of the Central Limit Theorem_. 2010.]
+```{r fig-normal-curve}
+#| label: fig-normal-curve
+#| fig-cap: "Data distributed normally."
+normal <- ggplot(tibble(x = c(-3,3)), aes(x)) + 
+  stat_function(fun = dnorm, geom = "point")
+normal
+```
 
-The second is that this test is not really about the central limit theorem as a theorem. What I am actually going to depict is a normal distribution, constructed from psuedo-random data, as described by the CLT.
+For the purposes of this test, the exact details of the CLT are not especially important, so this general outline is enough. 
 
 
-### Pseudo-random Data
+### Function Construction
 
-empty
+e
 
 
 
@@ -394,12 +400,29 @@ Here's a list of `animint2`'s unexpected behaviors. My mistaken observations are
     + It's already the case that `position = identity`, since it's the default for `geom_point()` and `geom_jitter()`.
     + The problem it points out is the `.tsv` file that `animint()` generates.
     + It correctly renders the scatterplot.
+    + It passes `testthat::expect_no_warning()` and fails `expect_warning()`, despite the fact that it outputs a warning.
 
 - When I make violin plots, I'm warned that the graph is "collapsing to unique 'x' values." This [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`, possibly since the fix happened after the fork. (I'm least certain about this observation.)
 - When I try to place a static `animint2` graph in the margins, I can't place a caption, or else the graph doesn't render correctly. `column: margin` and `fig-cap` don't work well together.
 - When I try to use `geom_bin2d()`, I'm informed that "`bin2d` is not supported in `animint`. Try using `geom_tile()` and binning the data yourself." But the `animint2` reference mentions that it does support `geom_bin2d`.
 - When I use `geom_raster()`, `animint2` correctly renders it as a static graph. But it will not render the data or the legend when I use `animint2`. This [is documented](https://github.com/tdhock/animint2/issues/53).
-<!-- - When using `geom_hex, I'm warned that "no data in geom1_hex_corrdiscrete." -->
+- When I use `geom_hex`, I'm warned that there is "no data in geom1_hex_foobar."
+
+
+### Notes and Solutions
+
+- In `ggplot2`, it's possible to plot a normal distribution without any specifying any dataframes or tibbles. This is not the case for `animint2`:
+
+```{r}
+# works only in ggplot2
+nope_normal <- ggplot() + xlim(-5,5)
+nope_normal + stat_function(fun = dnorm)
+
+# works in animint2
+works_normal <- ggplot(data.frame(x = c(-5, 5)), 
+                        aes(x)) + 
+  stat_function(fun = dnorm)
+```
 
 
 
