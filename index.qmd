@@ -370,6 +370,45 @@ Since the CLT _qua_ theorem is not of interest to me or to the animated demonstr
 
 The [CLT `animation` demonstration](https://yihui.org/animation/example/clt-ani/) actually consists of two animations: a density plot and a Shapiro-Wilk normality test. My opinion is that the Shapiro-Wilk normality test is of limited pedagogical value, so I've removed it and replaced it with a QQ plot. [Also, I have a personal distaste for null hypothesis testing.]{.aside}
 
+We begin by [looking at the code for `clt.ani`](https://github.com/yihui/animation/blob/main/R/clt.ani.R). The function takes eight arguments, though not all of them are necessary. Let's begin constructing the ones that are.
+
+```{r}
+#| eval: FALSE
+fn_clt <- function(obs, fun, mean, sd){}
+```
+
+First: observations (`obs`). 
+
+
+
+First, we need to generate a default seq
+
+I'll generate a random sequence of rolls from a six-sided die: [`random` allows for true randomness.]{.aside}
+
+```{r}
+true_randomness <- random::randomNumbers(n = 10000,
+                                         min = 1, max = 6,
+                                         col = 1)
+```
+
+```{r}
+# test histogram
+# test_rando <- d6 |>
+#   ggplot(mapping = aes(x = ))
+# test_rando + geom_bar()
+```
+
+To aid reproducibility, I'll also save this sequence as a CSV file and read from it later.
+
+```{r}
+random_d6 <- true_randomness |> 
+  as_tibble() |>
+  setNames(c("n")) |> 
+  write_csv(path = "random_d6.csv")
+
+d6 <- read_csv("random_d6.csv")
+```
+
 
 
 ## Appendix: Observations
@@ -416,6 +455,8 @@ Here's a list of `animint2`'s unexpected behaviors. My mistaken observations are
 - In `ggplot2`, it's possible to plot a normal distribution without any specifying any dataframes or tibbles. This is not the case for `animint2`:
 
 ```{r}
+#| eval: FALSE
+
 # works only in ggplot2
 nope_normal <- ggplot() + xlim(-5,5)
 nope_normal + stat_function(fun = dnorm)
