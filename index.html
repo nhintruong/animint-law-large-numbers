@@ -122,9 +122,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#interacting-with-personality" id="toc-interacting-with-personality" class="nav-link" data-scroll-target="#interacting-with-personality">Interacting with Personality</a></li>
   <li><a href="#sibling-rivalry" id="toc-sibling-rivalry" class="nav-link" data-scroll-target="#sibling-rivalry">Sibling Rivalry</a></li>
   </ul></li>
-  <li><a href="#medium-test-iq-and-the-central-limit-theorem" id="toc-medium-test-iq-and-the-central-limit-theorem" class="nav-link" data-scroll-target="#medium-test-iq-and-the-central-limit-theorem">Medium Test: IQ and the Central Limit Theorem</a>
+  <li><a href="#medium-test-the-law-of-large-numbers" id="toc-medium-test-the-law-of-large-numbers" class="nav-link" data-scroll-target="#medium-test-the-law-of-large-numbers">Medium Test: The Law of Large Numbers</a>
   <ul class="collapse">
-  <li><a href="#about-the-clt" id="toc-about-the-clt" class="nav-link" data-scroll-target="#about-the-clt">About the CLT</a></li>
+  <li><a href="#translating-the-lln" id="toc-translating-the-lln" class="nav-link" data-scroll-target="#translating-the-lln">Translating the LLN</a></li>
   <li><a href="#function-construction" id="toc-function-construction" class="nav-link" data-scroll-target="#function-construction">Function Construction</a></li>
   </ul></li>
   <li><a href="#appendix-observations" id="toc-appendix-observations" class="nav-link" data-scroll-target="#appendix-observations">Appendix: Observations</a>
@@ -512,66 +512,52 @@ position_jitter </code></pre>
 </div>
 </section>
 </section>
-<section id="medium-test-iq-and-the-central-limit-theorem" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="medium-test-iq-and-the-central-limit-theorem">Medium Test: IQ and the Central Limit Theorem</h2>
+<section id="medium-test-the-law-of-large-numbers" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="medium-test-the-law-of-large-numbers">Medium Test: The Law of Large Numbers</h2>
 <p>There are multiple medium tests. The first one requires that the test-taker</p>
 <blockquote class="blockquote">
 <p>translate an example of the animation package into an Animint.</p>
 </blockquote>
-<p>So let’s look at the Central Limit Theorem (CLT). To continue with the psychology theme from the easy test, I’ll construct a CLT function and then showcase it with a hypothetical distribution of IQ scores.</p>
-<section id="about-the-clt" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="about-the-clt">About the CLT</h3>
-<div class="page-columns page-full"><p>“The Central Limit Theorem” is a bit of a misnomer, because there is no one central limit theorem. The name refers to a variety of mathematical ideas and research programs bound together by history and a kind of family resemblance.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Generally, central limit theorems describe a normal distribution that emerges from a large number of independent and random variables.</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;H. Fischer. <a href="https://link.springer.com/chapter/10.1007/978-0-387-87857-7_1">Chapter 1</a> in <em>A History of the Central Limit Theorem</em>. 2010.</p></li></div></div>
-<div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example of a normal distribution</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>normal <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x)) <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">geom =</span> <span class="st">"point"</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>normal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<div class="no-row-height column-margin column-container"><div class="cell-output-display">
-<p><img src="index_files/figure-html/normal-curve-1.png" class="img-fluid" width="672"></p>
-</div></div></div>
-<p>Since the CLT <em>qua</em> theorem is not of interest to me or to the animated demonstration I’ll be translating, this general outline is enough.</p>
+<p>So let’s look at the law of large numbers (LLN).</p>
+<section id="translating-the-lln" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="translating-the-lln">Translating the LLN</h3>
+<div class="page-columns page-full"><p>The law of large numbers, sometimes called the weak law of large numbers, was named by S. D. Poisson in an article published in 1835.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> He wrote, emphasis his:</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Translated from French by I.&nbsp;Hacking, in <a href="https://doi.org/10.1017/CBO9780511819766.012">Chapter 12</a> of <em>The Taming of Chance</em>. 1990.</p>
+<p>Some sources cite <a href="https://worldcat.org/title/recherches-sur-la-probabilite-des-jugements-en-matiere-criminelle-et-en-matiere-civile-precedees-des-regles-generales-du-calcul-des-probabilites/oclc/669708893">Poisson’s 1837 book</a> as the origin of the LLN’s name. Not quite. In <a href="https://gallica.bnf.fr/ark:/12148/bpt6k29606/f478.item">his 1835 article</a>, he mentions “la loi des grands nombres”—the law of large numbers.</p></li></div></div>
+<blockquote class="blockquote">
+<p>Things of every kind are subject to a universal law that we may call <em>the law of large numbers</em>. It consists in this: if one observes a very considerable number of events of the same kind, depending on causes that vary irregularly, that is to say, without any systematic variation in one direction, then one finds that the ratios between the numbers of events are very nearly constant.</p>
+</blockquote>
+<div class="page-columns page-full"><p>While Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn4"><p><sup>4</sup>&nbsp;M. Denker. <a href="doi.org/10.1090/S0273-0979-2013-01411-3">Tercentennial anniversary of Bernoulli’s law of large numbers</a>. <em>Bull. Am. Math. Soc</em>. 2013.</p></li></div></div>
+<p>Anyway, the history isn’t especially important, and the law is straightforward. To put it in more contemporary terms: as the sample size increases, the sample mean approaches the population mean.</p>
+<p>The <a href="https://yihui.org/animation/example/lln-ani/">LLN <code>animation</code> demonstration</a> just mentions that as</p>
 </section>
 <section id="function-construction" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="function-construction">Function Construction</h3>
-<div class="page-columns page-full"><p>The <a href="https://yihui.org/animation/example/clt-ani/">CLT <code>animation</code> demonstration</a> actually consists of two animations: a density plot and a Shapiro-Wilk normality test. My opinion is that the Shapiro-Wilk normality test is of limited pedagogical value, so I’ve removed it and replaced it with a QQ plot. </p><div class="no-row-height column-margin column-container"><span class="">Also, I have a personal distaste for null hypothesis testing.</span></div></div>
-<p>I also want</p>
-<p>We begin by <a href="https://github.com/yihui/animation/blob/main/R/clt.ani.R">looking at the code for <code>clt.ani</code></a>. The function takes eight arguments. Let’s mirror them:</p>
+<p>We begin by <a href="https://github.com/yihui/animation/blob/main/R/clt.ani.R">looking at the code for <code>clt.ani</code></a>. The function takes eight arguments, though not all of them are necessary. Let’s begin constructing the ones that are.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fn_clt <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, fun, mean, sd){}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fn_clt <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, fun, mean, sd){}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>First: observations (<code>obs</code>).</p>
 <p>First, we need to generate a default seq</p>
 <div class="page-columns page-full"><p>I’ll generate a random sequence of rolls from a six-sided die: </p><div class="no-row-height column-margin column-container"><span class=""><code>random</code> allows for true randomness.</span></div></div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>true_randomness <span class="ot">&lt;-</span> random<span class="sc">::</span><span class="fu">randomNumbers</span>(<span class="at">n =</span> <span class="dv">10000</span>,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">6</span>,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">col =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># true_randomness &lt;- random::randomNumbers(n = 10000,</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                                          min = 1, max = 6,</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                                          col = 1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test histogram</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># test_rando &lt;- d6 |&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(mapping = aes(x = ))</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># test_rando + geom_bar()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test histogram</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># test_rando &lt;- d6 |&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(mapping = aes(x = ))</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># test_rando + geom_bar()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To aid reproducibility, I’ll also save this sequence as a CSV file and read from it later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>random_d6 <span class="ot">&lt;-</span> true_randomness <span class="sc">|&gt;</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"n"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="at">path =</span> <span class="st">"random_d6.csv"</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>d6 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"random_d6.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 10000 Columns: 1
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-dbl (1): n
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># random_d6 &lt;- true_randomness |&gt; </span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   as_tibble() |&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   setNames(c("n")) |&gt; </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   write_csv(path = "random_d6.csv")</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># d6 &lt;- read_csv("random_d6.csv")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -613,16 +599,14 @@ dbl (1): n
 <li>In <code>ggplot2</code>, it’s possible to plot a normal distribution without any specifying any dataframes or tibbles. This is not the case for <code>animint2</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># works only in ggplot2</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>nope_normal <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>nope_normal <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># works in animint2</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>works_normal <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)), </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># works only in ggplot2</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>nope_normal <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>nope_normal <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># works in animint2</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>works_normal <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)), </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>

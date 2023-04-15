@@ -340,35 +340,32 @@ cat_bar
 
 
 
-## Medium Test: IQ and the Central Limit Theorem
+## Medium Test: The Law of Large Numbers
 
 There are multiple medium tests. The first one requires that the test-taker
 
 > translate an example of the animation package into an Animint.
 
-So let's look at the Central Limit Theorem (CLT). To continue with the psychology theme from the easy test, I'll construct a CLT function and then showcase it with a hypothetical distribution of IQ scores.
+So let's look at the law of large numbers (LLN).
 
 
-### About the CLT
+### Translating the LLN
 
-"The Central Limit Theorem" is a bit of a misnomer, because there is no one central limit theorem. The name refers to a variety of mathematical ideas and research programs bound together by history and a kind of family resemblance.^[H. Fischer. [Chapter 1](https://link.springer.com/chapter/10.1007/978-0-387-87857-7_1) in _A History of the Central Limit Theorem_. 2010.] Generally, central limit theorems describe a normal distribution that emerges from a large number of independent and random variables.
+The law of large numbers, sometimes called the weak law of large numbers, was named by S. D. Poisson in an article published in 1835.[^toc] He wrote, emphasis his, that
 
-```{r normal-curve}
-#| column: margin
+> Things of every kind are subject to a universal law that we may call _the law of large numbers_. It consists in this: if one observes a very considerable number of events of the same kind, depending on causes that vary irregularly, that is to say, without any systematic variation in one direction, then one finds that the ratios between the numbers of events are very nearly constant. 
 
-# example of a normal distribution
-normal <- tibble(x = c(-3,3)) |>
-  ggplot(aes(x)) +
-  stat_function(fun = dnorm, geom = "point")
-normal
-```
+[^toc]: Translated from French by I.&nbsp;Hacking, in [Chapter 12](https://doi.org/10.1017/CBO9780511819766.012) of _The Taming of Chance_. 1990.
 
-Since the CLT _qua_ theorem is not of interest to me or to the animated demonstration I'll be translating, this general outline is enough. 
+    Some sources cite [Poisson's 1837 book](https://worldcat.org/title/recherches-sur-la-probabilite-des-jugements-en-matiere-criminelle-et-en-matiere-civile-precedees-des-regles-generales-du-calcul-des-probabilites/oclc/669708893) as the origin of the LLN's name. Not quite. In [his 1835 article](https://gallica.bnf.fr/ark:/12148/bpt6k29606/f478.item), he mentions "la loi des grands nombres"---the law of large numbers.
+
+While Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier.^[M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.] Anyway, the history isn't especially important, and the LLN's consequences are straightforward. In contemporary terms: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
+
+The [LLN `animation` demonstration](https://yihui.org/animation/example/lln-ani/) just mentions that as
 
 
 ### Function Construction
 
-The [CLT `animation` demonstration](https://yihui.org/animation/example/clt-ani/) actually consists of two animations: a density plot and a Shapiro-Wilk normality test. My opinion is that the Shapiro-Wilk normality test is of limited pedagogical value, so I've removed it and replaced it with a QQ plot. [Also, I have a personal distaste for null hypothesis testing.]{.aside}
 
 We begin by [looking at the code for `clt.ani`](https://github.com/yihui/animation/blob/main/R/clt.ani.R). The function takes eight arguments, though not all of them are necessary. Let's begin constructing the ones that are.
 
@@ -386,9 +383,9 @@ First, we need to generate a default seq
 I'll generate a random sequence of rolls from a six-sided die: [`random` allows for true randomness.]{.aside}
 
 ```{r}
-true_randomness <- random::randomNumbers(n = 10000,
-                                         min = 1, max = 6,
-                                         col = 1)
+# true_randomness <- random::randomNumbers(n = 10000,
+#                                          min = 1, max = 6,
+#                                          col = 1)
 ```
 
 ```{r}
@@ -401,12 +398,12 @@ true_randomness <- random::randomNumbers(n = 10000,
 To aid reproducibility, I'll also save this sequence as a CSV file and read from it later.
 
 ```{r}
-random_d6 <- true_randomness |> 
-  as_tibble() |>
-  setNames(c("n")) |> 
-  write_csv(path = "random_d6.csv")
-
-d6 <- read_csv("random_d6.csv")
+# random_d6 <- true_randomness |> 
+#   as_tibble() |>
+#   setNames(c("n")) |> 
+#   write_csv(path = "random_d6.csv")
+# 
+# d6 <- read_csv("random_d6.csv")
 ```
 
 
