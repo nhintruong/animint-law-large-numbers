@@ -359,23 +359,28 @@ The law of large numbers, sometimes called the weak law of large numbers, was na
 
     Some sources cite [Poisson's 1837 book](https://worldcat.org/title/recherches-sur-la-probabilite-des-jugements-en-matiere-criminelle-et-en-matiere-civile-precedees-des-regles-generales-du-calcul-des-probabilites/oclc/669708893) as the origin of the LLN's name. Not quite. In [his 1835 article](https://gallica.bnf.fr/ark:/12148/bpt6k29606/f478.item), he mentions "la loi des grands nombres"---the law of large numbers.
 
-While Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier.^[M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.] Anyway, the history isn't especially important, and the LLN's consequences are straightforward. In contemporary terms: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
+Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law has changed over the centuries. For our purposes, those details are largely irrelevant. Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
 
-The [LLN `animation` demonstration](https://yihui.org/animation/example/lln-ani/) just mentions that as
+[^llnh]: M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.
+
+    E. Seneta. [A Tricentenary history of the Law of Large Numbers](https://doi.org/10.3150/12-BEJSP12). _Bernoulli_. 2013.
+
+Importantly, that's how the [LLN `animation` demonstration](https://yihui.org/animation/example/lln-ani/) interprets the LLN as well. I'll construct my function with this understanding of the LLN in mind.
 
 
 ### Function Construction
 
 
-We begin by [looking at the code for `clt.ani`](https://github.com/yihui/animation/blob/main/R/clt.ani.R). The function takes eight arguments, though not all of them are necessary. Let's begin constructing the ones that are.
+The `lln.ani` function [takes six arguments](https://github.com/yihui/animation/blob/main/R/lln.ani.R) but has useful defaults for them all. The most crucial arguments are these three:
+
+- `FUN`: A function to generate random numbers.
+- `mu`: The population mean.
+- `np`: How often the data are sampled.
 
 ```{r}
 #| eval: FALSE
-fn_clt <- function(obs, fun, mean, sd){}
+fn_lln <- function(obs, fun, mean, sd){}
 ```
-
-First: observations (`obs`). 
-
 
 
 First, we need to generate a default seq
