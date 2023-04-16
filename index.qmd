@@ -349,9 +349,9 @@ There are multiple medium tests. The first one requires that the test-taker
 So let's look at the law of large numbers (LLN).
 
 
-### Translating the LLN
+### About the LLN
 
-The law of large numbers, sometimes called the weak law of large numbers, was named by S. D. Poisson in an article published in 1835.[^toc] He wrote, emphasis his, that
+The law of large numbers, also called the weak law of large numbers, was named by S. D. Poisson in an article published in 1835.[^toc] He wrote, emphasis his, that
 
 > Things of every kind are subject to a universal law that we may call _the law of large numbers_. It consists in this: if one observes a very considerable number of events of the same kind, depending on causes that vary irregularly, that is to say, without any systematic variation in one direction, then one finds that the ratios between the numbers of events are very nearly constant. 
 
@@ -359,7 +359,7 @@ The law of large numbers, sometimes called the weak law of large numbers, was na
 
     Some sources cite [Poisson's 1837 book](https://worldcat.org/title/recherches-sur-la-probabilite-des-jugements-en-matiere-criminelle-et-en-matiere-civile-precedees-des-regles-generales-du-calcul-des-probabilites/oclc/669708893) as the origin of the LLN's name. Not quite. In [his 1835 article](https://gallica.bnf.fr/ark:/12148/bpt6k29606/f478.item), he mentions "la loi des grands nombres"---the law of large numbers.
 
-Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law has changed over the centuries. For our purposes, those details are largely irrelevant. Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
+Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law have changed over the centuries. For our purposes, those details are largely irrelevant. Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
 
 [^llnh]: M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.
 
@@ -370,20 +370,45 @@ Importantly, that's how the [LLN `animation` demonstration](https://yihui.org/an
 
 ### Function Construction
 
+The `lln.ani` function [takes six arguments](https://github.com/yihui/animation/blob/main/R/lln.ani.R) and has useful defaults for them all. That's a good goal to have---a user should be able to run the LLN function without any arguments and produce something useful to teach with.
 
-The `lln.ani` function [takes six arguments](https://github.com/yihui/animation/blob/main/R/lln.ani.R) but has useful defaults for them all. The most crucial arguments are these three:
+Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
+
+1. A function that reads some set of data;
+2. A function that generates the population mean for that data;
+3. A function that continuously samples from the aforementioned data set and generate sample means, as well as a way to make it stop; and
+4. A plot that visually indicates the population mean, graphs out the sample means as they are generated, and updates _n_ as it increases.
+
+Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. Let's say this criterion applies to all the requirements for `fn_lln`. I'll use the `assertive` package to do this.
+
+The first requirement, which I'll call `distr`, is straightforward. [Short for "distribution," of course.]{.aside} The dataset needs to take the form of a numeric vector. If a user tries to use something else, the `distr` should throw up an error.
+
+```{r fun-data}
+distr <- ds |> 
+  assertive::assert_is_numeric()
+```
+
+I also want it to have a useful default for pedagogical purposes. Six-sided dice. Coin flips are more familiar, but they're less obvious than dice, which have their numbers printed on their side.
+
+```{r fun-data-d6}
+d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
+```
+
+The final function looks like this:
+
+```{r fun-lln}
+fn_lln <- function(distr = d6){
+  
+}
+```
+
+The most crucial arguments are these three:
 
 - `FUN`: A function to generate random numbers.
 - `mu`: The population mean.
 - `np`: How often the data are sampled.
 
-```{r}
-#| eval: FALSE
-fn_lln <- function(obs, fun, mean, sd){}
-```
 
-
-First, we need to generate a default seq
 
 I'll generate a random sequence of rolls from a six-sided die: [`random` allows for true randomness.]{.aside}
 
@@ -410,6 +435,13 @@ To aid reproducibility, I'll also save this sequence as a CSV file and read from
 # 
 # d6 <- read_csv("random_d6.csv")
 ```
+
+
+## Hard Test: Testing `fn_lln`
+
+### Testing `distr`
+
+Let's begin by testing `distr`.
 
 
 
