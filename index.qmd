@@ -35,6 +35,7 @@ library(tidyr)        # tidy uhhh tidying
 library(tibble)       # tidy tables
 library(animint2)     # animated ggplot2
 library(kableExtra)   # make tables
+library(testthat)     # unit testing
 
 theme_set(theme_gray() + 
             theme(panel.background = 
@@ -359,11 +360,12 @@ The law of large numbers, also called the weak law of large numbers, was named b
 
     Some sources cite [Poisson's 1837 book](https://worldcat.org/title/recherches-sur-la-probabilite-des-jugements-en-matiere-criminelle-et-en-matiere-civile-precedees-des-regles-generales-du-calcul-des-probabilites/oclc/669708893) as the origin of the LLN's name. Not quite. In [his 1835 article](https://gallica.bnf.fr/ark:/12148/bpt6k29606/f478.item), he mentions "la loi des grands nombres"---the law of large numbers.
 
-Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law have changed over the centuries. For our purposes, those details are largely irrelevant. Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
+Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law have changed over the centuries. For our purposes, those details are largely irrelevant. (Also, I know my limits---there's no way I can explain the LLN in a manner satisfactory to a mathematician.) Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
 
-[^llnh]: M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.
+[^llnh]: There's some apparent disagreement on what counts as the beginning of the LLN's history:
 
-    E. Seneta. [A Tricentenary history of the Law of Large Numbers](https://doi.org/10.3150/12-BEJSP12). _Bernoulli_. 2013.
+    - M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.
+    - E. Seneta. [A Tricentenary history of the Law of Large Numbers](https://doi.org/10.3150/12-BEJSP12). _Bernoulli_. 2013.
 
 Importantly, that's how the [LLN `animation` demonstration](https://yihui.org/animation/example/lln-ani/) interprets the LLN as well. I'll construct my function with this understanding of the LLN in mind.
 
@@ -374,19 +376,44 @@ The `lln.ani` function [takes six arguments](https://github.com/yihui/animation/
 
 Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
 
-1. A function that reads some set of data;
-2. A function that generates the population mean for that data;
-3. A function that continuously samples from the aforementioned data set and generate sample means, as well as a way to make it stop; and
+1. The ability to read some set of data;
+2. The ability to generate the population mean for that data;
+3. The ability to continuously samples from the aforementioned data set and generate sample means, as well as a way to make it stop; and
 4. A plot that visually indicates the population mean, graphs out the sample means as they are generated, and updates _n_ as it increases.
 
-Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. Let's say this criterion applies to all the requirements for `fn_lln`. I'll use the `assertive` package to do this.
+Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages.
 
-The first requirement, which I'll call `distr`, is straightforward. [Short for "distribution," of course.]{.aside} The dataset needs to take the form of a numeric vector. If a user tries to use something else, the `distr` should throw up an error.
+The first requirement is straightforward. The dataset needs to take the form of a numeric vector. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the dataset "ds" for short:
 
 ```{r fun-data}
-distr <- ds |> 
+#| eval: FALSE
+validity_check <- ds |> 
   assertive::assert_is_numeric()
 ```
+
+The second requirement is also straightforward.
+
+```{r fun-mu}
+#| eval: FALSE
+
+```
+
+The final function looks like this:
+
+```{r fun-lln}
+fn_lln <- function(distr){
+  ds <- distr |> 
+  assertive::assert_is_numeric()
+}
+```
+
+```{r informal-test}
+meow <- sample(letters, size = 10, replace = TRUE)
+in_test <- fn_lln(meow)
+```
+
+
+### Running `fn_lln`
 
 I also want it to have a useful default for pedagogical purposes. Six-sided dice. Coin flips are more familiar, but they're less obvious than dice, which have their numbers printed on their side.
 
@@ -394,54 +421,11 @@ I also want it to have a useful default for pedagogical purposes. Six-sided dice
 d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
 ```
 
-The final function looks like this:
-
-```{r fun-lln}
-fn_lln <- function(distr = d6){
-  
-}
-```
-
-The most crucial arguments are these three:
-
-- `FUN`: A function to generate random numbers.
-- `mu`: The population mean.
-- `np`: How often the data are sampled.
-
-
-
-I'll generate a random sequence of rolls from a six-sided die: [`random` allows for true randomness.]{.aside}
-
-```{r}
-# true_randomness <- random::randomNumbers(n = 10000,
-#                                          min = 1, max = 6,
-#                                          col = 1)
-```
-
-```{r}
-# test histogram
-# test_rando <- d6 |>
-#   ggplot(mapping = aes(x = ))
-# test_rando + geom_bar()
-```
-
-To aid reproducibility, I'll also save this sequence as a CSV file and read from it later.
-
-```{r}
-# random_d6 <- true_randomness |> 
-#   as_tibble() |>
-#   setNames(c("n")) |> 
-#   write_csv(path = "random_d6.csv")
-# 
-# d6 <- read_csv("random_d6.csv")
-```
 
 
 ## Hard Test: Testing `fn_lln`
 
-### Testing `distr`
-
-Let's begin by testing `distr`.
+Will `fn_lln` work right? 
 
 
 
@@ -452,15 +436,11 @@ Here are some things that I noticed while reading the documentation and playing 
 
 ### Thoughts
 
-I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work. 
-
-<!-- My sense is that forking `ggplot2` is a double-edged sword. -->
+I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work. [Fun fact: I recently realized that the second edition of the `ggplot2` book mentions `animint`.]{.aside}
 
 [`ggplot2` documentation](https://ggplot2.tidyverse.org/reference/index.html) is available as a website, but [`animint2` documentation](https://cran.r-project.org/web/packages/animint2/) is only available as a PDF. [Grumpy aside: why are PDFs R's default documentation format? It's the same with $\LaTeX$, but at least there's an obvious technical reason for that.]{.aside} Of course, there's the valuable [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). But that's more like a book than a reference site---something like a counterpart to the [`ggplot2` book](https://ggplot2-book.org/). Since the `ggplot2` reference was a lot more accessible, I found myself using their reference and only going back to the `animint2` reference when necessary.
 
 I'm not sure if I'll have enough time, and I'm not sure it's what you mean when you wrote that `animint2` will "have even more... documentation." But as part of that documentation boost, I'd like to generate a reference site for the unique features of `animint2`. I think that'd make the package more accessible to `animint2`'s users.
-
-<!-- fun fact: the ggplot2 book mentioned animint -->
 
 
 ### Possible Bugs?
