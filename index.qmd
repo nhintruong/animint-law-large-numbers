@@ -383,27 +383,37 @@ Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
 
 Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages.
 
-The first requirement is straightforward. The dataset needs to take the form of a numeric vector. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the dataset "ds" for short:
+The first requirement is straightforward. The dataset needs to take the form of a numeric vector. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
 
-```{r fun-data}
+```{r req-data}
 #| eval: FALSE
-validity_check <- ds |> 
+validity_check <- data_vector |> 
   assertive::assert_is_numeric()
 ```
 
-The second requirement is also straightforward.
+The second requirement is also straightforward. I can just calculate `data_vector`'s mean---by definition, it's the population mean. [For self-evident reasons, `ani.lln` calls it `mu`. I prefer to trade brevity for extreme obviousness: hence `population_mean`.]{.aside}
 
-```{r fun-mu}
+```{r req-mu}
 #| eval: FALSE
+population_mean <- data_vector |> mean()
+```
 
+The third requirement is more complicated. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
+
+```{r req-sample-mean}
+sample_means <- 
 ```
 
 The final function looks like this:
 
 ```{r fun-lln}
-fn_lln <- function(distr){
-  ds <- distr |> 
+fn_lln <- function(data_vector){
+  # make sure dataset is a numeric vector
+  validity_check <- data_vector |> 
   assertive::assert_is_numeric()
+  
+  # calculate population mean
+  population_mean <- data_vector |> mean()
 }
 ```
 
@@ -425,7 +435,7 @@ d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
 
 ## Hard Test: Testing `fn_lln`
 
-Will `fn_lln` work right? 
+Does `fn_lln` work right? 
 
 
 
