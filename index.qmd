@@ -383,15 +383,16 @@ Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
 
 Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages.
 
-The first requirement is straightforward. The dataset needs to take the form of a numeric vector. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
+The first requirement is straightforward. The dataset needs to take the form of a numeric vector that contains at least one number. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
 
 ```{r req-data}
 #| eval: FALSE
 validity_check <- data_vector |> 
-  assertive::assert_is_numeric()
+  assertive::assert_is_numeric() |>
+  assertive::is_non_empty()
 ```
 
-The second requirement is also straightforward. I can just calculate `data_vector`'s mean---by definition, it's the population mean. [For self-evident reasons, `ani.lln` calls it `mu`. I prefer to trade brevity for extreme obviousness: hence `population_mean`.]{.aside}
+The second requirement is also straightforward. I can just calculate `data_vector`'s mean---by definition, it's the population mean. [For self-evident reasons, `ani.lln` calls it `mu`. As you can tell from my code, I prefer to trade brevity for extreme obviousness. Hence `population_mean`.]{.aside}
 
 ```{r req-mu}
 #| eval: FALSE
@@ -401,7 +402,14 @@ population_mean <- data_vector |> mean()
 The third requirement is more complicated. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
 
 ```{r req-sample-mean}
-sample_means <- 
+#| eval: FALSE
+sample_means <- data_vector
+
+for (i in seq_along(data_vector)) {
+  sample_means[i] <- data_vector |>
+    sample(replace = TRUE) |>
+    mean()
+}
 ```
 
 The final function looks like this:
@@ -423,7 +431,7 @@ in_test <- fn_lln(meow)
 ```
 
 
-### Running `fn_lln`
+### `fn_lln` in Action
 
 I also want it to have a useful default for pedagogical purposes. Six-sided dice. Coin flips are more familiar, but they're less obvious than dice, which have their numbers printed on their side.
 
