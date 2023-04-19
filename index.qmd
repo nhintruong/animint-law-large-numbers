@@ -383,13 +383,14 @@ Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
 
 Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages.
 
-The first requirement is straightforward. The dataset needs to take the form of a numeric vector that contains at least one number. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
+The first requirement is straightforward. The dataset needs to take the form of a numeric vector that contains at least one number and no `NA`s. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
 
 ```{r req-data}
 #| eval: FALSE
 validity_check <- data_vector |> 
   assertive::assert_is_numeric() |>
-  assertive::is_non_empty()
+  assertive::is_non_empty() |>
+  assertive::assert_all_are_not_na()
 ```
 
 The second requirement is also straightforward. I can just calculate `data_vector`'s mean---by definition, it's the population mean. [For self-evident reasons, `ani.lln` calls it `mu`. As you can tell from my code, I prefer to trade brevity for extreme obviousness. Hence `population_mean`.]{.aside}
@@ -399,29 +400,64 @@ The second requirement is also straightforward. I can just calculate `data_vecto
 population_mean <- data_vector |> mean()
 ```
 
-The third requirement is more complicated. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
+The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
+
+The `sampling` argument lets `fn_lln` know both the sample size and how often `data_vector` should be sampled, up to `data_vector`'s length. A for loop does the sampling, and then `sample_tbl` stores the sample means as a tibble.
 
 ```{r req-sample-mean}
 #| eval: FALSE
-sample_means <- data_vector
+sample_means <- vector(mode = numeric,
+                       length = sampling)
+
+is_greater_than(x = sampling,
+                y = data_vector,
+                severity = "stop")
 
 for (i in seq_along(data_vector)) {
   sample_means[i] <- data_vector |>
     sample(replace = TRUE) |>
     mean()
 }
+
+sample_tbl <- sample_means |> as_tibble()
+```
+
+The fourth requirement takes our population mean and sample means and constructs an animated plot that showcases the LLN.
+
+```{r req-plot-lln}
+#| eval: FALSE
+
 ```
 
 The final function looks like this:
 
 ```{r fun-lln}
-fn_lln <- function(data_vector){
+fn_lln <- function(data_vector, sampling){
   # make sure dataset is a numeric vector
   validity_check <- data_vector |> 
   assertive::assert_is_numeric()
   
   # calculate population mean
   population_mean <- data_vector |> mean()
+  
+  # create vector to store sample means
+  sample_means <- vector(mode = numeric,
+                       length = sampling)
+  
+  # if sampling > data_vector, stop
+  is_greater_than(x = sampling,
+                y = data_vector,
+                severity = "stop")
+  
+  # generate sample means
+  for (i in seq_along(data_vector)) {
+  sample_means[i] <- data_vector |>
+    sample(replace = TRUE) |>
+    mean()
+  }
+  
+  # make tibble of sample means
+  sample_tbl <- sample_means |> as_tibble()
 }
 ```
 
@@ -443,7 +479,7 @@ d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
 
 ## Hard Test: Testing `fn_lln`
 
-Does `fn_lln` work right? 
+Does `fn_lln` work right? Let's see.
 
 
 
