@@ -482,6 +482,65 @@ d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
 Does `fn_lln` work right? Let's see.
 
 
+### Testing in Pieces
+
+Let's test each requirement piece by piece. First, let's ensure that the validity check is working right. `fn_lln` needs to accept a vector like `d6` (which is numeric, non-empty, and contains no `NA` values).
+
+```{r test-validity-check}
+fn_lln <- function(data_vector){
+  # make sure dataset is a numeric vector
+  validity_check <- data_vector |> 
+  assertive::assert_is_numeric()
+  
+  # calculate population mean
+  population_mean <<- data_vector |> mean()
+}
+
+test_that("accepts numeric non-empty vectors that contain no NA values", {
+  expect_no_condition(
+    fn_lln(data_vector = d6))
+})
+
+fn_lln(d6)
+```
+
+It also needs to reject vectors that are non-numeric, empty, and contains `NA` values.
+
+```{r tvc-2}
+# non-numeric
+d24 <- sample(letters, size = 100, replace = TRUE)
+
+# empty
+d0 <- vector() |> as.numeric()
+
+# contains NAs
+dNA <- c(NA, NA, 1) |> as.numeric()
+
+test_that("throws error message when using data_vector = non-numeric, empty, or contains NA", {
+  expect_error(
+    fn_lln(data_vector = d24) |
+      ffn_lln(data_vector = d0) |
+      ffn_lln(data_vector = dNA))
+})
+```
+
+Which it does. Nice.
+
+Next, we need to ensure that `population_mean` correctly generates the population mean.
+
+```{r tvc-3}
+d1 <- c(1)
+
+fn_lln(d1)
+
+test_that("correctly generates population mean", {
+  fn_lln(1)
+  expect_equal(population_mean, 1)
+})
+
+```
+
+
 
 ## Appendix: Observations
 
