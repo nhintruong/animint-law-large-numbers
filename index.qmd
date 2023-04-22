@@ -435,7 +435,9 @@ The final function looks like this:
 fn_lln <- function(data_vector, sampling){
   # make sure dataset is a numeric vector
   validity_check <- data_vector |> 
-  assertive::assert_is_numeric()
+  assertive::assert_is_numeric() |>
+  assertive::is_non_empty() |>
+  assertive::assert_all_are_not_na()
   
   # calculate population mean
   population_mean <- data_vector |> mean()
@@ -493,7 +495,7 @@ fn_lln <- function(data_vector){
   assertive::assert_is_numeric()
   
   # calculate population mean
-  population_mean <<- data_vector |> mean()
+  population_mean <- data_vector |> mean()
 }
 
 test_that("accepts numeric non-empty vectors that contain no NA values", {
