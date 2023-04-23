@@ -362,7 +362,7 @@ The law of large numbers, also called the weak law of large numbers, was named b
 
 Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law have changed over the centuries. For our purposes, those details are largely irrelevant. (Also, I know my limits---there's no way I can explain the LLN in a manner satisfactory to a mathematician.) Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
 
-[^llnh]: There's some apparent disagreement on what counts as the beginning of the LLN's history:
+[^llnh]: Some histories:
 
     - M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.
     - E. Seneta. [A Tricentenary history of the Law of Large Numbers](https://doi.org/10.3150/12-BEJSP12). _Bernoulli_. 2013.
@@ -378,7 +378,7 @@ Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
 
 1. The ability to read some set of data;
 2. The ability to generate the population mean for that data;
-3. The ability to continuously samples from the aforementioned data set and generate sample means, as well as a way to make it stop; and
+3. The ability to continuously sample from the aforementioned data set and generate sample means, as well as a way to make it stop; and
 4. A plot that visually indicates the population mean, graphs out the sample means as they are generated, and updates _n_ as it increases.
 
 Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages.
@@ -402,23 +402,23 @@ population_mean <- data_vector |> mean()
 
 The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
 
-The `sampling` argument lets `fn_lln` know both the sample size and how often `data_vector` should be sampled, up to `data_vector`'s length. A for loop does the sampling, and then `sample_tbl` stores the sample means as a tibble.
+The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_tbl` stores the sample means as a tibble.
 
 ```{r req-sample-mean}
 #| eval: FALSE
-sample_means <- vector(mode = numeric,
+
+# empty vector
+sample_means <- vector(mode = "numeric",
                        length = sampling)
 
-is_greater_than(x = sampling,
-                y = data_vector,
-                severity = "stop")
-
+# random sampling
 for (i in seq_along(data_vector)) {
   sample_means[i] <- data_vector |>
     sample(replace = TRUE) |>
     mean()
 }
 
+# generate tibble
 sample_tbl <- sample_means |> as_tibble()
 ```
 
@@ -426,7 +426,10 @@ The fourth requirement takes our population mean and sample means and constructs
 
 ```{r req-plot-lln}
 #| eval: FALSE
+lln_plot <- sample_tbl |> ggplot() +
+  aes(x = )
 
+side_plot <- 
 ```
 
 The final function looks like this:
@@ -461,11 +464,6 @@ fn_lln <- function(data_vector, sampling){
   # make tibble of sample means
   sample_tbl <- sample_means |> as_tibble()
 }
-```
-
-```{r informal-test}
-meow <- sample(letters, size = 10, replace = TRUE)
-in_test <- fn_lln(meow)
 ```
 
 
@@ -608,3 +606,10 @@ Major mistakes I made while doing these tests and then subsequently caught. This
 My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using `c_across()` and then messing up the selection syntax, but I didn't really have the time to experiment and check.
 
 I took a long time figuring out the details of the heatmap. The code is straightforward, but that is the result of a long process of experimentation. Most of this was because I was unfamiliar with both heatmaps and the functions necessary for combinatorics (e.g. I was unaware of `expand_grid()`). But it was a good learning experience.
+
+
+### Medium Test
+
+Here's what my for loop does. First, it samples a datum and produces the mean, which is just the datum itself. Then it replaces that datum, samples 2 data points, and produces a mean. Then it samples 3 data points, then 4, and so on until the function tells it to stop.
+
+My initial for loop didn't do that. I first noticed that my sample means didn't seem to be converging as the LLN said it would. Then I noticed a much more obvious problem: `d6` consists solely of integers, so why was the first mean not an integer as well? Something was clearly wrong.

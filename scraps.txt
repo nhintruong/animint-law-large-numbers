@@ -148,6 +148,31 @@ animint(demon_discrete)
 
 </details>
 
+##########
+
+The `sample_size` argument lets `fn_lln` know the maximum sample size, while the `sampling` argument lets `fn_lln` know how often `data_vector` should be sampled.
+
+##########
+
+d6 <- sample(x = 1:6, size = 10, replace = TRUE)
+
+data_vector <- d6
+
+population_mean <- data_vector |> mean()
+
+# empty vector
+sample_means <- vector(mode = "numeric",
+                       length = 10)
+
+# random sampling
+for (i in seq_along(data_vector)) {
+  sample_means[i] <- data_vector |>
+    sample(replace = TRUE)
+}
+
+# generate tibble
+sample_tbl <- sample_means |> tibble::as_tibble()
+
 
 # Scraps from App
 
