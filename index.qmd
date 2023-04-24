@@ -402,7 +402,7 @@ population_mean <- data_vector |> mean()
 
 The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
 
-The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_tbl` stores the sample means as a tibble.
+The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_tbl` stores both _n_ and the sample means as a dataframe.
 
 ```{r req-sample-mean}
 #| eval: FALSE
@@ -413,23 +413,31 @@ sample_means <- vector(mode = "numeric",
 
 # random sampling
 for (i in seq_along(data_vector)) {
-  sample_means[i] <- data_vector |>
-    sample(replace = TRUE) |>
+  sample_means[i] <- data_vector |> 
+    sample(size = i, replace = TRUE) |> 
     mean()
 }
 
-# generate tibble
-sample_tbl <- sample_means |> as_tibble()
+# generate df
+sample_tbl <- sample_means |> 
+  data.frame() |>
+  tibble::rowid_to_column(var = "n")
 ```
 
-The fourth requirement takes our population mean and sample means and constructs an animated plot that showcases the LLN.
+The fourth requirement takes our population mean and sample means and constructs a plot that showcases the LLN. Constructing a static plot is straightforward, but constructing an animated plot is somewhat more difficult. By default, `animint2` only plots 
+
+```{r req-list-points}
+
+```
 
 ```{r req-plot-lln}
 #| eval: FALSE
-lln_plot <- sample_tbl |> ggplot() +
-  aes(x = )
-
-side_plot <- 
+static_lln_plot <- sample_tbl |> 
+  ggplot() +
+  aes(x = n, y = sample_tbl$sample_means) + 
+  labs(y = "sample mean") +
+  geom_point(showSelected = "n", alpha = 0.5) +
+  geom_hline(yintercept = population_mean, colour = "red")
 ```
 
 The final function looks like this:
