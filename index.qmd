@@ -426,6 +426,8 @@ sample_tbl <- sample_means |>
 
 The fourth requirement takes our population mean and sample means and constructs a plot that showcases the LLN. Constructing a static plot is straightforward, but constructing an animated plot is somewhat more difficult. By default, `animint2` only plots 
 
+List of data tables idiom
+
 ```{r req-list-points}
 
 ```
