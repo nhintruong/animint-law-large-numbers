@@ -1,7 +1,7 @@
 library(animint2)
 
 set.seed(120)
-d6 <- sample(x = 1:6, size = 900, replace = TRUE)
+d6 <- sample(x = 1:6, size = 5, replace = TRUE)
 
 data_vector <- d6
 
@@ -12,7 +12,13 @@ sample_means <- vector(mode = "numeric",
                        length = 5)
 
 # random sampling
-for (i in seq_along(data_vector)) {
+# for (i in seq_along(data_vector)) {
+#   sample_means[i] <- data_vector |> 
+#     sample(size = i, replace = TRUE) |> 
+#     mean()
+# }
+
+for (i in 1:sampling) {
   sample_means[i] <- data_vector |> 
     sample(size = i, replace = TRUE) |> 
     mean()

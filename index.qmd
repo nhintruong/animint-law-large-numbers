@@ -412,7 +412,7 @@ sample_means <- vector(mode = "numeric",
                        length = sampling)
 
 # random sampling and mean generation
-for (i in seq_along(data_vector)) {
+for (i in 1:sampling) {
   sample_means[i] <- data_vector |> 
     sample(size = i, replace = TRUE) |> 
     mean()
@@ -445,7 +445,7 @@ ani_lln_plot$time <- list(variable = "n", ms = 75)
 ani_lln_plot
 ```
 
-As mentioned, I also want useful defaults for `fn_lln`. Let's have `data_vector` load a pseudo-random sample of six-sided dice by default. And let's generate sample means from that sample.
+As mentioned, I also want useful defaults for `fn_lln`. Let's have `data_vector` load a pseudo-random sample of six-sided dice by default.
 
 ```{r fun-defaults-lln}
 #| eval: FALSE
@@ -474,7 +474,7 @@ fn_lln <- function(data_vector = d6, sampling = 500){
                          length = sampling)
 
   # random sampling and mean generation
-  for (i in seq_along(data_vector)) {
+  for (i in 1:sampling) {
     sample_means[i] <- data_vector |> 
       sample(size = i, replace = TRUE) |> 
       mean()
@@ -506,12 +506,17 @@ fn_lln <- function(data_vector = d6, sampling = 500){
 
 ### `fn_lln` in Action
 
-All right, here it is:
+All right. Before we get started: after you've finished looking at an animated plot, I recommend hiding the selection menu that corresponds to that plot. Otherwise, if you use Firefox, it'll be difficult to read the rest of this examination. [See [the scrolling bug issue](https://github.com/tdhock/animint2/issues/90) for more details.]{.aside}
 
-```{r fun-lln-show}
+First, let's look what `fn_lln` produces by default:
+
+```{r fun-lln-show-default}
 fn_lln()
 ```
 
+The bold red line is the population mean. The grey lines graph the sample means as they converge towards the population mean. The red dot moves when _n_ changes. Pausing the animation lets you change _n_ and move the red dot, allowing you to see how close or far the sample mean is to the population mean at some particular sample size.
+
+We may also be interested in seeing.
 
 
 
