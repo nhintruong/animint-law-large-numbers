@@ -400,7 +400,7 @@ The second requirement is also straightforward. I can just calculate `data_vecto
 population_mean <- data_vector |> mean()
 ```
 
-The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
+The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a dataframe to use later on.
 
 The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_df` stores both _n_ and the sample means as a dataframe.
 
@@ -445,16 +445,20 @@ ani_lln_plot$time <- list(variable = "n", ms = 75)
 ani_lln_plot
 ```
 
-As mentioned, I also want useful defaults for `fn_lln`. Let's have `data_vector` load a pseudo-random sample of six-sided dice by default. And let's 
+As mentioned, I also want useful defaults for `fn_lln`. Let's have `data_vector` load a pseudo-random sample of six-sided dice by default. And let's generate sample means from that sample.
 
 ```{r fun-defaults-lln}
+#| eval: FALSE
 d6 <- sample(x = 1:6, size = 500, replace = TRUE)
 ```
 
 The final function looks like this:
 
 ```{r fun-lln}
-fn_lln <- function(data_vector, sampling){
+fn_lln <- function(data_vector = d6, sampling = 500){
+  
+  # default data_vector
+  d6 <- sample(x = 1:6, size = 500, replace = TRUE)
   
   # make sure dataset is a numeric vector
   validity_check <- data_vector |> 
@@ -502,14 +506,16 @@ fn_lln <- function(data_vector, sampling){
 
 ### `fn_lln` in Action
 
-I also want it to have a useful default for pedagogical purposes. Six-sided dice. Coin flips are more familiar, but they're less obvious than dice, which have their numbers printed on their side.
+All right, here it is:
 
-```{r fun-data-d6}
-d6 <- sample(x = 1:6, size = 5000, replace = TRUE)
+```{r fun-lln-show}
+fn_lln()
 ```
 
 
 
+
+<!--
 ## Hard Test: Testing `fn_lln`
 
 Does `fn_lln` work right? Let's see.
@@ -521,41 +527,41 @@ BUG: does not correctly sample when `data_vector$size` < `sampling`. grrrr
 Let's test each requirement piece by piece. First, let's ensure that the validity check is working right. `fn_lln` needs to accept a vector like `d6` (which is numeric, non-empty, and contains no `NA` values).
 
 ```{r test-validity-check}
-fn_lln <- function(data_vector){
-  # make sure dataset is a numeric vector
-  validity_check <- data_vector |> 
-  assertive::assert_is_numeric()
-  
-  # calculate population mean
-  population_mean <- data_vector |> mean()
-}
-
-test_that("accepts numeric non-empty vectors that contain no NA values", {
-  expect_no_condition(
-    fn_lln(data_vector = d6))
-})
-
-fn_lln(d6)
+# fn_lln <- function(data_vector){
+#   # make sure dataset is a numeric vector
+#   validity_check <- data_vector |> 
+#   assertive::assert_is_numeric()
+#   
+#   # calculate population mean
+#   population_mean <- data_vector |> mean()
+# }
+# 
+# test_that("accepts numeric non-empty vectors that contain no NA values", {
+#   expect_no_condition(
+#     fn_lln(data_vector = d6))
+# })
+# 
+# fn_lln(d6)
 ```
 
 It also needs to reject vectors that are non-numeric, empty, and contains `NA` values.
 
 ```{r tvc-2}
 # non-numeric
-d24 <- sample(letters, size = 100, replace = TRUE)
-
-# empty
-d0 <- vector() |> as.numeric()
-
-# contains NAs
-dNA <- c(NA, NA, 1) |> as.numeric()
-
-test_that("throws error message when using data_vector = non-numeric, empty, or contains NA", {
-  expect_error(
-    fn_lln(data_vector = d24) |
-      ffn_lln(data_vector = d0) |
-      ffn_lln(data_vector = dNA))
-})
+# d24 <- sample(letters, size = 100, replace = TRUE)
+# 
+# # empty
+# d0 <- vector() |> as.numeric()
+# 
+# # contains NAs
+# dNA <- c(NA, NA, 1) |> as.numeric()
+# 
+# test_that("throws error message when using data_vector = non-numeric, empty, or contains NA", {
+#   expect_error(
+#     fn_lln(data_vector = d24) |
+#       ffn_lln(data_vector = d0) |
+#       ffn_lln(data_vector = dNA))
+# })
 ```
 
 Which it does. Nice.
@@ -563,19 +569,20 @@ Which it does. Nice.
 Next, we need to ensure that `population_mean` correctly generates the population mean.
 
 ```{r tvc-3}
-d1 <- c(1)
-
-fn_lln(d1)
-
-test_that("correctly generates population mean", {
-  fn_lln(1)
-  expect_equal(population_mean, 1)
-})
+# d1 <- c(1)
+# 
+# fn_lln(d1)
+# 
+# test_that("correctly generates population mean", {
+#   fn_lln(1)
+#   expect_equal(population_mean, 1)
+# })
 
 ```
+-->
 
 
-
+<!--
 ## Appendix: Observations
 
 Here are some things that I noticed while reading the documentation and playing around with the package. Since I'm new to `animint2`, I make no claim that my observations are novel, noteworthy, or even correct. But I think they're still useful. My guess is that many users of `animint2` are also "new" to it, in the sense that they're working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs.
@@ -647,3 +654,4 @@ I took a long time figuring out the details of the heatmap. The code is straight
 Here's what my for loop does. First, it samples a datum and produces the mean, which is just the datum itself. Then it replaces that datum, samples 2 data points, and produces a mean. Then it samples 3 data points, then 4, and so on until the function tells it to stop.
 
 My initial for loop didn't do that. I first noticed that my sample means didn't seem to be converging as the LLN said it would. Then I noticed a much more obvious problem: `d6` consists solely of integers, so why was the first mean not an integer as well? Something was clearly wrong.
+-->
