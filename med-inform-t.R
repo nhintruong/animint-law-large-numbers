@@ -1,7 +1,7 @@
 library(animint2)
 
 set.seed(120)
-d6 <- sample(x = 1:6, size = 500, replace = TRUE)
+d6 <- sample(x = 1:6, size = 3, replace = TRUE)
 
 data_vector <- d6
 
@@ -46,6 +46,7 @@ static_lln_plot <- sample_df |>
   geom_point(showSelected = "n", colour = "red") +
   geom_line(alpha = 0.5) +
   geom_hline(yintercept = population_mean, colour = "red")
+static_lln_plot
 
 # plot animation
 ani_lln_plot <- animint(static_lln_plot)

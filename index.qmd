@@ -372,16 +372,16 @@ Importantly, that's how the [LLN `animation` demonstration](https://yihui.org/an
 
 ### Function Construction
 
-The `lln.ani` function [takes six arguments](https://github.com/yihui/animation/blob/main/R/lln.ani.R) and has useful defaults for them all. That's a good goal to have---a user should be able to run the LLN function without any arguments and produce something useful to teach with.
+The `lln.ani` function [has useful defaults for all its arguments](https://github.com/yihui/animation/blob/main/R/lln.ani.R). That's a good goal to have---a user should be able to run the LLN function without any arguments and produce something useful to teach with.
 
 Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
 
 1. The ability to read some set of data;
 2. The ability to generate the population mean for that data;
 3. The ability to continuously sample from the aforementioned data set and generate sample means, as well as a way to make it stop; and
-4. A plot that visually indicates the population mean, graphs out the sample means as they are generated, and updates _n_ as it increases.
+4. A plot that visually indicates the population mean, updates _n_ as it increases, and graphs out the sample means.
 
-Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages.
+Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages. [I could also write my own error messages, but I like `assertive`'s, and code with my own error messages would be messier.]{.aside}
 
 The first requirement is straightforward. The dataset needs to take the form of a numeric vector that contains at least one number and no `NA`s. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
 
@@ -402,50 +402,60 @@ population_mean <- data_vector |> mean()
 
 The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a tibble to use later on.
 
-The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_tbl` stores both _n_ and the sample means as a dataframe.
+The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_df` stores both _n_ and the sample means as a dataframe.
 
 ```{r req-sample-mean}
 #| eval: FALSE
 
-# empty vector
+# create empty vector to put sample means into
 sample_means <- vector(mode = "numeric",
                        length = sampling)
 
-# random sampling
+# random sampling and mean generation
 for (i in seq_along(data_vector)) {
   sample_means[i] <- data_vector |> 
     sample(size = i, replace = TRUE) |> 
     mean()
 }
 
-# generate df
-sample_tbl <- sample_means |> 
+# generate n and a df to use for animint
+sample_df <- sample_means |> 
   data.frame() |>
   tibble::rowid_to_column(var = "n")
 ```
 
-The fourth requirement takes our population mean and sample means and constructs a plot that showcases the LLN. Constructing a static plot is straightforward, but constructing an animated plot is somewhat more difficult. By default, `animint2` only plots 
-
-List of data tables idiom
-
-```{r req-list-points}
-
-```
+The fourth requirement takes our population mean and sample means and constructs an animated plot that showcases the LLN.
 
 ```{r req-plot-lln}
 #| eval: FALSE
-static_lln_plot <- sample_tbl |> 
+
+# make lln plot
+lln_plot <- sample_df |> 
   ggplot() +
-  aes(x = n, y = sample_tbl$sample_means) + 
+  aes(x = n, y = sample_df$sample_means) + 
   labs(y = "sample mean") +
-  geom_point(showSelected = "n", alpha = 0.5) +
-  geom_hline(yintercept = population_mean, colour = "red")
+  geom_point(showSelected = "n", colour = "red") +
+  geom_line(alpha = 0.5) +
+  geom_hline(yintercept = population_mean, 
+             colour = "red")
+
+# animate lln plot
+ani_lln_plot <- animint(lln_plot)
+ani_lln_plot$time <- list(variable = "n", ms = 75)
+ani_lln_plot
+```
+
+As mentioned, I also want useful defaults for `fn_lln`. Let's have `data_vector` load a pseudo-random sample of six-sided dice by default. And let's 
+
+```{r fun-defaults-lln}
+d6 <- sample(x = 1:6, size = 500, replace = TRUE)
 ```
 
 The final function looks like this:
 
 ```{r fun-lln}
 fn_lln <- function(data_vector, sampling){
+  
   # make sure dataset is a numeric vector
   validity_check <- data_vector |> 
   assertive::assert_is_numeric() |>
@@ -455,24 +465,37 @@ fn_lln <- function(data_vector, sampling){
   # calculate population mean
   population_mean <- data_vector |> mean()
   
-  # create vector to store sample means
-  sample_means <- vector(mode = numeric,
-                       length = sampling)
-  
-  # if sampling > data_vector, stop
-  is_greater_than(x = sampling,
-                y = data_vector,
-                severity = "stop")
-  
-  # generate sample means
+  # create empty vector to put sample means into
+  sample_means <- vector(mode = "numeric",
+                         length = sampling)
+
+  # random sampling and mean generation
   for (i in seq_along(data_vector)) {
-  sample_means[i] <- data_vector |>
-    sample(replace = TRUE) |>
-    mean()
-  }
+    sample_means[i] <- data_vector |> 
+      sample(size = i, replace = TRUE) |> 
+      mean()
+    }
+
+  # generate n and a df to use for animint
+  sample_df <- sample_means |> 
+    data.frame() |>
+    tibble::rowid_to_column(var = "n")
   
-  # make tibble of sample means
-  sample_tbl <- sample_means |> as_tibble()
+  # make lln plot
+  lln_plot <- sample_df |> 
+    ggplot() +
+    aes(x = n, y = sample_df$sample_means) + 
+    labs(y = "sample mean") +
+    geom_point(showSelected = "n", colour = "red") +
+    geom_line(alpha = 0.5) +
+    geom_hline(yintercept = population_mean, 
+               colour = "red")
+
+  # animate lln plot
+  ani_lln_plot <- animint(lln_plot)
+  ani_lln_plot$time <- list(variable = "n", ms = 75)
+  ani_lln_plot
+
 }
 ```
 
@@ -482,7 +505,7 @@ fn_lln <- function(data_vector, sampling){
 I also want it to have a useful default for pedagogical purposes. Six-sided dice. Coin flips are more familiar, but they're less obvious than dice, which have their numbers printed on their side.
 
 ```{r fun-data-d6}
-d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
+d6 <- sample(x = 1:6, size = 5000, replace = TRUE)
 ```
 
 
@@ -491,6 +514,7 @@ d6 <- sample(x = 1:6, size = 10000, replace = TRUE)
 
 Does `fn_lln` work right? Let's see.
 
+BUG: does not correctly sample when `data_vector$size` < `sampling`. grrrr
 
 ### Testing in Pieces
 
