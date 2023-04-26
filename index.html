@@ -99,6 +99,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#about-the-lln" id="toc-about-the-lln" class="nav-link" data-scroll-target="#about-the-lln">About the LLN</a></li>
   <li><a href="#function-construction" id="toc-function-construction" class="nav-link" data-scroll-target="#function-construction">Function Construction</a></li>
   <li><a href="#fn_lln-in-action" id="toc-fn_lln-in-action" class="nav-link" data-scroll-target="#fn_lln-in-action"><code>fn_lln</code> in Action</a></li>
+  <li><a href="#differences-between-fn_lln-and-lln.ani" id="toc-differences-between-fn_lln-and-lln.ani" class="nav-link" data-scroll-target="#differences-between-fn_lln-and-lln.ani">Differences between <code>fn_lln</code> and <code>lln.ani</code></a></li>
+  </ul></li>
+  <li><a href="#appendix-observations" id="toc-appendix-observations" class="nav-link" data-scroll-target="#appendix-observations">Appendix: Observations</a>
+  <ul class="collapse">
+  <li><a href="#thoughts" id="toc-thoughts" class="nav-link" data-scroll-target="#thoughts">Thoughts</a></li>
+  <li><a href="#possible-bugs" id="toc-possible-bugs" class="nav-link" data-scroll-target="#possible-bugs">Possible Bugs?</a></li>
+  <li><a href="#possible-ways-to-get-around-problems" id="toc-possible-ways-to-get-around-problems" class="nav-link" data-scroll-target="#possible-ways-to-get-around-problems">Possible Ways to Get Around Problems</a></li>
+  </ul></li>
+  <li><a href="#appendix-my-mistakes" id="toc-appendix-my-mistakes" class="nav-link" data-scroll-target="#appendix-my-mistakes">Appendix: My Mistakes</a>
+  <ul class="collapse">
+  <li><a href="#easy-test" id="toc-easy-test" class="nav-link" data-scroll-target="#easy-test">Easy Test</a></li>
+  <li><a href="#medium-test" id="toc-medium-test" class="nav-link" data-scroll-target="#medium-test">Medium Test</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -504,7 +516,7 @@ position_jitter </code></pre>
 <ol type="1">
 <li>The ability to read some set of data;</li>
 <li>The ability to generate the population mean for that data;</li>
-<li>The ability to continuously sample from the aforementioned data set and generate sample means, as well as a way to make it stop; and</li>
+<li>The ability to continuously sample from the aforementioned dataset and generate sample means, as well as a way to make it stop; and</li>
 <li>A plot that visually indicates the population mean, updates <em>n</em> as it increases, and graphs out the sample means.</li>
 </ol>
 <div class="page-columns page-full"><p>Furthermore, though this isn’t necessary for the function to work, I want <code>fn_lln</code> to output messages that are useful for someone who’s unfamiliar with R. I’ll use the <code>assertive</code> package to do this instead of relying on base R’s functions, which sometimes outputs arcane error messages. </p><div class="no-row-height column-margin column-container"><span class="">I could also write my own error messages, but I like <code>assertive</code>’s, and code with my own error messages would be messier.</span></div></div>
@@ -515,7 +527,7 @@ position_jitter </code></pre>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">is_non_empty</span>() <span class="sc">|&gt;</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">assert_all_are_not_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="page-columns page-full"><p>The second requirement is also straightforward. I can just calculate <code>data_vector</code>’s mean—by definition, it’s the population mean. </p><div class="no-row-height column-margin column-container"><span class="">For self-evident reasons, <code>ani.lln</code> calls it <code>mu</code>. As you can tell from my code, I prefer to trade brevity for extreme obviousness. Hence <code>population_mean</code>.</span></div></div>
+<p>The second requirement is also straightforward. I can just calculate <code>data_vector</code>’s mean—by definition, it’s the population mean.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>population_mean <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -527,7 +539,7 @@ position_jitter </code></pre>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">length =</span> sampling)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># random sampling and mean generation</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(data_vector)) {</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>sampling) {</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  sample_means[i] <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> </span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample</span>(<span class="at">size =</span> i, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>()</span>
@@ -544,7 +556,7 @@ position_jitter </code></pre>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>lln_plot <span class="ot">&lt;-</span> sample_df <span class="sc">|&gt;</span> </span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> sample_df<span class="sc">$</span>sample_means) <span class="sc">+</span> </span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"sample mean"</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> ylab) <span class="sc">+</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">showSelected =</span> <span class="st">"n"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> population_mean, </span>
@@ -555,65 +567,67 @@ position_jitter </code></pre>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>ani_lln_plot<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">variable =</span> <span class="st">"n"</span>, <span class="at">ms =</span> <span class="dv">75</span>)</span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>ani_lln_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As mentioned, I also want useful defaults for <code>fn_lln</code>. Let’s have <code>data_vector</code> load a pseudo-random sample of six-sided dice by default.</p>
+<p>As mentioned, I also want useful defaults for <code>fn_lln</code>. Let’s have <code>data_vector</code> load a pseudo-random sample of six-sided dice rolls by default.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>d6 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The final function looks like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fn_lln <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">data_vector =</span> d6, <span class="at">sampling =</span> <span class="dv">500</span>){</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># default data_vector</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  d6 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make sure dataset is a numeric vector</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  validity_check <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">assert_is_numeric</span>() <span class="sc">|&gt;</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">is_non_empty</span>() <span class="sc">|&gt;</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">assert_all_are_not_na</span>()</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate population mean</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  population_mean <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create empty vector to put sample means into</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  sample_means <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">"numeric"</span>,</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">length =</span> sampling)</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># random sampling and mean generation</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(data_vector)) {</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    sample_means[i] <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> </span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="at">size =</span> i, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>()</span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate n and a df to use for animint</span></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>  sample_df <span class="ot">&lt;-</span> sample_means <span class="sc">|&gt;</span> </span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">|&gt;</span></span>
-<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">"n"</span>)</span>
-<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make lln plot</span></span>
-<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  lln_plot <span class="ot">&lt;-</span> sample_df <span class="sc">|&gt;</span> </span>
-<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> sample_df<span class="sc">$</span>sample_means) <span class="sc">+</span> </span>
-<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"sample mean"</span>) <span class="sc">+</span></span>
-<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">showSelected =</span> <span class="st">"n"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> population_mean, </span>
-<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">"red"</span>)</span>
-<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># animate lln plot</span></span>
-<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>  ani_lln_plot <span class="ot">&lt;-</span> <span class="fu">animint</span>(lln_plot)</span>
-<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>  ani_lln_plot<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">variable =</span> <span class="st">"n"</span>, <span class="at">ms =</span> <span class="dv">75</span>)</span>
-<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>  ani_lln_plot</span>
-<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fn_lln <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">data_vector =</span> d6, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sampling =</span> <span class="dv">500</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">"sample mean"</span>){</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># default data_vector</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  d6 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make sure dataset is a numeric vector</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  validity_check <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">assert_is_numeric</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">is_non_empty</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  assertive<span class="sc">::</span><span class="fu">assert_all_are_not_na</span>()</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate population mean</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  population_mean <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create empty vector to put sample means into</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  sample_means <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">"numeric"</span>,</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>                         <span class="at">length =</span> sampling)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># random sampling and mean generation</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>sampling) {</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    sample_means[i] <span class="ot">&lt;-</span> data_vector <span class="sc">|&gt;</span> </span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sample</span>(<span class="at">size =</span> i, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mean</span>()</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate n and a df to use for animint</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>  sample_df <span class="ot">&lt;-</span> sample_means <span class="sc">|&gt;</span> </span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>    tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">"n"</span>)</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make lln plot</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>  lln_plot <span class="ot">&lt;-</span> sample_df <span class="sc">|&gt;</span> </span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">y =</span> sample_df<span class="sc">$</span>sample_means) <span class="sc">+</span> </span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> ylab) <span class="sc">+</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">showSelected =</span> <span class="st">"n"</span>, <span class="at">colour =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> population_mean, </span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> <span class="st">"red"</span>)</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># animate lln plot</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>  ani_lln_plot <span class="ot">&lt;-</span> <span class="fu">animint</span>(lln_plot)</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>  ani_lln_plot<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">variable =</span> <span class="st">"n"</span>, <span class="at">ms =</span> <span class="dv">75</span>)</span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>  ani_lln_plot</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="fn_lln-in-action" class="level3">
+<section id="fn_lln-in-action" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="fn_lln-in-action"><code>fn_lln</code> in Action</h3>
-<p>All right, here it is:</p>
-<details>
-<div class="cell" data-layout-align="center">
+<div class="page-columns page-full"><p>All right. Before we get started: after you’ve finished looking at an animated plot, I recommend hiding the selection menu that corresponds to that plot. Otherwise, if you use Firefox, it’ll be difficult to read the rest of this examination. </p><div class="no-row-height column-margin column-container"><span class="">See the <a href="https://github.com/tdhock/animint2/issues/90">scrolling bug issue</a> for more details.</span></div></div>
+<p>First, let’s look at what <code>fn_lln</code> produces by default:</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_lln</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p></p>
@@ -621,8 +635,56 @@ position_jitter </code></pre>
 <script>var funllnshowdefault = new animint("#funllnshowdefault", "funllnshowdefault/plot.json");</script>
 </div>
 </div>
-</details>
-<p>Note that</p>
+<p>The bold red line is the population mean. The grey lines graph the sample means as they converge towards the population mean. The red dot moves when <em>n</em> changes. Pausing the animation lets you change <em>n</em> and move the red dot, allowing you to see how close or far the sample mean is to the population mean at some particular sample size.</p>
+<p>Next, we’ll look at what happens when a user uses one argument but not the others. Recall that the three default arguments are <code>data_vector = d6</code>, <code>sampling = 500</code>, and <code>ylab = "sample mean"</code>.</p>
+<p>Let’s replace <code>data_vector</code> with a pseudo-random sample of twelve-sided dice rolls:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>d12 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">size =</span> <span class="dv">250</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_lln</span>(<span class="at">data_vector =</span> d12)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p></p>
+<div id="funllnshowdvchange"></div>
+<script>var funllnshowdvchange = new animint("#funllnshowdvchange", "funllnshowdvchange/plot.json");</script>
+</div>
+</div>
+<p>Now, let’s replace <code>sampling</code>. We’ll sample <code>d6</code> 250 times instead of the default 500:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_lln</span>(<span class="at">sampling =</span> <span class="dv">250</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p></p>
+<div id="funllnshowsamplingchange"></div>
+<script>var funllnshowsamplingchange = new animint("#funllnshowsamplingchange", "funllnshowsamplingchange/plot.json");</script>
+</div>
+</div>
+<p>We can also just replace the label for the y-axis via <code>ylab</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_lln</span>(<span class="at">ylab =</span> <span class="st">"average dice rolls"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p></p>
+<div id="funllnshowylabchange"></div>
+<script>var funllnshowylabchange = new animint("#funllnshowylabchange", "funllnshowylabchange/plot.json");</script>
+</div>
+</div>
+<div class="page-columns page-full"><p>Finally, let’s take a look at using all three arguments. We’ll use actual empirical data for this: neuroticism sumscores in our previously-used Big Five dataset. And we’ll sample from those sumscores 800 times. </p><div class="no-row-height column-margin column-container"><span class="">Neuroticism refers to phenomena like vulnerability to psychological stress and poor emotional stability.</span></div></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fn_lln</span>(<span class="at">data_vector =</span> sumscores<span class="sc">$</span>neuroticism, </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">sampling =</span> <span class="dv">800</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"neuroticism"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p></p>
+<div id="funllnshowallchange"></div>
+<script>var funllnshowallchange = new animint("#funllnshowallchange", "funllnshowallchange/plot.json");</script>
+</div>
+</div>
+<p><code>fn_lln</code> seems to work great!</p>
+</section>
+<section id="differences-between-fn_lln-and-lln.ani" class="level3">
+<h3 class="anchored" data-anchor-id="differences-between-fn_lln-and-lln.ani">Differences between <code>fn_lln</code> and <code>lln.ani</code></h3>
+<p>There are some obvious differences between <code>fn_lln</code> (our LLN function for <code>animint2</code>) and the <code>lln.ani</code> function in <code>animation</code>.</p>
+<p>The most important difference is that the latter builds the plot and draws its data iteratively. Each animation is a series of plots, with each being added on top of the next. Try running <code>animation::lln.ani()</code>. You’ll see that it produces 50 plots and flips through them like a flipbook.</p>
+<p>In contrast, <code>fn_lln</code> produces the entire plot and line chart before animating the red dot. It produces one plot and updates it continuously. There’s also a minor interactive element that <code>lln.ani</code> lacks.</p>
+<p>This is not to say that <code>fn_lln</code> is worse or better than <code>lln.ani</code>. It’s just that translating <code>animation</code>’s LLN function is similar to translating a natural language—meaning is lost and meaning is gained. Regardless of its fidelity to <code>lln.ani</code>, I hope <code>fn_lln</code> will be of some use to statistics teachers and users.</p>
 <!--
 ## Hard Test: Testing `fn_lln`
 
@@ -702,83 +764,71 @@ Next, we need to ensure that `population_mean` correctly generates the populatio
 :::
 
 -->
-
-<!--
-## Appendix: Observations
-
-Here are some things that I noticed while reading the documentation and playing around with the package. Since I'm new to `animint2`, I make no claim that my observations are novel, noteworthy, or even correct. But I think they're still useful. My guess is that many users of `animint2` are also "new" to it, in the sense that they're working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs.
-
-
-### Thoughts
-
-I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work. [Fun fact: I recently realized that the second edition of the `ggplot2` book mentions `animint`.]{.aside}
-
-[`ggplot2` documentation](https://ggplot2.tidyverse.org/reference/index.html) is available as a website, but [`animint2` documentation](https://cran.r-project.org/web/packages/animint2/) is only available as a PDF. [Grumpy aside: why are PDFs R's default documentation format? It's the same with $\LaTeX$, but at least there's an obvious technical reason for that.]{.aside} Of course, there's the valuable [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). But that's more like a book than a reference site---something like a counterpart to the [`ggplot2` book](https://ggplot2-book.org/). Since the `ggplot2` reference was a lot more accessible, I found myself using their reference and only going back to the `animint2` reference when necessary.
-
-I'm not sure if I'll have enough time, and I'm not sure it's what you mean when you wrote that `animint2` will "have even more... documentation." But as part of that documentation boost, I'd like to generate a reference site for the unique features of `animint2`. I think that'd make the package more accessible to `animint2`'s users.
-
-
-### Possible Bugs?
-
-Here's a list of `animint2`'s unexpected behaviors. My mistaken observations are probably most concentrated here. It's possible that the unexpected behavior is not the fault of `animint2`, but instead the fault of another package or user error. Honestly? Probably user error.
-
-- [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is buggy and scrolls up by itself. [Technically not about `animint2` itself, but it's `animint2` adjacent.]{.aside} The effect begins happening around this sentence: "Note how we used `geom_segment` instead of `geom_bar`, but their appearance is similar."
-- It's difficult to lay out multiple plots in a grid, or on a line. Quarto will not knit them properly. My workaround is to have a codeblock for each graph. There's [an open issue](https://github.com/tdhock/animint/issues/150) about it for `animint`, but not for `animint2`. So I'm not sure if it's still a problem, or if I messed up somehow.
-- When I tried to make an interactive density plot, I was warned that "`showSelected` does not work with `StatDensity`." Items in the legend are selectable, but selecting one removes the density curve currently on screen. The end result is that only one curve shows at a time. I haven't been able to find documentation about this anywhere.
-- When I make interactive scatterplots, I'm warned that "`showSelected` only works with `position=identity`, problem: geom1_point_foobar." This is confusing, since:
-
-    + It's already the case that `position = identity`, since it's the default for `geom_point()` and `geom_jitter()`.
-    + The problem it points out is the `.tsv` file that `animint()` generates.
-    + It correctly renders the scatterplot.
-    + It passes `testthat::expect_no_warning()` and fails `expect_warning()`, despite the fact that it outputs a warning.
-
-- When I make violin plots, I'm warned that the graph is "collapsing to unique 'x' values." This [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`, possibly since the fix happened after the fork. (I'm least certain about this observation.)
-- When I try to place a static `animint2` graph in the margins, I can't place a caption, or else the graph doesn't render correctly. `column: margin` and `fig-cap` don't work well together.
-- When I try to use `geom_bin2d()`, I'm informed that "`bin2d` is not supported in `animint`. Try using `geom_tile()` and binning the data yourself." But the `animint2` reference mentions that it does support `geom_bin2d`.
-- When I use `geom_raster()`, `animint2` correctly renders it as a static graph. But it will not render the data or the legend when I use `animint2`. This [is documented](https://github.com/tdhock/animint2/issues/53).
-- When I use `geom_hex`, I'm warned that there is "no data in geom1_hex_foobar."
-
-
-### Notes and Solutions
-
-- In `ggplot2`, it's possible to plot a normal distribution without any specifying any dataframes or tibbles. This is not the case for `animint2`:
-
-
-::: {.cell}
-
-```{.r .cell-code .code-overflow-wrap}
-# works only in ggplot2
-nope_normal <- ggplot() + xlim(-5,5)
-nope_normal + stat_function(fun = dnorm)
-
-# works in animint2
-works_normal <- ggplot(data.frame(x = c(-5, 5)), 
-                        aes(x)) + 
-  stat_function(fun = dnorm)
-```
-:::
-
-
-
-
-## Appendix: My Mistakes
-
-Major mistakes I made while doing these tests and then subsequently caught. This excludes mistakes re: the number of brackets, the placement of a function, or spelling.
-
-
-### Easy Test
-
-My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using `c_across()` and then messing up the selection syntax, but I didn't really have the time to experiment and check.
-
-I took a long time figuring out the details of the heatmap. The code is straightforward, but that is the result of a long process of experimentation. Most of this was because I was unfamiliar with both heatmaps and the functions necessary for combinatorics (e.g. I was unaware of `expand_grid()`). But it was a good learning experience.
-
-
-### Medium Test
-
-Here's what my for loop does. First, it samples a datum and produces the mean, which is just the datum itself. Then it replaces that datum, samples 2 data points, and produces a mean. Then it samples 3 data points, then 4, and so on until the function tells it to stop.
-
-My initial for loop didn't do that. I first noticed that my sample means didn't seem to be converging as the LLN said it would. Then I noticed a much more obvious problem: `d6` consists solely of integers, so why was the first mean not an integer as well? Something was clearly wrong.
--->
+</section>
+</section>
+<section id="appendix-observations" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="appendix-observations">Appendix: Observations</h2>
+<p>Here are some things that I noticed while reading the documentation and playing around with the package. Since I’m new to <code>animint2</code>, I make no claim that my observations are novel, noteworthy, or even correct. But I think they’re still useful. My guess is that many users of <code>animint2</code> are also “new” to it, in the sense that they’re working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs.</p>
+<section id="thoughts" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="thoughts">Thoughts</h3>
+<div class="page-columns page-full"><p>I know that <code>animint2</code> is a fork of <code>ggplot2</code>, not an extension. But the family resemblance between <code>animint2</code> and <code>ggplot2</code> is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use <code>geom_col()</code> and then <code>geom_boxplot()</code> before checking the <a href="https://cran.r-project.org/web/packages/animint2/">reference manual</a> and realizing they were not part of <code>animint2</code>. I also foolishly tried to use packages that depend on <code>ggplot2</code>. Since I had <code>animint2</code> loaded instead, that obviously didn’t work. </p><div class="no-row-height column-margin column-container"><span class="">Fun fact: I recently realized that the second edition of the <code>ggplot2</code> book mentions <code>animint</code>.</span></div></div>
+<div class="page-columns page-full"><p><a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> documentation</a> is available as a website, but <a href="https://cran.r-project.org/web/packages/animint2/"><code>animint2</code> documentation</a> is only available as a PDF.  Of course, there’s the valuable <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html"><code>animint2</code> Manual</a>. But that’s more like a book than a reference site—something like a counterpart to the <a href="https://ggplot2-book.org/"><code>ggplot2</code> book</a>. Since the <code>ggplot2</code> reference was a lot more accessible, I found myself using their reference and only going back to the <code>animint2</code> reference when necessary.</p><div class="no-row-height column-margin column-container"><span class="">Grumpy aside: why are PDFs R’s default documentation format? It’s the same with <span class="math inline">\(\LaTeX\)</span>, but at least there’s an obvious technical reason for that.</span></div></div>
+<p>I’m not sure if I’ll have enough time, and I’m not sure it’s what you mean when you wrote that <code>animint2</code> will “have even more… documentation.” But as part of that documentation boost, I’d like to generate a reference site for the unique features of <code>animint2</code>. I think that’d make the package more accessible to <code>animint2</code>’s users.</p>
+</section>
+<section id="possible-bugs" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="possible-bugs">Possible Bugs?</h3>
+<p>Here’s a list of <code>animint2</code>’s unexpected behaviors. My mistaken observations are probably most concentrated here. It’s possible that the unexpected behavior is not the fault of <code>animint2</code>, but instead the fault of another package or user error. Honestly? Probably user error.</p>
+<ul>
+<li><p><a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html">Chapter 7</a> of the <code>animint2</code> Manual is buggy and scrolls up by itself.  The effect begins happening around this sentence: “Note how we used <code>geom_segment</code> instead of <code>geom_bar</code>, but their appearance is similar.”</p></li>
+<li><p>It’s difficult to lay out multiple plots in a grid, or on a line. Quarto will not knit them properly. My workaround is to have a codeblock for each graph. There’s <a href="https://github.com/tdhock/animint/issues/150">an open issue</a> about it for <code>animint</code>, but not for <code>animint2</code>. So I’m not sure if it’s still a problem, or if I messed up somehow.</p></li>
+<li><p>When I tried to make an interactive density plot, I was warned that “<code>showSelected</code> does not work with <code>StatDensity</code>.” Items in the legend are selectable, but selecting one removes the density curve currently on screen. The end result is that only one curve shows at a time. I haven’t been able to find documentation about this anywhere.</p></li>
+<li><p>When I make interactive scatterplots, I’m warned that “<code>showSelected</code> only works with <code>position=identity</code>, problem: geom1_point_foobar.” This is confusing, since:</p>
+<ul>
+<li>It’s already the case that <code>position = identity</code>, since it’s the default for <code>geom_point()</code> and <code>geom_jitter()</code>.</li>
+<li>The problem it points out is the <code>.tsv</code> file that <code>animint()</code> generates.</li>
+<li>It correctly renders the scatterplot.</li>
+<li>It passes <code>testthat::expect_no_warning()</code> and fails <code>expect_warning()</code>, despite the fact that it outputs a warning.</li>
+</ul></li>
+<li><p>When I make violin plots, I’m warned that the graph is “collapsing to unique ‘x’ values.” This <a href="https://github.com/tidyverse/ggplot2/pull/4654">has been fixed</a> in <code>ggplot2</code> but not in <code>animint2</code>, possibly since the fix happened after the fork. (I’m least certain about this observation.)</p></li>
+<li><p>When I try to place a static <code>animint2</code> graph in the margins, I can’t place a caption, or else the graph doesn’t render correctly. <code>column: margin</code> and <code>fig-cap</code> don’t work well together.</p></li>
+<li><p>When I try to use <code>geom_bin2d()</code>, I’m informed that “<code>bin2d</code> is not supported in <code>animint</code>. Try using <code>geom_tile()</code> and binning the data yourself.” But the <code>animint2</code> reference mentions that it does support <code>geom_bin2d</code>.</p></li>
+<li><p>When I use <code>geom_raster()</code>, <code>animint2</code> correctly renders it as a static graph. But it will not render the data or the legend when I use <code>animint2</code>. This <a href="https://github.com/tdhock/animint2/issues/53">is documented</a>.</p></li>
+<li><p>When I use <code>geom_hex</code>, I’m warned that there is “no data in geom1_hex_foobar.”</p></li>
+<li><p>It is not possible to plot a normal distribution in <code>animint2</code> without specifying any dataframes or tibbles. However, you can do so in <code>ggplot2</code>. This is not a bug, but I figured it should be noted.</p></li>
+</ul>
+<div class="no-row-height column-margin column-container"><span class="">Only in Firefox. Technically not about <code>animint2</code> itself, but it’s <code>animint2</code> adjacent.</span></div></section>
+<section id="possible-ways-to-get-around-problems" class="level3">
+<h3 class="anchored" data-anchor-id="possible-ways-to-get-around-problems">Possible Ways to Get Around Problems</h3>
+<ul>
+<li>In <code>ggplot2</code>, it’s possible to plot a normal distribution without any specifying any dataframes or tibbles. This is not the case for <code>animint2</code>. The obvious solution is to specify a dataframe or a tibble:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-overflow-wrap code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># works only in ggplot2</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>norm_distr <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>norm_distr <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># works in animint2</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>norm_distr <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)), <span class="fu">aes</span>(x)) <span class="sc">+</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>In <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html">Chapter 7</a> of the <code>animint2</code> Manual, and for other webpages with animints, the page automatically scrolls up in Firefox. Fixes can be found in the <a href="https://github.com/tdhock/animint2/issues/90">scrolling bug issue</a> in the <code>animint2</code> repository.</li>
+</ul>
+</section>
+</section>
+<section id="appendix-my-mistakes" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-my-mistakes">Appendix: My Mistakes</h2>
+<p>Major mistakes I made while doing these tests and then subsequently caught. This excludes mistakes re: the number of brackets, the placement of a function, or spelling.</p>
+<section id="easy-test" class="level3">
+<h3 class="anchored" data-anchor-id="easy-test">Easy Test</h3>
+<p>My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high—each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using <code>c_across()</code> and then messing up the selection syntax, but I didn’t really have the time to experiment and check.</p>
+<p>I took a long time figuring out the details of the heatmap. The code is straightforward, but that is the result of a long process of experimentation. Most of this was because I was unfamiliar with both heatmaps and the functions necessary for combinatorics (e.g.&nbsp;I was unaware of <code>expand_grid()</code>). It was a good learning experience.</p>
+</section>
+<section id="medium-test" class="level3">
+<h3 class="anchored" data-anchor-id="medium-test">Medium Test</h3>
+<p>Here’s what my for loop does. First, it samples a datum and produces the mean, which is just the datum itself. Then it replaces that datum, samples 2 data points (with replacement), and produces a mean. Then it samples 3 data points, then 4, and so on until the function tells it to stop.</p>
+<p>My initial for loop didn’t do that. I first noticed that my sample means didn’t seem to be converging as the LLN said it would. Then I noticed a much more obvious problem: <code>d6</code> consists solely of integers, so why was the first mean not an integer as well? Something was clearly wrong.</p>
+<p>Eventually, I figured out that <code>sample()</code> was missing its <code>size</code> argument. I set <code>size = i</code> and got the loop to work. Lesson learned: if there’s a bug, check your arguments!</p>
 </section>
 </section>
 

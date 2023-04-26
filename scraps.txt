@@ -173,6 +173,10 @@ for (i in seq_along(data_vector)) {
 # generate tibble
 sample_tbl <- sample_means |> tibble::as_tibble()
 
+##########
+
+[For self-evident reasons, `lln.ani` calls the mean `mu`. As you can tell from my code, I prefer to trade brevity for extreme obviousness. Hence `population_mean`.]{.aside}
+
 
 # Scraps from App
 
