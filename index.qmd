@@ -564,56 +564,50 @@ In contrast, `fn_lln` produces the entire plot and line chart before animating t
 This is not to say that `fn_lln` is worse or better than `lln.ani`. It's just that translating `animation`'s LLN function is similar to translating a natural language---meaning is lost and meaning is gained. Regardless of its fidelity to `lln.ani`, I hope `fn_lln` will be of some use to statistics teachers and users.
 
 
-<!--
+
 ## Hard Test: Testing `fn_lln`
 
-Does `fn_lln` work right? Let's see.
+Does `fn_lln` work right? Let's do some unit testing with `testthat` and see.
 
-BUG: does not correctly sample when `data_vector$size` < `sampling`. grrrr
 
-### Testing in Pieces
+### Do the Components Work Right?
 
-Let's test each requirement piece by piece. First, let's ensure that the validity check is working right. `fn_lln` needs to accept a vector like `d6` (which is numeric, non-empty, and contains no `NA` values).
+`fn_lln` is not an especially complex function---it's only about 50 lines of code---
+
+First, let's ensure that the validity check is working right. `fn_lln` needs to accept a vector like `d6` (which is numeric, non-empty, and contains no `NA` values).
 
 ```{r test-validity-check}
-# fn_lln <- function(data_vector){
-#   # make sure dataset is a numeric vector
-#   validity_check <- data_vector |> 
-#   assertive::assert_is_numeric()
-#   
-#   # calculate population mean
-#   population_mean <- data_vector |> mean()
-# }
-# 
-# test_that("accepts numeric non-empty vectors that contain no NA values", {
-#   expect_no_condition(
-#     fn_lln(data_vector = d6))
-# })
-# 
-# fn_lln(d6)
+test_that("accepts numeric non-empty vectors that contain no NA values", {
+  expect_no_condition(
+    fn_lln(data_vector = d6))
+  }
+)
 ```
 
 It also needs to reject vectors that are non-numeric, empty, and contains `NA` values.
 
-```{r tvc-2}
+```{r test-validity-check-2}
 # non-numeric
-# d24 <- sample(letters, size = 100, replace = TRUE)
-# 
-# # empty
-# d0 <- vector() |> as.numeric()
-# 
-# # contains NAs
-# dNA <- c(NA, NA, 1) |> as.numeric()
-# 
-# test_that("throws error message when using data_vector = non-numeric, empty, or contains NA", {
-#   expect_error(
-#     fn_lln(data_vector = d24) |
-#       ffn_lln(data_vector = d0) |
-#       ffn_lln(data_vector = dNA))
-# })
+d24 <- sample(letters, size = 100, replace = TRUE)
+
+# empty
+d0 <- vector() |> as.numeric()
+
+# contains NAs
+dNA <- c(NA, NA, 1) |> as.numeric()
+
+test_that("throws error message when the data_vector is non-numeric, empty, or contains NA values", {
+  expect_error(
+    fn_lln(data_vector = d24) ||
+      ffn_lln(data_vector = d0) ||
+      ffn_lln(data_vector = dNA))
+  }
+)
 ```
 
-Which it does. Nice.
+Both pass. Nice.
+
+Next, we need to ensure that 
 
 Next, we need to ensure that `population_mean` correctly generates the population mean.
 
@@ -628,7 +622,11 @@ Next, we need to ensure that `population_mean` correctly generates the populatio
 # })
 
 ```
--->
+
+
+### Does it Work Right in General?
+
+empty
 
 
 
