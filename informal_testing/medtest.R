@@ -1,10 +1,9 @@
-# Informal Testing for fn_lln
+# [ABOUT] Informal Testing for fn_lln
 
 
 # Setup
 set.seed(180)
 library(animint2)
-d6 <- sample(x = 1:6, size = 5, replace = TRUE)
 
 
 # LLN function
@@ -28,11 +27,12 @@ fn_lln <- function(data_vector = d6,
   sample_means <- vector(mode = "numeric",
                          length = sampling)
   
-  # random sampling and mean generation
+  # sample randomly, generate mean, and drop insignificant figures
   for (i in 1:sampling) {
     sample_means[i] <- data_vector |> 
       sample(size = i, replace = TRUE) |> 
-      mean()
+      mean() |>
+      signif(digits = 3)
   }
   
   # generate n and a df to use for animint
@@ -43,16 +43,26 @@ fn_lln <- function(data_vector = d6,
   # make lln plot
   lln_plot <- sample_df |> 
     ggplot() +
-    aes(x = n, y = sample_df$sample_means) + 
+    aes(x = n, y = sample_df$sample_means,
+        label = sample_means) + 
     labs(y = ylab) +
-    geom_point(showSelected = "n", colour = "red") +
-    geom_line(alpha = 0.5) +
+    #geom_line(alpha = 0.75) +
+    geom_point(colour = "red",
+               clickSelects = "sample_means") +
+    geom_label(showSelected = "sample_means") +
     geom_hline(yintercept = population_mean, 
                colour = "red")
   
+  # [TESTING] run animint
+  animint(lln_plot)
+  
   # animate lln plot
-  ani_lln_plot <- animint(lln_plot)
-  ani_lln_plot$time <- list(variable = "n", ms = 75)
-  ani_lln_plot
+  # ani_lln_plot <- animint(lln_plot)
+  # ani_lln_plot$time <- list(variable = "n", ms = 75)
+  # ani_lln_plot
   
 }
+
+
+# Informal Testing of Function
+fn_lln()
