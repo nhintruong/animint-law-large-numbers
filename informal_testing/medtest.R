@@ -43,8 +43,7 @@ fn_lln <- function(data_vector = d6,
   # make lln plot
   lln_plot <- sample_df |> 
     ggplot() +
-    aes(x = n, y = sample_df$sample_means,
-        label = sample_means) + 
+    aes(x = n, y = sample_df$sample_means) + 
     labs(y = ylab) +
     #geom_line(alpha = 0.75) +
     geom_point(colour = "red",
