@@ -5,6 +5,8 @@
 set.seed(180)
 library(animint2)
 
+# Alternate data_vector
+d12 <- sample(x = 1:12, size = 250, replace = TRUE)
 
 # LLN function
 fn_lln <- function(data_vector = d6, 
@@ -45,10 +47,8 @@ fn_lln <- function(data_vector = d6,
     ggplot() +
     aes(x = n, y = sample_df$sample_means) + 
     labs(y = ylab) +
-    #geom_line(alpha = 0.75) +
-    geom_point(colour = "red",
-               clickSelects = "sample_means") +
-    geom_label(showSelected = "sample_means") +
+    geom_line(alpha = 0.75) +
+    geom_point(clickSelects = "sample_means") +
     geom_hline(yintercept = population_mean, 
                colour = "red")
   
