@@ -1,0 +1,12 @@
+---
+title: "Coding Notebook"
+---
+
+## What is This?
+
+This is a public-facing notebook about what I'm doing, what I'm struggling to do, and what mistakes I've been making.
+
+
+## Week 1 (May 29 to June 4)
+
+- Began looking into the [`pkgdown` documentation](https://pkgdown.r-lib.org/index.html). Webpages seemed to be generated from `.rmd` files, so I was curious if the package also worked the same way for `.qmd` files. The [answer is no](https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2).
