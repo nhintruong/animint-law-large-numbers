@@ -1,0 +1,627 @@
+---
+title: "animint2 GSOC Examination"
+knitr:
+  opts_chunk: 
+    code-overflow: wrap
+    echo: TRUE
+    cache: FALSE
+    autodep: TRUE
+    warning: FALSE
+---
+
+```{r setup}
+#| include: FALSE
+
+library(knitr)        # tidy file conversion
+library(dplyr)        # tidy file manipulation
+library(readr)        # tidy file reader
+library(stringr)      # tidy string manipulation
+library(tidyr)        # tidy uhhh tidying
+library(tibble)       # tidy tables
+library(animint2)     # animated ggplot2
+library(kableExtra)   # make tables
+library(testthat)     # unit testing
+
+set.seed(360)
+theme_set(theme_gray() + 
+            theme(panel.background = 
+                    element_rect(fill = "#f1f3f5")))
+```
+
+
+
+## Introduction
+
+Hello! If you're reading this, you're probably Toby Dylan Hocking, Faizan Khan, or someone who's applying to GSOC 2023. (And if you're in the latter group, best of luck!)
+
+Why am I applying to work on `animint2`? In my field of expertise---network psychometrics---an [interactive model of depression](https://ccl.northwestern.edu/netlogo/models/community/Vulnerability_To_Depression) led to the discovery of hysteresis in symptom networks. Later on, this became a crucial component of network theory.^[D. Borsboom. [A network theory of mental disorders](https://onlinelibrary.wiley.com/doi/full/10.1002/wps.20375). _World Psychiatry_. 2017.] So I've become an enthusiast for interactive models and visualizations in science.
+
+If I'm lucky, I hope to spend my summer improving `animint2`. I'm especially interested in writing and editing documentation. But I'm comfortable doing whatever has priority. [Of course, my super top secret reason for doing this is so I can maybe eventually publish a paper with Toby and bump my Erdős number down to a 4. But shhhh. That's just between you and me.]{.aside}
+
+[Here's my repository](https://github.com/ampurr/gsoc). It has my `.qmd` file, if you'd prefer to look at that or knit it yourself. Unless you also use the accompanying CSS file, there may be slight aesthetic differences between your rendered HTML file and this website.
+
+Lastly, there's been an explosion of AI tools this year. I hereby certify that I haven't used them for any of my writing or code. In fact, I haven't used them at all.
+
+All right. Onto the tests.
+
+
+
+## Easy Test: Personalities By Country
+
+The easy test asks us to do an exercise from the [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). Or,
+
+> Even better: use animint2 to visualize some data from your domain of expertise.
+
+So let's take a look at some psychometrics.
+
+
+### Data Wrangling
+
+Many psychological datasets have strict rules regarding their use. Luckily, The Open-Source Psychometrics Project has graced us with [an abundance of personality data](https://openpsychometrics.org/_rawdata/). I've elected to use the Big Five dataset. [The Big Five is otherwise known as the five-factor model of personality.]{.aside} The dataset has data on participants' age, race, and gender (among other things). But for the purposes of this test, I'll limit myself to item responses by country and drop the other data:
+
+```{r only-countries}
+b5 <- read_tsv("b5.tsv",
+               show_col_types = FALSE)
+go_away <- c("race", "age", "engnat", "gender", "hand", "source")
+b5c <- b5 |> select(-any_of(go_away))
+```
+
+How many countries are there in this dataset, anyway? And what about the number of responses per country? [`"(nu"` is equivalent to `NA`.]{.aside}
+
+```{r country-count}
+num_country <- b5c |> count(country, sort = TRUE) |>
+  filter(!(country == "(nu"))
+num_country
+```
+
+That's a lot of countries, and most of them have very few responses. Generalizability is affected if _n_ is too small, so I'm going to somewhat arbitrarily keep the six countries with the largest sample sizes and drop the rest. Sorry, Italy.
+
+```{r six-countries}
+six_countries <- b5c |> filter(country %in% c("US", "GB", "IN", "AU", "CA", "PH"))
+```
+
+Lastly, the individual item responses aren't especially useful to me. [Individual items are useful for estimating psychometric networks. But as far as I can tell, `animint2` doesn't support them.]{.aside} So I'm going to generate sumscores for each of the five personality factors and use that instead for the interactive visualization.
+
+```{r sumscore-tbl-1}
+# add id column
+plus_id <- rowid_to_column(six_countries, "id") |> rowwise(id)
+
+# generate columns of sumscores
+plus_sumscores <- plus_id |> 
+  mutate(extraversion = sum(across(starts_with("E"))),
+         neuroticism = sum(across(starts_with("N"))),
+         agreeableness = sum(across(starts_with("A"))),
+         conscientiousness = sum(across(starts_with("C", ignore.case = FALSE))),
+         openness = sum(across(starts_with("O"))))
+
+# remove individual items
+sumscores <- plus_sumscores |> ungroup() |>
+  select(id, country, extraversion:openness)
+```
+
+And now we have our final dataset:
+
+```{r sumscore-tbl-2}
+#| column: body-outset-right
+sumscores
+```
+
+
+### Big Five Data Viz
+
+Now that our data are cleaned, let's explore.
+
+```{r code2country-tbl}
+#| echo: FALSE
+#| column: margin
+
+iso2c <- read_csv("iso2country.csv",
+                  show_col_types = FALSE)
+iso2c_tbl <- kbl(iso2c) |> 
+  kable_paper(html_font = "Roboto Condensed",
+              full_width = FALSE)
+iso2c_tbl
+```
+
+We have five personality traits and six countries. How do personality traits vary by country?
+
+```{r f-violinize}
+# limit redundancy
+violinize <- list(geom_violin(
+  draw_quantiles = c(0.25, 0.5, 0.75)), 
+  coord_flip(),
+  labs(x = NULL))
+```
+
+```{r oc}
+#| column: margin
+oc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = openness))
+oc + violinize
+```
+
+```{r cc}
+#| column: margin
+cc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = conscientiousness))
+cc + violinize
+```
+
+```{r ec}
+#| column: margin
+ec <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = extraversion))
+ec + violinize
+```
+
+```{r ac}
+#| column: margin
+ac <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = agreeableness))
+ac + violinize
+```
+
+```{r nc}
+#| column: margin
+nc <- sumscores |> 
+  ggplot(mapping = aes(x = country, 
+                       y = neuroticism))
+nc + violinize
+```
+
+There's some limited differences between personality factors. The distribution of scores for neuroticism is unusually wide, and openness seems to be slightly higher than the other personality factors. I'm not sure why. Maybe it's an artifact of the kinds of people attracted to the website. Personality science isn't my specialty in psychology---I can only speculate.
+
+It's also impressive how similar the scores are between countries. Their median scores do not seriously differ.
+
+Here's another look at at the similarities between test scores: a density plot for agreeableness. In this plot, we can see the literal overlap between the distribution of test scores. [Agreeableness refers to phenomena like the tendency for compliance and altruism.]{.aside} I'll come back to the inter-country overlap later.
+
+```{r density-plot}
+#| column: margin
+a_density <- sumscores |> 
+  ggplot(mapping = aes(x = agreeableness,
+                       color = country,
+                       fill = country)) +
+  geom_density(alpha = 0.1)
+a_density
+```
+
+
+### Interacting with Personality
+
+All right. Time for the most relevant part of the test: using `animint()` to showcase my data.
+
+The factors in the five-factor model of personality are meant to be mostly independent from one another.[^2] That partly means we don't expect the factors, when plotted against one another, to have any particularly strong relationships. In contrast, if we obtain a Pearson's _r_ close to 1 or −1, it may be the case that the two factors are actually one.
+
+<!-- footnote -->
+[^2]: There are empirical and theoretical reasons to question this, but that's outside the scope of the test. For further reading, see:
+
+    - D. Borsboom. [The attack of the psychometricians](https://link.springer.com/10.1007/s11336-006-1447-6). _Psychometrika._ 2006.
+    - D. van der Linden et al. [The general factor of personality](doi.org/10.1016/j.jrp.2010.03.003). _J. Res. Pers._ 2010.
+<!-- /footnote -->
+
+What do the data show?
+
+```{r ani-corr}
+#| message: FALSE
+#| label: fig-personality-us
+#| fig-cap: "The US's data seriously overlap with other countries'."
+
+correlations <- sumscores |> 
+  ggplot(mapping = aes(x = conscientiousness,
+                       y = extraversion,
+                       color = country))
+corr <- correlations + geom_jitter(alpha = 0.25)
+
+ani_corr <- animint(corr)
+ani_corr$first <- list(country = "US")
+ani_corr
+```
+
+Here, extraversion is plotted against conscientiousness. [Extraversion refers to phenomena like outgoingness, while conscientiousness refers to phenomena like diligence.]{.aside} The United States is the only country currently plotted. Clicking on other countries plots their data and shows that aforementioned overlap between countries. I've also made the data points semi-transparent so the data density is visible.
+
+I haven't bothered to do any statistics. But at first glance, it seems like these data are consistent with the five-factor model. Outliers distort our hypothetical regression line and render $r > 0$, but if we zoom in where the data are most dense, perhaps even that fluke of a pattern will fade.
+
+Let's see if that's true.
+
+```{r ani-corr-zoom}
+#| message: FALSE
+#| label: fig-personality-ph
+#| fig-cap: "There seems to be no relationship between the two factors."
+
+corr_densed <- corr + 
+  xlim(20, 40) + 
+  ylim(20, 40)
+
+ani_corr_zoom <- animint(corr_densed)
+ani_corr_zoom$first <- list(country = "PH")
+ani_corr_zoom
+```
+
+This time I've opted to show the Philippines, the country with the sparsest data. The data do seem to be pretty patternless. Furthermore, as you add more countries---or just the United States---the discrete nature of the data becomes visible even with jittered points. (The sumscores can only be integers.)
+
+Of course, it's immediately obvious without jitter. In the following heatmap, we can see both the discreteness and distribution of the data. [Thanks to Toby Dylan Hocking for the suggestion to use a heatmap here!]{.aside} However, generating the heatmap is not as straightforward as generating a scatterplot. First, we need to generate all combinations between the extraversion and conscientiousness factors. Then we need to count them:
+
+```{r heatmap-tbl}
+combo_tbl <- sumscores |> 
+  select(extraversion, conscientiousness) |>
+  expand_grid(.name_repair = "minimal")
+
+von_count <- combo_tbl |> 
+  group_by(across(extraversion:conscientiousness)) |>
+  count()
+```
+
+Finally, we can generate our heatmap:
+
+```{r fig-personality-discrete}
+#| label: fig-personality-discrete
+#| fig-cap: "Discreteness and density of the Big Five data."
+
+corr_discrete <- von_count |>
+  ggplot(mapping = aes(x = conscientiousness,
+                       y = extraversion,
+                       fill = n)) +
+  geom_tile() + coord_fixed()
+corr_discrete
+```
+
+Pretty cool! Being able to explore and present this kind of research would be harder without the interactive benefits of `animint2`.
+
+
+### Sibling Rivalry
+
+The second part of the easy test asks me to
+
+> Show an example of an error that you see when animint2 is loaded/attached at the same time as standard ggplot2.
+
+There's no conflict with just loading the packages:
+
+```{r}
+#| eval: FALSE
+library(animint2)
+library(ggplot2)
+```
+
+But R throws up an error message when you run code that uses syntax common to both. As a quick example, I'll load up a toy dataset and try to generate a bar chart.
+
+```{r cat-tbl}
+#| echo: FALSE
+cat_pop <- read_csv("meow.csv",
+                    show_col_types = FALSE)
+```
+
+```{r}
+#| eval: FALSE
+cat_pop <- read_csv("meow.csv",
+                    show_col_types = FALSE)
+
+cat_bar <- ggplot(data = cat_pop, 
+                  mapping = aes(cat_name, popularity)) + 
+  geom_bar(stat = "identity", color = purple)
+cat_bar
+```
+
+What happens? 
+
+```{r}
+#| eval: FALSE
+#| warning: FALSE
+Warning: Incompatible methods ("+.gganimint", "+.gg") for "+"
+```
+
+In other words, `animint2` and `ggplot2` don't get along because their syntaxes overlap. Unloading or uninstalling one or the other gets rid of the problem and finally gives us our very important kitty bar chart.
+
+```{r fig-cat-pop}
+#| echo: FALSE
+#| label: fig-cat-popularity
+#| fig-cap: "Popularity of cat names on a scale of 1–3."
+
+cat_bar <- ggplot(data = cat_pop, 
+                  mapping = aes(cat_name, popularity)) + 
+  geom_bar(stat = "identity")
+cat_bar
+```
+
+
+
+## Medium Test: The Law of Large Numbers
+
+There are multiple medium tests. The first one requires that the test-taker
+
+> translate an example of the animation package into an Animint.
+
+So let's look at the law of large numbers (LLN).
+
+
+### About the LLN
+
+The law of large numbers, also called the weak law of large numbers, was named by S. D. Poisson in an article published in 1835.[^toc] He wrote, emphasis his, that
+
+> Things of every kind are subject to a universal law that we may call _the law of large numbers_. It consists in this: if one observes a very considerable number of events of the same kind, depending on causes that vary irregularly, that is to say, without any systematic variation in one direction, then one finds that the ratios between the numbers of events are very nearly constant. 
+
+[^toc]: Translated from French by I.&nbsp;Hacking, in [Chapter 12](https://doi.org/10.1017/CBO9780511819766.012) of _The Taming of Chance_. 1990.
+
+    Some sources cite [Poisson's 1837 book](https://worldcat.org/title/recherches-sur-la-probabilite-des-jugements-en-matiere-criminelle-et-en-matiere-civile-precedees-des-regles-generales-du-calcul-des-probabilites/oclc/669708893) as the origin of the LLN's name. Not quite. In [his 1835 article](https://gallica.bnf.fr/ark:/12148/bpt6k29606/f478.item), he mentions "la loi des grands nombres"---the law of large numbers.
+
+Though Poisson named it, the LLN has its origins in a posthumous publication by Jacob Bernoulli over a century earlier, and it has continued developing even up to the twentieth century.[^llnh] The exact details of the law have changed over the centuries. For our purposes, those details are largely irrelevant. (Also, I know my limits---there's no way I can explain the LLN in a manner satisfactory to a mathematician.) Instead, we'll be thinking of the LLN like this: given some population mean and some sample mean, the sample mean approaches the population mean as the sample size increases.
+
+[^llnh]: Some histories:
+
+    - M. Denker. [Tercentennial anniversary of Bernoulli’s law of large numbers](doi.org/10.1090/S0273-0979-2013-01411-3). _Bull. Am. Math. Soc_. 2013.
+    - E. Seneta. [A Tricentenary history of the Law of Large Numbers](https://doi.org/10.3150/12-BEJSP12). _Bernoulli_. 2013.
+
+Importantly, that's how the [LLN `animation` demonstration](https://yihui.org/animation/example/lln-ani/) interprets the LLN as well. I'll construct my function with this understanding of the LLN in mind.
+
+
+### Function Construction
+
+The `lln.ani` function [has useful defaults for all its arguments](https://github.com/yihui/animation/blob/main/R/lln.ani.R). That's a good goal to have---a user should be able to run the LLN function without any arguments and produce something useful to teach with.
+
+Let's call the `animint2` LLN function `fn_lln`. To work, `fn_lln` requires
+
+1. The ability to read some set of data;
+2. The ability to generate the population mean for that data;
+3. The ability to continuously sample from the aforementioned dataset and generate sample means, as well as a way to make it stop; and
+4. A plot that visually indicates the population mean, updates _n_ as it increases, and graphs out the sample means.
+
+Furthermore, though this isn't necessary for the function to work, I want `fn_lln` to output messages that are useful for someone who's unfamiliar with R. I'll use the `assertive` package to do this instead of relying on base R's functions, which sometimes outputs arcane error messages. [I could also write my own error messages, but I like `assertive`'s, and code with my own error messages would be messier.]{.aside}
+
+The first requirement is straightforward. The dataset needs to take the form of a numeric vector that contains at least one number and no `NA`s. If a user tries to use something else, `fn_lln` should throw up an error. I'll call the vector `data_vector`:
+
+```{r req-data}
+#| eval: FALSE
+validity_check <- data_vector |> 
+  assertive::assert_is_numeric() |>
+  assertive::is_non_empty() |>
+  assertive::assert_all_are_not_na()
+```
+
+The second requirement is also straightforward. I can just calculate `data_vector`'s mean---by definition, it's the population mean.
+
+```{r req-mu}
+#| eval: FALSE
+population_mean <- data_vector |> mean()
+```
+
+The third requirement is more complicated. I need to allow the user to decide on the sample size, as well as how often `data_vector` is sampled from. I need to take multiple samples, each one larger than the other, and calculate sample means from them. Then I need to place those calculations into a dataframe to use later on.
+
+The `sampling` argument lets `fn_lln` know the maximum sample size, as well as how often `data_vector` should be sampled. A for loop does the sampling, and then `sample_df` stores both _n_ and the sample means as a dataframe.
+
+```{r req-sample-mean}
+#| eval: FALSE
+
+# create empty vector to put sample means into
+sample_means <- vector(mode = "numeric",
+                       length = sampling)
+
+# random sampling and mean generation
+for (i in 1:sampling) {
+  sample_means[i] <- data_vector |> 
+    sample(size = i, replace = TRUE) |> 
+    mean()
+}
+
+# generate n and a df to use for animint
+sample_df <- sample_means |> 
+  data.frame() |>
+  tibble::rowid_to_column(var = "n")
+```
+
+The fourth requirement takes our population mean and sample means and constructs an animated plot that showcases the LLN.
+
+```{r req-plot-lln}
+#| eval: FALSE
+
+# make lln plot
+lln_plot <- sample_df |> 
+  ggplot() +
+  aes(x = n, y = sample_df$sample_means) + 
+  labs(y = ylab) +
+  geom_point(showSelected = "n", colour = "red") +
+  geom_line(alpha = 0.5) +
+  geom_hline(yintercept = population_mean, 
+             colour = "red")
+
+# animate lln plot
+ani_lln_plot <- animint(lln_plot)
+ani_lln_plot$time <- list(variable = "n", ms = 75)
+ani_lln_plot
+```
+
+As mentioned, I also want useful defaults for `fn_lln`. Let's have `data_vector` load a pseudo-random sample of six-sided dice rolls by default.
+
+```{r fun-defaults-lln}
+#| eval: FALSE
+d6 <- sample(x = 1:6, size = 500, replace = TRUE)
+```
+
+The final function looks like this:
+
+```{r fun-lln}
+fn_lln <- function(data_vector = d6, 
+                   sampling = 500,
+                   ylab = "sample mean"){
+  
+  # default data_vector
+  d6 <- sample(x = 1:6, size = 500, replace = TRUE)
+  
+  # make sure dataset is a numeric vector
+  validity_check <- data_vector |> 
+  assertive::assert_is_numeric() |>
+  assertive::is_non_empty() |>
+  assertive::assert_all_are_not_na()
+  
+  # calculate population mean
+  population_mean <- data_vector |> mean()
+  
+  # create empty vector to put sample means into
+  sample_means <- vector(mode = "numeric",
+                         length = sampling)
+
+  # random sampling and mean generation
+  for (i in 1:sampling) {
+    sample_means[i] <- data_vector |> 
+      sample(size = i, replace = TRUE) |> 
+      mean()
+  }
+
+  # generate n and a df to use for animint
+  sample_df <- sample_means |> 
+    data.frame() |>
+    tibble::rowid_to_column(var = "n")
+  
+  # make lln plot
+  lln_plot <- sample_df |> 
+    ggplot() +
+    aes(x = n, y = sample_df$sample_means) + 
+    labs(y = ylab) +
+    geom_point(showSelected = "n", colour = "red") +
+    geom_line(alpha = 0.5) +
+    geom_hline(yintercept = population_mean, 
+               colour = "red")
+
+  # animate lln plot
+  ani_lln_plot <- animint(lln_plot)
+  ani_lln_plot$time <- list(variable = "n", ms = 75)
+  ani_lln_plot
+
+}
+```
+
+
+### `fn_lln` in Action
+
+All right. Before we get started: after you've finished looking at an animated plot, I recommend hiding the selection menu that corresponds to that plot. Otherwise, if you use Firefox, it'll be difficult to read the rest of this examination. [See the [scrolling bug issue](https://github.com/tdhock/animint2/issues/90) for more details.]{.aside}
+
+First, let's look at what `fn_lln` produces by default:
+
+```{r fun-lln-show-default}
+fn_lln()
+```
+
+The bold red line is the population mean. The grey lines graph the sample means as they converge towards the population mean. The red dot moves when _n_ changes. Pausing the animation lets you change _n_ and move the red dot, allowing you to see how close or far the sample mean is to the population mean at some particular sample size.
+
+Next, we'll look at what happens when a user uses one argument but not the others. Recall that the three default arguments are `data_vector = d6`, `sampling = 500`, and `ylab = "sample mean"`.
+
+Let's replace `data_vector` with a pseudo-random sample of twelve-sided dice rolls:
+
+```{r fun-lln-show-dv-change}
+d12 <- sample(x = 1:12, size = 250, replace = TRUE)
+
+fn_lln(data_vector = d12)
+```
+
+Now, let's replace `sampling`. We'll sample `d6` 250 times instead of the default 500:
+
+```{r fun-lln-show-sampling-change}
+fn_lln(sampling = 250)
+```
+
+We can also just replace the label for the y-axis via `ylab`:
+
+```{r fun-lln-show-ylab-change}
+fn_lln(ylab = "average dice rolls")
+```
+
+Finally, let's take a look at using all three arguments. We'll use actual empirical data for this: neuroticism sumscores in our previously-used Big Five dataset. And we'll sample from those sumscores 800 times. [Neuroticism refers to phenomena like vulnerability to psychological stress and poor emotional stability.]{.aside}
+
+```{r fun-lln-show-all-change}
+fn_lln(data_vector = sumscores$neuroticism, 
+       sampling = 800,
+       ylab = "neuroticism")
+```
+
+`fn_lln` seems to work great!
+
+
+### Differences between `fn_lln` and `lln.ani`
+
+There are some obvious differences between `fn_lln` (our LLN function for `animint2`) and the `lln.ani` function in `animation`.
+
+The most important difference is that the latter builds the plot and draws its data iteratively. Each animation is a series of plots, with each being added on top of the next. Try running `animation::lln.ani()`. You'll see that it produces 50 plots and flips through them like a flipbook.
+
+In contrast, `fn_lln` produces the entire plot and line chart before animating the red dot. It produces one plot and updates it continuously. There's also a minor interactive element that `lln.ani` lacks.
+
+This is not to say that `fn_lln` is worse or better than `lln.ani`. It's just that translating `animation`'s LLN function is similar to translating a natural language---meaning is lost and meaning is gained. Regardless of its fidelity to `lln.ani`, I hope `fn_lln` will be of some use to statistics teachers and users.
+
+
+
+## Appendix: Observations
+
+Here are some things that I noticed while reading the documentation and playing around with the package. Since I'm new to `animint2`, I make no claim that my observations are novel, noteworthy, or even correct. But I think they're still useful. My guess is that many users of `animint2` are also "new" to it, in the sense that they're working scientists whose goal is to generate an interactive graphic and then to stop thinking about the package. Maybe some of my (possibly mistaken) observations overlap with theirs.
+
+
+### Thoughts
+
+I know that `animint2` is a fork of `ggplot2`, not an extension. But the family resemblance between `animint2` and `ggplot2` is sometimes confusing. For a short while, I admit that I treated the former as if it were an extension of the latter. I tried to use `geom_col()` and then `geom_boxplot()` before checking the [reference manual](https://cran.r-project.org/web/packages/animint2/) and realizing they were not part of `animint2`. I also foolishly tried to use packages that depend on `ggplot2`. Since I had `animint2` loaded instead, that obviously didn't work. [Fun fact: I recently realized that the second edition of the `ggplot2` book mentions `animint`.]{.aside}
+
+[`ggplot2` documentation](https://ggplot2.tidyverse.org/reference/index.html) is available as a website, but [`animint2` documentation](https://cran.r-project.org/web/packages/animint2/) is only available as a PDF. [Grumpy aside: why are PDFs R's default documentation format? It's the same with $\LaTeX$, but at least there's an obvious technical reason for that.]{.aside} Of course, there's the valuable [`animint2` Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html). But that's more like a book than a reference site---something like a counterpart to the [`ggplot2` book](https://ggplot2-book.org/). Since the `ggplot2` reference was a lot more accessible, I found myself using their reference and only going back to the `animint2` reference when necessary.
+
+I'm not sure if I'll have enough time, and I'm not sure it's what you mean when you wrote that `animint2` will "have even more... documentation." But as part of that documentation boost, I'd like to generate a reference site for the unique features of `animint2`. I think that'd make the package more accessible to `animint2`'s users.
+
+
+### Possible Bugs?
+
+Here's a list of `animint2`'s unexpected behaviors. My mistaken observations are probably most concentrated here. It's possible that the unexpected behavior is not the fault of `animint2`, but instead the fault of another package or user error. Honestly? Probably user error.
+
+- [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual is buggy and scrolls up by itself. [Only in Firefox. Technically not about `animint2` itself, but it's `animint2` adjacent.]{.aside} The effect begins happening around this sentence: "Note how we used `geom_segment` instead of `geom_bar`, but their appearance is similar."
+- It's difficult to lay out multiple plots in a grid, or on a line. Quarto will not knit them properly. My workaround is to have a codeblock for each graph. There's [an open issue](https://github.com/tdhock/animint/issues/150) about it for `animint`, but not for `animint2`. So I'm not sure if it's still a problem, or if I messed up somehow.
+- When I tried to make an interactive density plot, I was warned that "`showSelected` does not work with `StatDensity`." Items in the legend are selectable, but selecting one removes the density curve currently on screen. The end result is that only one curve shows at a time. I haven't been able to find documentation about this anywhere.
+- When I make interactive scatterplots, I'm warned that "`showSelected` only works with `position=identity`, problem: geom1_point_foobar." This is confusing, since:
+
+    + It's already the case that `position = identity`, since it's the default for `geom_point()` and `geom_jitter()`.
+    + The problem it points out is the `.tsv` file that `animint()` generates.
+    + It correctly renders the scatterplot.
+    + It passes `testthat::expect_no_warning()` and fails `expect_warning()`, despite the fact that it outputs a warning.
+
+- When I make violin plots, I'm warned that the graph is "collapsing to unique 'x' values." This [has been fixed](https://github.com/tidyverse/ggplot2/pull/4654) in `ggplot2` but not in `animint2`, possibly since the fix happened after the fork. (I'm least certain about this observation.)
+- When I try to place a static `animint2` graph in the margins, I can't place a caption, or else the graph doesn't render correctly. `column: margin` and `fig-cap` don't work well together.
+- When I try to use `geom_bin2d()`, I'm informed that "`bin2d` is not supported in `animint`. Try using `geom_tile()` and binning the data yourself." But the `animint2` reference mentions that it does support `geom_bin2d`.
+- When I use `geom_raster()`, `animint2` correctly renders it as a static graph. But it will not render the data or the legend when I use `animint2`. This [is documented](https://github.com/tdhock/animint2/issues/53).
+- When I use `geom_hex`, I'm warned that there is "no data in geom1_hex_foobar."
+- It is not possible to plot a normal distribution in `animint2` without specifying any dataframes or tibbles. However, you can do so in `ggplot2`. This is not a bug, but I figured it should be noted.
+
+
+### Possible Ways to Get Around Problems
+
+- In `ggplot2`, it's possible to plot a normal distribution without any specifying any dataframes or tibbles. This is not the case for `animint2`. The obvious solution is to specify a dataframe or a tibble:
+
+```{r}
+#| eval: FALSE
+
+# works only in ggplot2
+norm_distr <- ggplot() + xlim(-5,5)
+norm_distr + stat_function(fun = dnorm)
+
+# works in animint2
+norm_distr <- ggplot(data.frame(x = c(-5, 5)), aes(x)) + 
+  stat_function(fun = dnorm)
+```
+
+- In [Chapter 7](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch07-limitations.html) of the `animint2` Manual, and for other webpages with animints, the page automatically scrolls up in Firefox. Fixes can be found in the [scrolling bug issue](https://github.com/tdhock/animint2/issues/90) in the `animint2` repository.
+
+
+
+## Appendix: My Mistakes
+
+Major mistakes I made while doing these tests and then subsequently caught. This excludes mistakes re: the number of brackets, the placement of a function, or spelling.
+
+
+### Easy Test
+
+My sumscores were erroneous, but it took me an embarrassingly long time to notice and check. I first noticed that the openness sumscores were impossibly high---each sumscore has a ceiling of 50, which openness sumscores exceeded. Manually adding up the scores myself showed that extraversion had errors, too. I believe my mistake was using `c_across()` and then messing up the selection syntax, but I didn't really have the time to experiment and check.
+
+I took a long time figuring out the details of the heatmap. The code is straightforward, but that is the result of a long process of experimentation. Most of this was because I was unfamiliar with both heatmaps and the functions necessary for combinatorics (e.g. I was unaware of `expand_grid()`). It was a good learning experience.
+
+
+### Medium Test
+
+Here's what my for loop does. First, it samples a datum and produces the mean, which is just the datum itself. Then it replaces that datum, samples 2 data points (with replacement), and produces a mean. Then it samples 3 data points, then 4, and so on until the function tells it to stop.
+
+My initial for loop didn't do that. I first noticed that my sample means didn't seem to be converging as the LLN said it would. Then I noticed a much more obvious problem: `d6` consists solely of integers, so why was the first mean not an integer as well? Something was clearly wrong.
+
+Eventually, I figured out that `sample()` was missing its `size` argument. I set `size = i` and got the loop to work. Lesson learned: if there's a bug, check your arguments!

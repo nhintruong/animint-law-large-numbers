@@ -188,3 +188,72 @@ The goal this week is to figure out why `animint()` won't correctly render inter
 
 - 6th weekly meeting.
 - The error is that `animint()` fails to render the interactive density plots correctly. It also informs me that "`showSelected` does not work with `StatDensity`."
+
+##########
+
+## Hard Test: Testing `fn_lln`
+
+Does `fn_lln` work right? Let's do some unit testing with `testthat` and see.
+
+
+### Do the Components Work Right?
+
+`fn_lln` is not an especially complex function---it's only about 50 lines of code---
+
+First, let's ensure that the validity check is working right. `fn_lln` needs to accept a vector like `d6` (which is numeric, non-empty, and contains no `NA` values).
+
+```{r test-validity-check}
+test_that("accepts numeric non-empty vectors that contain no NA values", {
+  expect_no_condition(
+    fn_lln(data_vector = d6))
+  }
+)
+```
+
+It also needs to reject vectors that are non-numeric, empty, and contains `NA` values.
+
+```{r test-validity-check-2}
+# non-numeric
+d24 <- sample(letters, size = 100, replace = TRUE)
+
+# empty
+d0 <- vector() |> as.numeric()
+
+# contains NAs
+dNA <- c(NA, NA, 1) |> as.numeric()
+
+test_that("throws error message when the data_vector is non-numeric, empty, or contains NA values", {
+  expect_error(
+    fn_lln(data_vector = d24) ||
+      ffn_lln(data_vector = d0) ||
+      ffn_lln(data_vector = dNA))
+  }
+)
+```
+
+Both pass. Nice.
+
+Next, we need to ensure that 
+
+Next, we need to ensure that `population_mean` correctly generates the population mean.
+
+```{r tvc-3}
+# d1 <- c(1)
+# 
+# fn_lln(d1)
+# 
+# test_that("correctly generates population mean", {
+#   fn_lln(1)
+#   expect_equal(population_mean, 1)
+# })
+
+```
+
+
+### Does it Work Right in General?
+
+empty
+
+##########
+
+end of scraps
