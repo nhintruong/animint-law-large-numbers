@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="ampurr">
 
-<title>animint2 Contributions via GSOC 2023</title>
+<title>Coding Notebook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,16 +23,16 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="notebook_files/libs/clipboard/clipboard.min.js"></script>
+<script src="notebook_files/libs/quarto-html/quarto.js"></script>
+<script src="notebook_files/libs/quarto-html/popper.min.js"></script>
+<script src="notebook_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="notebook_files/libs/quarto-html/anchor.min.js"></script>
+<link href="notebook_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="notebook_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="notebook_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="notebook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="notebook_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 <link rel="stylesheet" href="changes.css">
@@ -41,26 +40,30 @@ ul.task-list li input[type="checkbox"] {
 
 <body>
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents:</h2>
+   
+  <ul>
+  <li><a href="#what-is-this" id="toc-what-is-this" class="nav-link active" data-scroll-target="#what-is-this">What is This?</a></li>
+  <li><a href="#week-1-may-29-to-june-4" id="toc-week-1-may-29-to-june-4" class="nav-link" data-scroll-target="#week-1-may-29-to-june-4">Week 1 (May 29 to June 4)</a></li>
+  </ul>
+</nav>
+</div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
 </div>
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">animint2 Contributions via GSOC 2023</h1>
+<h1 class="title">Coding Notebook</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>ampurr </p>
-          </div>
-  </div>
     
   
     
@@ -69,22 +72,14 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="suki.webp" class="img-fluid figure-img" alt="A low-resolution black-and-white photo of a cat sitting on a laptop. The cat is looking at you."></p>
-<figcaption class="figure-caption margin-caption">Open Source Suki. Adapted from Sage Ross’s <a href="https://flickr.com/photos/ragesoss/3068188757/">Suki on the Computer</a>. Both images are licensed under <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA&nbsp;2.0</a>.</figcaption>
-</figure>
-</div>
-<section id="about" class="level2">
-<h2 class="anchored" data-anchor-id="about">About</h2>
-<p>Some of my notes about and contributions to <a href="https://cran.r-project.org/web/packages/animint2/">the <code>animint2</code> R package</a> via the 2023 <a href="https://g.co/gsoc">Google Summer of Code</a>. <code>animint2</code> is a fork of <code>ggplot2</code> and can be used to generate interactive or animated graphics.</p>
-<p>My colleague this year is <a href="https://yufanfei.xyz/">Yufan Fei</a>, who is a much more skilled programmer than I am. <a href="https://github.com/rstats-gsoc/gsoc2023/wiki/Animated-interactive-ggplots">Toby Hocking and Faizan Khan</a> are our mentors.</p>
+<section id="what-is-this" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-this">What is This?</h2>
+<p>This is a public-facing notebook about what I’m doing, what I’m struggling to do, and what mistakes I’ve been making.</p>
 </section>
-<section id="pages" class="level2">
-<h2 class="anchored" data-anchor-id="pages">Pages</h2>
+<section id="week-1-may-29-to-june-4" class="level2">
+<h2 class="anchored" data-anchor-id="week-1-may-29-to-june-4">Week 1 (May 29 to June 4)</h2>
 <ul>
-<li><a href="notebook.html">Coding Notebook</a>: My notes on what I’ve been doing for GSOC so far. Mostly irrelevant unless you wanna see a public record of my coding mistakes and learn what not to do.</li>
-<li><a href="exam/exam.html">R Project Examinations</a>: Some tests that I took. Mostly irrelevant unless you’re interested in seeing some animated graphs of the <a href="https://simple.wikipedia.org/wiki/Personality#Personality_types">five-factor model of personality</a> or the <a href="https://simple.wikipedia.org/wiki/Law_of_large_numbers">weak law of large numbers</a>.</li>
+<li>Began looking into the <a href="https://pkgdown.r-lib.org/index.html"><code>pkgdown</code> documentation</a>. Webpages seemed to be generated from <code>.rmd</code> files, so I was curious if the package also worked the same way for <code>.qmd</code> files. The <a href="https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2">answer is no</a>.</li>
 </ul>
 </section>
 
