@@ -14,6 +14,7 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 - Began looking into the [`pkgdown` documentation](https://pkgdown.r-lib.org/index.html). Webpages seemed to be generated from `.rmd` files, so I was curious if the package also worked the same way for `.qmd` files. The [answer is no](https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2).
 - Noticed that the intro to `pkgdown` page [accidentally uses the word "setting" twice in a row](https://pkgdown.r-lib.org/articles/pkgdown.html).
 - Looked up some tips on how to write code comments better. Tips from: [Antonin Januska](https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/) and [Ellen Spertus](https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/).
+- Learned of `gitk`, which I've never used before.
 
 ### Created
 
