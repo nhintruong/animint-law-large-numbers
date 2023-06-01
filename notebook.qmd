@@ -18,7 +18,6 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 - Learned of `gitk`, which I've never used before.
 - Learned about [managing my git credentials in `usethis`](https://usethis.r-lib.org/articles/git-credentials.html).
 - Learning about documentation managers. There's: [Zeal](https://zealdocs.org/) and [DevDocs](https://devdocs.io/).
-
 - Learned that there are, like, eight test suites. And they automatically run when you make a pull request to the `animint2` repository. That's nice. I'm also learning that the tests take a long time to run---about 45 minutes.
 
 ### Created
