@@ -85,20 +85,45 @@ ul.task-list li input[type="checkbox"] {
 <section id="learned" class="level3">
 <h3 class="anchored" data-anchor-id="learned">Learned</h3>
 <ul>
-<li>Began looking into the <a href="https://pkgdown.r-lib.org/index.html"><code>pkgdown</code> documentation</a>. Webpages seemed to be generated from <code>.rmd</code> files, so I was curious if the package also worked the same way for <code>.qmd</code> files. The <a href="https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2">answer is no</a>.</li>
-<li>Noticed that the intro to <code>pkgdown</code> page <a href="https://pkgdown.r-lib.org/articles/pkgdown.html">accidentally uses the word “setting” twice in a row</a>.</li>
-<li>Looked up some tips on how to write code comments better. Tips from: <a href="https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/">Antonin Januska</a> and <a href="https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/">Ellen Spertus</a>.</li>
+<li><p>Began looking into the <a href="https://pkgdown.r-lib.org/index.html"><code>pkgdown</code> documentation</a>. Webpages seemed to be generated from <code>.rmd</code> files, so I was curious if the package also worked the same way for <code>.qmd</code> files. The <a href="https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2">answer is no</a>.</p></li>
+<li><p>Noticed that the intro to <code>pkgdown</code> page <a href="https://pkgdown.r-lib.org/articles/pkgdown.html">accidentally uses the word “setting” twice in a row</a>.</p></li>
+<li><p>Looked up some tips on how to write code comments better. Tips from: <a href="https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/">Antonin Januska</a> and <a href="https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/">Ellen Spertus</a>.</p></li>
+<li><p>Looked up why <code>pkgdown</code> <a href="https://stackoverflow.com/questions/69507610/unable-to-push-package-website-pkgdown-from-r-to-github">adds the <code>docs/</code> directory into <code>.gitignore</code></a>.</p></li>
+<li><p>Learned of <code>gitk</code>, which I’ve never used before.</p></li>
+<li><p>Learned about <a href="https://usethis.r-lib.org/articles/git-credentials.html">managing my git credentials in <code>usethis</code></a>.</p></li>
+<li><p>Learning about documentation managers. There’s: <a href="https://zealdocs.org/">Zeal</a> and <a href="https://devdocs.io/">DevDocs</a>.</p></li>
+<li><p>Learned that there are, like, eight test suites. And they automatically run when you make a pull request to the <code>animint2</code> repository. That’s nice. I’m also learning that the tests take a long time to run—about 45 minutes.</p></li>
 </ul>
 </section>
 <section id="created" class="level3">
 <h3 class="anchored" data-anchor-id="created">Created</h3>
 <ul>
 <li>Created <code>README.md</code> from the <code>README.org</code> file via the magic of <code>pandoc</code>.</li>
-<li>Created a preliminary website and document how I generated it.
+<li>Created a preliminary website and documented how I generated it.
 <ul>
-<li>For the documentation and code, see <code>website_setup.Rmd</code>. <!-- + For the website, see --></li>
+<li>For the documentation and code, see <code>website_setup.Rmd</code>.</li>
+<li>Put the site up online.</li>
 </ul></li>
+<li>Accidentally made a pull request in <code>tdhock/animint2</code>. Should’ve been <code>ampurr/animint2</code> instead. I closed it—be more careful.</li>
+<li>Made a pull request in <code>ampurr/animint2</code> but did not succeed in closing it. One of the tests—“Test Suite compiler”—failed. Here’s the error message:</li>
 </ul>
+<pre><code>══ Failed tests ════════════════════════════════════════════════════════════════
+── Error ('test-compiler-gist.R:4:3'): animint2gist() returns an object of class 'gist' ──
+Error: Error: In non-interactive environments, please set GITHUB_PAT env to a GitHub access token (https://help.github.com/articles/creating-an-access-token-for-command-line-use)
+Backtrace:
+    ▆
+ 1. └─animint2::animint2gist(list(p = qplot(1:10)), browse = FALSE) at test-compiler-gist.R:4:2
+ 2.   └─gistr::gist_create(...)
+ 3.     ├─gistr:::gist_POST(...)
+ 4.     │ └─gistr:::cVERB(...)
+ 5.     │   └─crul::HttpClient$new(url, headers = c(auth, headers), opts = list(...))
+ 6.     │     └─crul (local) initialize(...)
+ 7.     └─gistr::gist_auth()
+
+[ FAIL 1 | WARN 0 | SKIP 5 | PASS 756 ]
+Error: Error: Test failures
+Execution halted
+Error: Process completed with exit code 1.</code></pre>
 </section>
 </section>
 

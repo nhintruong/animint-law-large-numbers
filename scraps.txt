@@ -256,4 +256,12 @@ empty
 
 ##########
 
-end of scraps
+Readers are likely most interested in the "Making Changes to the Website" and "See Also" sections. The "Build the Site" section is useful if the website needs to be rebuilt.
+
+[...]
+
+## Making Changes to the Website
+
+The website works, but it's disordered. The site is mostly a mix of the Github README and the official `animint2` documentation on CRAN. It could be better.
+
+##########
