@@ -14,12 +14,39 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 - Began looking into the [`pkgdown` documentation](https://pkgdown.r-lib.org/index.html). Webpages seemed to be generated from `.rmd` files, so I was curious if the package also worked the same way for `.qmd` files. The [answer is no](https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2).
 - Noticed that the intro to `pkgdown` page [accidentally uses the word "setting" twice in a row](https://pkgdown.r-lib.org/articles/pkgdown.html).
 - Looked up some tips on how to write code comments better. Tips from: [Antonin Januska](https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/) and [Ellen Spertus](https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/).
+- Looked up why `pkgdown` [adds the `docs/` directory into `.gitignore`](https://stackoverflow.com/questions/69507610/unable-to-push-package-website-pkgdown-from-r-to-github).
 - Learned of `gitk`, which I've never used before.
+- Learned about [managing my git credentials in `usethis`](https://usethis.r-lib.org/articles/git-credentials.html).
+- Learning about documentation managers. There's: [Zeal](https://zealdocs.org/) and [DevDocs](https://devdocs.io/).
+
+- Learned that there are, like, eight test suites. And they automatically run when you make a pull request to the `animint2` repository. That's nice. I'm also learning that the tests take a long time to run---about 45 minutes.
 
 ### Created
 
 - Created `README.md` from the `README.org` file via the magic of `pandoc`.
-- Created a preliminary website and document how I generated it.
+- Created a preliminary website and documented how I generated it.
   + For the documentation and code, see `website_setup.Rmd`.
-  <!-- + For the website, see -->
+  + Put the site up online.
+- Accidentally made a pull request in `tdhock/animint2`. Should've been `ampurr/animint2` instead. I closed it---be more careful.
+- Made a pull request in `ampurr/animint2` but did not succeed in closing it. One of the tests---"Test Suite compiler"---failed. Here's the error message:
+
+```
+══ Failed tests ════════════════════════════════════════════════════════════════
+── Error ('test-compiler-gist.R:4:3'): animint2gist() returns an object of class 'gist' ──
+Error: Error: In non-interactive environments, please set GITHUB_PAT env to a GitHub access token (https://help.github.com/articles/creating-an-access-token-for-command-line-use)
+Backtrace:
+    ▆
+ 1. └─animint2::animint2gist(list(p = qplot(1:10)), browse = FALSE) at test-compiler-gist.R:4:2
+ 2.   └─gistr::gist_create(...)
+ 3.     ├─gistr:::gist_POST(...)
+ 4.     │ └─gistr:::cVERB(...)
+ 5.     │   └─crul::HttpClient$new(url, headers = c(auth, headers), opts = list(...))
+ 6.     │     └─crul (local) initialize(...)
+ 7.     └─gistr::gist_auth()
+
+[ FAIL 1 | WARN 0 | SKIP 5 | PASS 756 ]
+Error: Error: Test failures
+Execution halted
+Error: Process completed with exit code 1.
+```
 
