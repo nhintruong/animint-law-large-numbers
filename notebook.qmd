@@ -1,5 +1,7 @@
 ---
 title: "Coding Notebook"
+code-fold: TRUE
+code-summary: error message
 ---
 
 ## What is This?
