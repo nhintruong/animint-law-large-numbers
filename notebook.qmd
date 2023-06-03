@@ -1,5 +1,7 @@
 ---
 title: "Coding Notebook"
+code-fold: TRUE
+code-summary: error message
 ---
 
 ## What is This?
@@ -11,26 +13,37 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 
 ### Learned
 
-- Began looking into the [`pkgdown` documentation](https://pkgdown.r-lib.org/index.html). Webpages seemed to be generated from `.rmd` files, so I was curious if the package also worked the same way for `.qmd` files. The [answer is no](https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2).
-- Noticed that the intro to `pkgdown` page [accidentally uses the word "setting" twice in a row](https://pkgdown.r-lib.org/articles/pkgdown.html).
+- Learned more about the `pkgdown` R package:
+  + Began looking into the [`pkgdown` documentation](https://pkgdown.r-lib.org/index.html).
+  + Webpages seemed to be generated from `.rmd` files, so I was curious if the package also worked the same way for `.qmd` files. The [answer is no](https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2).
+  + Looked up why `pkgdown` [adds the `docs/` directory into `.gitignore`](https://stackoverflow.com/questions/69507610/unable-to-push-package-website-pkgdown-from-r-to-github). But it's still unclear to me.
+  + Noticed that the intro to `pkgdown` page [accidentally uses the word "setting" twice in a row](https://pkgdown.r-lib.org/articles/pkgdown.html).
+- Learned more about git:
+  + Learned of `gitk`, which I've never used before.
+  + Learned about [managing my git credentials in `usethis`](https://usethis.r-lib.org/articles/git-credentials.html).
 - Looked up some tips on how to write code comments better. Tips from: [Antonin Januska](https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/) and [Ellen Spertus](https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/).
-- Looked up why `pkgdown` [adds the `docs/` directory into `.gitignore`](https://stackoverflow.com/questions/69507610/unable-to-push-package-website-pkgdown-from-r-to-github).
-- Learned of `gitk`, which I've never used before.
-- Learned about [managing my git credentials in `usethis`](https://usethis.r-lib.org/articles/git-credentials.html).
-- Learning about documentation managers. There's: [Zeal](https://zealdocs.org/) and [DevDocs](https://devdocs.io/).
-
+- Learned that the string `GITHUB_PAT` can be found in the `.github/workflows` directory.
+- Learned about documentation managers. There's: [Zeal](https://zealdocs.org/) and [DevDocs](https://devdocs.io/).
 - Learned that there are, like, eight test suites. And they automatically run when you make a pull request to the `animint2` repository. That's nice. I'm also learning that the tests take a long time to run---about 45 minutes.
+- Turns out that `ripgrep-all` doesn't look through YAML files. I need something like `yq` instead. Why?
 
 ### Created
 
 - Created `README.md` from the `README.org` file via the magic of `pandoc`.
 - Created a preliminary website and documented how I generated it.
-  + For the documentation and code, see `website_setup.Rmd`.
+  + For the documentation and code, see `website_setup.Rmd`. Currently have information about building the website.
   + Put the site up online.
 - Accidentally made a pull request in `tdhock/animint2`. Should've been `ampurr/animint2` instead. I closed it---be more careful.
-- Made a pull request in `ampurr/animint2` but did not succeed in closing it. One of the tests---"Test Suite compiler"---failed. Here's the error message:
+- Made a pull request in `ampurr/animint2` but did not initially succeed in closing it due to a test failing. Later, I pushed it anyway, which then threw the website online.
+- Successfully set up the website. But there are some errors. Most noticeably: it includes some functions that don't seem to be part of `animint2`. Will need to investigate further.
 
-```
+### Confused
+
+One of the tests---"Test Suite compiler"---failed. Here's the error message:
+
+```{r}
+#| eval = FALSE
+
 ══ Failed tests ════════════════════════════════════════════════════════════════
 ── Error ('test-compiler-gist.R:4:3'): animint2gist() returns an object of class 'gist' ──
 Error: Error: In non-interactive environments, please set GITHUB_PAT env to a GitHub access token (https://help.github.com/articles/creating-an-access-token-for-command-line-use)
@@ -49,4 +62,7 @@ Error: Error: Test failures
 Execution halted
 Error: Process completed with exit code 1.
 ```
+This is confusing, since I thought `GITHUB_PAT` was already set with a GitHub Access Token. I was also unaware of the large array of tests that activate when you try to push something. Quite frankly, I'm not sure what they do or what they prevent. It feels different than using `testthat`.
 
+
+## Week 2 (June 5 to June 11)

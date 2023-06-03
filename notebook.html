@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -51,7 +85,9 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#learned" id="toc-learned" class="nav-link" data-scroll-target="#learned">Learned</a></li>
   <li><a href="#created" id="toc-created" class="nav-link" data-scroll-target="#created">Created</a></li>
+  <li><a href="#confused" id="toc-confused" class="nav-link" data-scroll-target="#confused">Confused</a></li>
   </ul></li>
+  <li><a href="#week-2-june-5-to-june-11" id="toc-week-2-june-5-to-june-11" class="nav-link" data-scroll-target="#week-2-june-5-to-june-11">Week 2 (June 5 to June 11)</a></li>
   </ul>
 </nav>
 </div>
@@ -85,14 +121,23 @@ ul.task-list li input[type="checkbox"] {
 <section id="learned" class="level3">
 <h3 class="anchored" data-anchor-id="learned">Learned</h3>
 <ul>
-<li><p>Began looking into the <a href="https://pkgdown.r-lib.org/index.html"><code>pkgdown</code> documentation</a>. Webpages seemed to be generated from <code>.rmd</code> files, so I was curious if the package also worked the same way for <code>.qmd</code> files. The <a href="https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2">answer is no</a>.</p></li>
-<li><p>Noticed that the intro to <code>pkgdown</code> page <a href="https://pkgdown.r-lib.org/articles/pkgdown.html">accidentally uses the word “setting” twice in a row</a>.</p></li>
-<li><p>Looked up some tips on how to write code comments better. Tips from: <a href="https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/">Antonin Januska</a> and <a href="https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/">Ellen Spertus</a>.</p></li>
-<li><p>Looked up why <code>pkgdown</code> <a href="https://stackoverflow.com/questions/69507610/unable-to-push-package-website-pkgdown-from-r-to-github">adds the <code>docs/</code> directory into <code>.gitignore</code></a>.</p></li>
-<li><p>Learned of <code>gitk</code>, which I’ve never used before.</p></li>
-<li><p>Learned about <a href="https://usethis.r-lib.org/articles/git-credentials.html">managing my git credentials in <code>usethis</code></a>.</p></li>
-<li><p>Learning about documentation managers. There’s: <a href="https://zealdocs.org/">Zeal</a> and <a href="https://devdocs.io/">DevDocs</a>.</p></li>
-<li><p>Learned that there are, like, eight test suites. And they automatically run when you make a pull request to the <code>animint2</code> repository. That’s nice. I’m also learning that the tests take a long time to run—about 45 minutes.</p></li>
+<li>Learned more about the <code>pkgdown</code> R package:
+<ul>
+<li>Began looking into the <a href="https://pkgdown.r-lib.org/index.html"><code>pkgdown</code> documentation</a>.</li>
+<li>Webpages seemed to be generated from <code>.rmd</code> files, so I was curious if the package also worked the same way for <code>.qmd</code> files. The <a href="https://community.rstudio.com/t/how-to-run-quarto-qmd-from-within-package/154711/2">answer is no</a>.</li>
+<li>Looked up why <code>pkgdown</code> <a href="https://stackoverflow.com/questions/69507610/unable-to-push-package-website-pkgdown-from-r-to-github">adds the <code>docs/</code> directory into <code>.gitignore</code></a>. But it’s still unclear to me.</li>
+<li>Noticed that the intro to <code>pkgdown</code> page <a href="https://pkgdown.r-lib.org/articles/pkgdown.html">accidentally uses the word “setting” twice in a row</a>.</li>
+</ul></li>
+<li>Learned more about git:
+<ul>
+<li>Learned of <code>gitk</code>, which I’ve never used before.</li>
+<li>Learned about <a href="https://usethis.r-lib.org/articles/git-credentials.html">managing my git credentials in <code>usethis</code></a>.</li>
+</ul></li>
+<li>Looked up some tips on how to write code comments better. Tips from: <a href="https://web.archive.org/web/20201111223912/https://antjanus.com/blog/web-design-tips/best-comment-separator/">Antonin Januska</a> and <a href="https://stackoverflow.blog/2021/12/23/best-practices-for-writing-code-comments/">Ellen Spertus</a>.</li>
+<li>Learned that the string <code>GITHUB_PAT</code> can be found in the <code>.github/workflows</code> directory.</li>
+<li>Learned about documentation managers. There’s: <a href="https://zealdocs.org/">Zeal</a> and <a href="https://devdocs.io/">DevDocs</a>.</li>
+<li>Learned that there are, like, eight test suites. And they automatically run when you make a pull request to the <code>animint2</code> repository. That’s nice. I’m also learning that the tests take a long time to run—about 45 minutes.</li>
+<li>Turns out that <code>ripgrep-all</code> doesn’t look through YAML files. I need something like <code>yq</code> instead. Why?</li>
 </ul>
 </section>
 <section id="created" class="level3">
@@ -101,30 +146,44 @@ ul.task-list li input[type="checkbox"] {
 <li>Created <code>README.md</code> from the <code>README.org</code> file via the magic of <code>pandoc</code>.</li>
 <li>Created a preliminary website and documented how I generated it.
 <ul>
-<li>For the documentation and code, see <code>website_setup.Rmd</code>.</li>
+<li>For the documentation and code, see <code>website_setup.Rmd</code>. Currently have information about building the website.</li>
 <li>Put the site up online.</li>
 </ul></li>
 <li>Accidentally made a pull request in <code>tdhock/animint2</code>. Should’ve been <code>ampurr/animint2</code> instead. I closed it—be more careful.</li>
-<li>Made a pull request in <code>ampurr/animint2</code> but did not succeed in closing it. One of the tests—“Test Suite compiler”—failed. Here’s the error message:</li>
+<li>Made a pull request in <code>ampurr/animint2</code> but did not initially succeed in closing it due to a test failing. Later, I pushed it anyway, which then threw the website online.</li>
+<li>Successfully set up the website. But there are some errors. Most noticeably: it includes some functions that don’t seem to be part of <code>animint2</code>. Will need to investigate further.</li>
 </ul>
-<pre><code>══ Failed tests ════════════════════════════════════════════════════════════════
-── Error ('test-compiler-gist.R:4:3'): animint2gist() returns an object of class 'gist' ──
-Error: Error: In non-interactive environments, please set GITHUB_PAT env to a GitHub access token (https://help.github.com/articles/creating-an-access-token-for-command-line-use)
-Backtrace:
-    ▆
- 1. └─animint2::animint2gist(list(p = qplot(1:10)), browse = FALSE) at test-compiler-gist.R:4:2
- 2.   └─gistr::gist_create(...)
- 3.     ├─gistr:::gist_POST(...)
- 4.     │ └─gistr:::cVERB(...)
- 5.     │   └─crul::HttpClient$new(url, headers = c(auth, headers), opts = list(...))
- 6.     │     └─crul (local) initialize(...)
- 7.     └─gistr::gist_auth()
-
-[ FAIL 1 | WARN 0 | SKIP 5 | PASS 756 ]
-Error: Error: Test failures
-Execution halted
-Error: Process completed with exit code 1.</code></pre>
 </section>
+<section id="confused" class="level3">
+<h3 class="anchored" data-anchor-id="confused">Confused</h3>
+<p>One of the tests—“Test Suite compiler”—failed. Here’s the error message:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>══ Failed tests ════════════════════════════════════════════════════════════════</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>── <span class="fu">Error</span> (<span class="st">'test-compiler-gist.R:4:3'</span>)<span class="sc">:</span> <span class="fu">animint2gist</span>() returns an object of class <span class="st">'gist'</span> ──</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Error<span class="sc">:</span> In non<span class="sc">-</span>interactive environments, please set GITHUB_PAT env to a GitHub access <span class="fu">token</span> (https<span class="sc">:</span><span class="er">//</span>help.github.com<span class="sc">/</span>articles<span class="sc">/</span>creating<span class="sc">-</span>an<span class="sc">-</span>access<span class="sc">-</span>token<span class="sc">-</span><span class="cf">for</span><span class="sc">-</span>command<span class="sc">-</span>line<span class="sc">-</span>use)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Backtrace<span class="sc">:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ▆</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a> <span class="fl">1.</span> └─animint2<span class="sc">::</span><span class="fu">animint2gist</span>(<span class="fu">list</span>(<span class="at">p =</span> <span class="fu">qplot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)), <span class="at">browse =</span> <span class="cn">FALSE</span>) at test<span class="sc">-</span>compiler<span class="sc">-</span>gist.R<span class="sc">:</span><span class="dv">4</span><span class="sc">:</span><span class="dv">2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> <span class="fl">2.</span>   └─gistr<span class="sc">::</span><span class="fu">gist_create</span>(...)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a> <span class="fl">3.</span>     ├─gistr<span class="sc">:::</span><span class="fu">gist_POST</span>(...)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a> <span class="fl">4.</span>     │ └─gistr<span class="sc">:::</span><span class="fu">cVERB</span>(...)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a> <span class="fl">5.</span>     │   └─crul<span class="sc">::</span>HttpClient<span class="sc">$</span><span class="fu">new</span>(url, <span class="at">headers =</span> <span class="fu">c</span>(auth, headers), <span class="at">opts =</span> <span class="fu">list</span>(...))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a> <span class="fl">6.</span>     │     └─<span class="fu">crul</span> (local) <span class="fu">initialize</span>(...)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a> <span class="fl">7.</span>     └─gistr<span class="sc">::</span><span class="fu">gist_auth</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>[ FAIL <span class="dv">1</span> <span class="sc">|</span> WARN <span class="dv">0</span> <span class="sc">|</span> SKIP <span class="dv">5</span> <span class="sc">|</span> PASS <span class="dv">756</span> ]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Error<span class="sc">:</span> Test failures</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Execution halted</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Error<span class="sc">:</span> Process completed with exit code <span class="fl">1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>This is confusing, since I thought <code>GITHUB_PAT</code> was already set with a GitHub Access Token. I was also unaware of the large array of tests that activate when you try to push something. Quite frankly, I’m not sure what they do or what they prevent. It feels different than using <code>testthat</code>.</p>
+</section>
+</section>
+<section id="week-2-june-5-to-june-11" class="level2">
+<h2 class="anchored" data-anchor-id="week-2-june-5-to-june-11">Week 2 (June 5 to June 11)</h2>
 </section>
 
 </main>
