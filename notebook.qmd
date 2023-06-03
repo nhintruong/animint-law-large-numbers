@@ -64,5 +64,7 @@ Error: Process completed with exit code 1.
 ```
 This is confusing, since I thought `GITHUB_PAT` was already set with a GitHub Access Token. I was also unaware of the large array of tests that activate when you try to push something. Quite frankly, I'm not sure what they do or what they prevent. It feels different than using `testthat`.
 
+I also don't understand the GitHub workflow stuff. What exactly is GitHub doing?
+
 
 ## Week 2 (June 5 to June 11)
