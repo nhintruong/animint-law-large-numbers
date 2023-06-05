@@ -30,7 +30,7 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 ### Created
 
 - Created `README.md` from the `README.org` file via the magic of `pandoc`.
-- Created a preliminary website and documented how I generated it.
+- Created a preliminary website and documented how I generated it:
   + For the documentation and code, see `website_setup.Rmd`. Currently have information about building the website.
   + Put the site up online.
 - Accidentally made a pull request in `tdhock/animint2`. Should've been `ampurr/animint2` instead. I closed it---be more careful.
@@ -68,3 +68,15 @@ I also don't understand the GitHub workflow stuff. What exactly is GitHub doing?
 
 
 ## Week 2 (June 5 to June 11)
+
+### Learned
+
+- Learned that the [`roxygen2` package](https://roxygen2.r-lib.org/) generates both the `.Rd` files and the `DESCRIPTION` for packages.
+- Learned that `devtools` has so so so many dependencies. The [AUR package](https://aur.archlinux.org/packages/r-devtools) does, anyway.
+- This is real basic, but I re-learned that `bash foo.sh` runs shell scripts. I haven't run one since September of 2022.
+
+### Created
+
+- Made a pull request to resolve [issue 89](https://github.com/tdhock/animint2/issues/89):
+  + Well... Technically it's the opposite of creation. I deleted the `fortify.foo` files in the `R/` directory.
+  + Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files.
