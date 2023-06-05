@@ -77,6 +77,11 @@ I also don't understand the GitHub workflow stuff. What exactly is GitHub doing?
 
 ### Created
 
-- Made a pull request to resolve [issue 89](https://github.com/tdhock/animint2/issues/89):
+- Well... Technically it's the opposite of creation. I deleted the `fortify.foo` files in the `R/` directory.
+<!-- - Made a pull request to resolve [issue 89](https://github.com/tdhock/animint2/issues/89):
   + Well... Technically it's the opposite of creation. I deleted the `fortify.foo` files in the `R/` directory.
-  + Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files.
+  + Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files. -->
+
+### Confused
+
+- `yay -S r-plyr r-reshape2` isn't working and requires "manual intervention." Why?
