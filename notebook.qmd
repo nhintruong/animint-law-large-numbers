@@ -11,6 +11,8 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 
 ## Week 1 (May 29 to June 4)
 
+This week, I set up a preliminary website for 
+
 ### Learned
 
 - Learned more about the `pkgdown` R package:
@@ -69,19 +71,73 @@ I also don't understand the GitHub workflow stuff. What exactly is GitHub doing?
 
 ## Week 2 (June 5 to June 11)
 
+This week, I tried to fix [issue 89](https://github.com/tdhock/animint2/issues/89). I did not succeed.
+
 ### Learned
 
-- Learned that the [`roxygen2` package](https://roxygen2.r-lib.org/) generates both the `.Rd` files and the `DESCRIPTION` for packages.
-- Learned that `devtools` has so so so many dependencies. The [AUR package](https://aur.archlinux.org/packages/r-devtools) does, anyway.
+- Learned that the [`roxygen2` package](https://roxygen2.r-lib.org/) generates both the `.Rd` files and part of the `DESCRIPTION` for packages.
+- Learned that [`devtools` AUR package](https://aur.archlinux.org/packages/r-devtools) has so so so many dependencies.
 - This is real basic, but I re-learned that `bash foo.sh` runs shell scripts. I haven't run one since September of 2022.
+- Looked into _Writing R Extensions_, which I was not previously aware existed:
+  + Read the [DESCRIPTION file](https://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file) portion.
+  + Learned about [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822), a syntax standard for text messages in email. FastMail mentions that [RFC 5322 makes RFC 2822 obsolete](https://www.fastmail.help/hc/en-us/articles/1500000278382-Email-standards), but _Writing_ requests emails be written in RFC 2822 formatting.
+- When using Git Bash---i.e. [MinGW](https://mingw.osdn.io/)---and `cd`, I need to swap the backwards slashes for forward slashes. Oddly, the backwards slashes work for some directories but not for others. It took me a while to realize this while debugging.
+- Figured out that the `borders()` function is part of `fortify-map.r`. That's why it disappeared when I deleted that R file.
+- Learning about bash.
+- Learned that all the tidyverse data tidiers will eventually be retired. This includes both `ggplot2::fortify()` and `broom::tidy()`.
 
 ### Created
 
-- Well... Technically it's the opposite of creation. I deleted the `fortify.foo` files in the `R/` directory.
-<!-- - Made a pull request to resolve [issue 89](https://github.com/tdhock/animint2/issues/89):
-  + Well... Technically it's the opposite of creation. I deleted the `fortify.foo` files in the `R/` directory.
-  + Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files. -->
+Nothing of value. I created several branches to try and fix the issue and didn't succeed.
+
+- [One branch](https://github.com/tdhock/animint2/tree/89-sp-maptools-dependency) focused on removing the `fortify` functions in `animint2`. This caused several tests to fail. Later, [Toby told me](https://github.com/tdhock/animint2/pull/93#issuecomment-1585976690) that `map_data` is used in several tests and relies on the `fortify` functions.
+- As part of a debugging process, [one branch was a copy of the main branch](https://github.com/tdhock/animint2/tree/89-bug-exam-slightly-altered-main-branch) with an additional text document. It was meant to test the GitHub tests. It passed the tests.
+- Another branch was meant to debug the branch where I removed the `fortify` functions.
+
+### Failed
+
+My debugging process didn't succeed. Or, at the very least, it didn't succeed in time.
+
+Parts of it were headed in the right direction. After some experimentation, I confirmed that the problem stemmed from my changes to the repository (the removal of the `fortify` functions) and not from either `build.sh` or the GitHub tests. But my debugging was focused on the following error message:
+
+> Error in `FUN(X[[i]], ...)`: numeric 'envir' arg not of length one.
+
+This error message comes from the `ggplot2` side of `animint2`'s code. In some sense, I was looking in the right direction---the `fortify` functions are from the `ggplot2` side of things. But I was focused on figuring out substitutes for `fortify` and failed to notice that the problem was with `map_data`.
+
+<!--
+- I deleted the `fortify.r` and `fortify.foo.r` files in the `R/` directory. (Technically the opposite of creation.)
+- Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files. It also removed the `borders.Rd` and `map_data.Rd` files.
+- Removed `maptools` as a DESCRIPTION suggest.
+- Manually removed all links to the deleted files. This involved editing the following 5 files in the `R/` directory, which altered 38 files in the `man/` directory via `build.sh`. Those 5 R files were:
+  + `annotation_map.r`
+  + `autoplot.r`
+  + `plot.r`
+  + `layer.r`
+  + `geom-map.r`
+- Updated the DESCRIPTION from version 2023.3.14 to 2023.6.6
+- Updated NEWS by briefly mentioning all the changes I made.
+- Made a pull request with the aforementioned changes and linked it to [issue 89](https://github.com/tdhock/animint2/issues/89) on GitHub.
+
+### Debugging
+
+`build.sh` throws up a number of error messages, which can be found in `00check.log`. Two and two of those messages are "Running examples in 'animint2-Ex.R' failed" and "Running the tests in 'tests/testthat.R' failed," respectively.
+
+The reason why the running examples fail seem to be related to the following error message: "Error in `FUN(X[[i]], ...)`: numeric 'envir' arg not of length one." I know this is code from the `ggplot2` side of things. `ripgrep-all` doesn't turn anything up, which suggests that it's not a manually written error message.
+
+One hypothesis is that this is associated with changes that I made. To test this hypothesis, I made a new branch stemming from the unchanged main branch, `89-bug-exam-unaltered-main-branch`. Then I ran `build.sh`. Consistent with this hypothesis, `build.sh` did not output the same errors. Assuming that the hypothesis is correct---that it is my fault---also means the problem is not with `build.sh`.^[It does seem to have problems rendering the PDF, but that's a problem for future me.] So I should stop playing around with it and looking up bash stuff. That's not relevant.
+
+Follow-up hypothesis...
+-->
 
 ### Confused
 
-- `yay -S r-plyr r-reshape2` isn't working and requires "manual intervention." Why?
+For some reason, `build.sh` always fails to generate the $\LaTeX$ document correctly, mentioning some problem with the `.Rd` files. Then I think it runs the process again, and the problem disappears. Why?
+
+Why are the tidyverse data tidiers being retired? I can't find any info about that.
+
+`yay -S r-plyr r-reshape2` isn't working and requires "manual intervention." Why? Luckily, this isn't important---`build.sh` runs perfectly fine on Git Bash and therefore I don't actually need to figure out why the `yay` helper is acting this way.
+
+
+## Week 2 (June 12 to June 18)
+
+Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
