@@ -68,6 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="notebook_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="notebook_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="changes.css">
 </head>
@@ -87,7 +89,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#created" id="toc-created" class="nav-link" data-scroll-target="#created">Created</a></li>
   <li><a href="#confused" id="toc-confused" class="nav-link" data-scroll-target="#confused">Confused</a></li>
   </ul></li>
-  <li><a href="#week-2-june-5-to-june-11" id="toc-week-2-june-5-to-june-11" class="nav-link" data-scroll-target="#week-2-june-5-to-june-11">Week 2 (June 5 to June 11)</a></li>
+  <li><a href="#week-2-june-5-to-june-11" id="toc-week-2-june-5-to-june-11" class="nav-link" data-scroll-target="#week-2-june-5-to-june-11">Week 2 (June 5 to June 11)</a>
+  <ul class="collapse">
+  <li><a href="#learned-1" id="toc-learned-1" class="nav-link" data-scroll-target="#learned-1">Learned</a></li>
+  <li><a href="#created-1" id="toc-created-1" class="nav-link" data-scroll-target="#created-1">Created</a></li>
+  <li><a href="#failed" id="toc-failed" class="nav-link" data-scroll-target="#failed">Failed</a></li>
+  <li><a href="#confused-1" id="toc-confused-1" class="nav-link" data-scroll-target="#confused-1">Confused</a></li>
+  </ul></li>
+  <li><a href="#week-2-june-12-to-june-18" id="toc-week-2-june-12-to-june-18" class="nav-link" data-scroll-target="#week-2-june-12-to-june-18">Week 2 (June 12 to June 18)</a></li>
   </ul>
 </nav>
 </div>
@@ -118,6 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-1-may-29-to-june-4" class="level2">
 <h2 class="anchored" data-anchor-id="week-1-may-29-to-june-4">Week 1 (May 29 to June 4)</h2>
+<p>This week, I set up a preliminary website for</p>
 <section id="learned" class="level3">
 <h3 class="anchored" data-anchor-id="learned">Learned</h3>
 <ul>
@@ -144,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="created">Created</h3>
 <ul>
 <li>Created <code>README.md</code> from the <code>README.org</code> file via the magic of <code>pandoc</code>.</li>
-<li>Created a preliminary website and documented how I generated it.
+<li>Created a preliminary website and documented how I generated it:
 <ul>
 <li>For the documentation and code, see <code>website_setup.Rmd</code>. Currently have information about building the website.</li>
 <li>Put the site up online.</li>
@@ -180,10 +190,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>This is confusing, since I thought <code>GITHUB_PAT</code> was already set with a GitHub Access Token. I was also unaware of the large array of tests that activate when you try to push something. Quite frankly, I’m not sure what they do or what they prevent. It feels different than using <code>testthat</code>.</p>
+<p>I also don’t understand the GitHub workflow stuff. What exactly is GitHub doing?</p>
 </section>
 </section>
 <section id="week-2-june-5-to-june-11" class="level2">
 <h2 class="anchored" data-anchor-id="week-2-june-5-to-june-11">Week 2 (June 5 to June 11)</h2>
+<p>This week, I tried to fix <a href="https://github.com/tdhock/animint2/issues/89">issue 89</a>. I did not succeed.</p>
+<section id="learned-1" class="level3">
+<h3 class="anchored" data-anchor-id="learned-1">Learned</h3>
+<ul>
+<li>Learned that the <a href="https://roxygen2.r-lib.org/"><code>roxygen2</code> package</a> generates both the <code>.Rd</code> files and part of the <code>DESCRIPTION</code> for packages.</li>
+<li>Learned that <a href="https://aur.archlinux.org/packages/r-devtools"><code>devtools</code> AUR package</a> has so so so many dependencies.</li>
+<li>This is real basic, but I re-learned that <code>bash foo.sh</code> runs shell scripts. I haven’t run one since September of 2022.</li>
+<li>Looked into <em>Writing R Extensions</em>, which I was not previously aware existed:
+<ul>
+<li>Read the <a href="https://cran.r-project.org/doc/manuals/R-exts.html#The-DESCRIPTION-file">DESCRIPTION file</a> portion.</li>
+<li>Learned about <a href="https://datatracker.ietf.org/doc/html/rfc2822">RFC 2822</a>, a syntax standard for text messages in email. FastMail mentions that <a href="https://www.fastmail.help/hc/en-us/articles/1500000278382-Email-standards">RFC 5322 makes RFC 2822 obsolete</a>, but <em>Writing</em> requests emails be written in RFC 2822 formatting.</li>
+</ul></li>
+<li>When using Git Bash—i.e.&nbsp;<a href="https://mingw.osdn.io/">MinGW</a>—and <code>cd</code>, I need to swap the backwards slashes for forward slashes. Oddly, the backwards slashes work for some directories but not for others. It took me a while to realize this while debugging.</li>
+<li>Figured out that the <code>borders()</code> function is part of <code>fortify-map.r</code>. That’s why it disappeared when I deleted that R file.</li>
+<li>Learning about bash.</li>
+<li>Learned that all the tidyverse data tidiers will eventually be retired. This includes both <code>ggplot2::fortify()</code> and <code>broom::tidy()</code>.</li>
+</ul>
+</section>
+<section id="created-1" class="level3">
+<h3 class="anchored" data-anchor-id="created-1">Created</h3>
+<p>Nothing of value. I created several branches to try and fix the issue and didn’t succeed.</p>
+<ul>
+<li><a href="https://github.com/tdhock/animint2/tree/89-sp-maptools-dependency">One branch</a> focused on removing the <code>fortify</code> functions in <code>animint2</code>. This caused several tests to fail. Later, <a href="https://github.com/tdhock/animint2/pull/93#issuecomment-1585976690">Toby told me</a> that <code>map_data</code> is used in several tests and relies on the <code>fortify</code> functions.</li>
+<li>As part of a debugging process, <a href="https://github.com/tdhock/animint2/tree/89-bug-exam-slightly-altered-main-branch">one branch was a copy of the main branch</a> with an additional text document. It was meant to test the GitHub tests. It passed the tests.</li>
+<li>Another branch was meant to debug the branch where I removed the <code>fortify</code> functions.</li>
+</ul>
+</section>
+<section id="failed" class="level3">
+<h3 class="anchored" data-anchor-id="failed">Failed</h3>
+<p>My debugging process didn’t succeed. Or, at the very least, it didn’t succeed in time.</p>
+<p>Parts of it were headed in the right direction. After some experimentation, I confirmed that the problem stemmed from my changes to the repository (the removal of the <code>fortify</code> functions) and not from either <code>build.sh</code> or the GitHub tests. But my debugging was focused on the following error message:</p>
+<blockquote class="blockquote">
+<p>Error in <code>FUN(X[[i]], ...)</code>: numeric ‘envir’ arg not of length one.</p>
+</blockquote>
+<p>This error message comes from the <code>ggplot2</code> side of <code>animint2</code>’s code. In some sense, I was looking in the right direction—the <code>fortify</code> functions are from the <code>ggplot2</code> side of things. But I was focused on figuring out substitutes for <code>fortify</code> and failed to notice that the problem was with <code>map_data</code>.</p>
+<!--
+- I deleted the `fortify.r` and `fortify.foo.r` files in the `R/` directory. (Technically the opposite of creation.)
+- Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files. It also removed the `borders.Rd` and `map_data.Rd` files.
+- Removed `maptools` as a DESCRIPTION suggest.
+- Manually removed all links to the deleted files. This involved editing the following 5 files in the `R/` directory, which altered 38 files in the `man/` directory via `build.sh`. Those 5 R files were:
+  + `annotation_map.r`
+  + `autoplot.r`
+  + `plot.r`
+  + `layer.r`
+  + `geom-map.r`
+- Updated the DESCRIPTION from version 2023.3.14 to 2023.6.6
+- Updated NEWS by briefly mentioning all the changes I made.
+- Made a pull request with the aforementioned changes and linked it to [issue 89](https://github.com/tdhock/animint2/issues/89) on GitHub.
+
+### Debugging
+
+`build.sh` throws up a number of error messages, which can be found in `00check.log`. Two and two of those messages are "Running examples in 'animint2-Ex.R' failed" and "Running the tests in 'tests/testthat.R' failed," respectively.
+
+The reason why the running examples fail seem to be related to the following error message: "Error in `FUN(X[[i]], ...)`: numeric 'envir' arg not of length one." I know this is code from the `ggplot2` side of things. `ripgrep-all` doesn't turn anything up, which suggests that it's not a manually written error message.
+
+One hypothesis is that this is associated with changes that I made. To test this hypothesis, I made a new branch stemming from the unchanged main branch, `89-bug-exam-unaltered-main-branch`. Then I ran `build.sh`. Consistent with this hypothesis, `build.sh` did not output the same errors. Assuming that the hypothesis is correct---that it is my fault---also means the problem is not with `build.sh`.^[It does seem to have problems rendering the PDF, but that's a problem for future me.] So I should stop playing around with it and looking up bash stuff. That's not relevant.
+
+Follow-up hypothesis...
+-->
+</section>
+<section id="confused-1" class="level3">
+<h3 class="anchored" data-anchor-id="confused-1">Confused</h3>
+<p>For some reason, <code>build.sh</code> always fails to generate the <span class="math inline">\(\LaTeX\)</span> document correctly, mentioning some problem with the <code>.Rd</code> files. Then I think it runs the process again, and the problem disappears. Why?</p>
+<p>Why are the tidyverse data tidiers being retired? I can’t find any info about that.</p>
+<p><code>yay -S r-plyr r-reshape2</code> isn’t working and requires “manual intervention.” Why? Luckily, this isn’t important—<code>build.sh</code> runs perfectly fine on Git Bash and therefore I don’t actually need to figure out why the <code>yay</code> helper is acting this way.</p>
+</section>
+</section>
+<section id="week-2-june-12-to-june-18" class="level2">
+<h2 class="anchored" data-anchor-id="week-2-june-12-to-june-18">Week 2 (June 12 to June 18)</h2>
+<p>Nothing here yet. Unless you have an <a href="https://iep.utm.edu/time/#SH14a">unusual ontology of time</a>, of course. In that case, something was always here and always will be.</p>
 </section>
 
 </main>

@@ -17,4 +17,4 @@ My colleague this year is [Yufan Fei](https://yufanfei.xyz/), who is a much more
 ## Pages
 
 - [Coding Notebook](notebook.html): My notes on what I've been doing for GSOC so far. Mostly irrelevant unless you wanna see a public record of my coding mistakes and learn what not to do.
-- [R Project Examinations](exam/exam.html): Some tests that I took. Mostly irrelevant unless you're interested in seeing some animated graphs of the [five-factor model of personality](https://simple.wikipedia.org/wiki/Personality#Personality_types) or the [weak law of large numbers](https://simple.wikipedia.org/wiki/Law_of_large_numbers).
+- [R Project Examinations](exam/exam.html): Some tests that I took. Mostly irrelevant unless you're interested in seeing some animated graphs of the [five-factor model of personality](https://www.britannica.com/science/five-factor-model-of-personality) or the [weak law of large numbers](https://www.britannica.com/science/law-of-large-numbers).
