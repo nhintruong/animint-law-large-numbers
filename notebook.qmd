@@ -11,7 +11,7 @@ This is a public-facing notebook about what I'm doing, what I'm struggling to do
 
 ## Week 1 (May 29 to June 4)
 
-This week, I set up a preliminary website for 
+This week, I set up a preliminary `animint2` reference website.
 
 ### Learned
 
@@ -139,5 +139,25 @@ Why are the tidyverse data tidiers being retired? I can't find any info about th
 
 
 ## Week 2 (June 12 to June 18)
+
+### Learned
+
+- First meeting with Toby!
+  + `animint2` doesn't compute---all computations are done beforehand, and then `animint2` displays that as an interactive data visualization.
+  + Also learned that capital letters go before lowercase letters in terms of alphabetical order. At least according to R.
+  + `build.sh`, and some of the GitHub Actions, are meant to emulate CRAN checks.
+  + All else being equal, prefer small changes over large changes.
+- Looked up [selenium documentation](https://www.selenium.dev/documentation/) in order to figure out if a test case for [issue 90](https://github.com/tdhock/animint2/issues/90) was possible.
+- Preliminary research on alt-text for `ggplot2`, graphs, and data visualizations:
+  + N. Elmqvist. [Data Visualization for the Blind](https://doi.org/10.1145/3571737). In _Interactions_. 2023.
+  + Office for National Statistics. [Alt Text: A Guide to Writing About Statistics](https://style.ons.gov.uk/accessibility/alt-text/).
+  + C. Jung and others. [Communicating Visualizations without Visuals](https://arxiv.org/abs/2108.03657). In _ArXiv_. 2021.
+
+### Created
+
+Uhhhhhhhh
+
+
+## Week 3 (June 19 to June 25)
 
 Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
