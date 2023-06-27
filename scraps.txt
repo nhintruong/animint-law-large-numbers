@@ -265,3 +265,32 @@ Readers are likely most interested in the "Making Changes to the Website" and "S
 The website works, but it's disordered. The site is mostly a mix of the Github README and the official `animint2` documentation on CRAN. It could be better.
 
 ##########
+
+<!--
+- I deleted the `fortify.r` and `fortify.foo.r` files in the `R/` directory. (Technically the opposite of creation.)
+- Then I ran `build.sh` to rebuild the `DESCRIPTION` and got rid of the unnecessary `fortify.foo.Rd` files. It also removed the `borders.Rd` and `map_data.Rd` files.
+- Removed `maptools` as a DESCRIPTION suggest.
+- Manually removed all links to the deleted files. This involved editing the following 5 files in the `R/` directory, which altered 38 files in the `man/` directory via `build.sh`. Those 5 R files were:
+  + `annotation_map.r`
+  + `autoplot.r`
+  + `plot.r`
+  + `layer.r`
+  + `geom-map.r`
+- Updated the DESCRIPTION from version 2023.3.14 to 2023.6.6
+- Updated NEWS by briefly mentioning all the changes I made.
+- Made a pull request with the aforementioned changes and linked it to [issue 89](https://github.com/tdhock/animint2/issues/89) on GitHub.
+
+### Debugging
+
+`build.sh` throws up a number of error messages, which can be found in `00check.log`. Two and two of those messages are "Running examples in 'animint2-Ex.R' failed" and "Running the tests in 'tests/testthat.R' failed," respectively.
+
+The reason why the running examples fail seem to be related to the following error message: "Error in `FUN(X[[i]], ...)`: numeric 'envir' arg not of length one." I know this is code from the `ggplot2` side of things. `ripgrep-all` doesn't turn anything up, which suggests that it's not a manually written error message.
+
+One hypothesis is that this is associated with changes that I made. To test this hypothesis, I made a new branch stemming from the unchanged main branch, `89-bug-exam-unaltered-main-branch`. Then I ran `build.sh`. Consistent with this hypothesis, `build.sh` did not output the same errors. Assuming that the hypothesis is correct---that it is my fault---also means the problem is not with `build.sh`.^[It does seem to have problems rendering the PDF, but that's a problem for future me.] So I should stop playing around with it and looking up bash stuff. That's not relevant.
+
+Follow-up hypothesis...
+-->
+
+##########
+
+empty

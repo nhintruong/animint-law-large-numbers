@@ -1,0 +1,72 @@
+# Meeting with Toby 1
+
+
+## Introduction
+
+We met via Google Meet on 2023-06-14, from approx. 2:05 to 3:05 PM Eastern.
+
+Toby welcomed me to GSOC and told me that the most important thing was my learning, with the production of useful animint2 code a secondary concern. I thought that was nice of him to say, and it was honestly kind of a relief. I failed my first assignment, after all. (Issue #89.) He asked if I had any questions. I did. What follows is an attempt to document his responses. There are inaccuracies. I was sleep-deprived and my memory is unexceptional, but I've also reorganized the conversation so that it's more easily referenced.
+
+
+## Question & Answer
+
+1. Is Monday @ 2 PM Eastern the best time to meet?
+
+No. This summer, there's no best time to meet. We should set up ad hoc meetings whenever we feel like we need synchronous communication. For everything else, we can use GitHub. (Editor's Note: And presumably email for more private conversations.)
+
+2. How does build.sh work?
+
+build.sh emulates the CRAN checks that the package would have to undergo when submitted to CRAN.
+
+3. I get this weird LaTeX PDF bug with build.sh...
+
+I don't get it, even when I use Windows. File a GitHub issue.
+
+4. What are the GitHub Action tests?
+
+They check if the animint2 code is working. They test functionality via selenium and a headless browser. They also repeat that emulated CRAN check.
+
+5. What are the fortify functions, how do they work, and why do we keep them around?
+
+The fortify functions are S3 generic functions. More specifically, they belong in the subset of methods. (Editor's note: Look up S3 generic functions and methods.) They're being removed cuz the Tidyverse team tends to make backsward-incompatible changes. You'll need to ask the ggplot2 people why they're deprecating ggplot2::fortify() and broom::tidy(). In contrast, base R code written a long time ago can probably be run today.
+
+6. What are your thoughts about the preliminary animint2 website?
+
+Seems good. You can move things around on the home page. Obviously you'll also reorganize the animint2 functions on the references page.
+
+You should also note somewhere that animint2 doesn't do computations. All computations must be done beforehand, and then animint2 visually renders them. Make that clearer!
+
+7. There's this weird bug where the animint2 functions aren't in alphabetical order.
+
+They are in alphabetical order. It's just that capital letters go before lowercase letters in R.
+
+8. I can't figure out how to get my law of large numbers (LLN) animint to have multiple model parameters. The dataset is just so sparse. It's an ID column and a values column.
+
+Compute multiple datasets and then let the user choose between them.
+
+9. What should I do to be a helpful contributor?
+
+After making an update, update the NEWS and DESCRIPTION files. Write an issue before making a pull request (PR). Prefer small changes over larger ones. My method is to think: what is the smallest change that will make this complaint go away?
+
+10. What are your feelings on the state of the animint gallery right now?
+
+It's fine for now. But the code isn't reproducible, so I want to migrate to .Rmd files with all the data available.
+
+I want to eventually migrate it to GitHub repository, since it's difficult for other people to contribute to it. But it'd be a lot of work. We'd need to generate a repository for each animint and then generate a main repository that links to all the other little repositories. And then we'd have some GitHub Action thing that will generate the site.
+
+11. Why do we need multiple repositories versus just one repository for everything? AFAIK there's no GitHub repository size limit.
+
+Yeah, but then when people wanna make changes they'd have to download the whole repo. And that'd be a lot of stuff that they don't need in there. It'd be like 2 gigabytes of stuff.
+
+12. I'm not sure I'm debugging right or competently. For example: My debugging process would not have uncovered map_data anytime soon.
+
+Some debugging tips:
+
+- Reproduce the error in the R terminal.
+- Use grep and search for key words.
+- Use traceback.
+- Use a debugger.
+
+You can also limit bugs by making the smallest changes possible to the codebase.
+
+(Editor's note: One reason why I didn't uncover map_data is because the connection between map_data and the fortify functions was found in layer.r, which was deleted alongside the fortify functions. It may be helpful to "debug" the original bug-free branch. If I did that, the link would've been in there.)
