@@ -170,14 +170,24 @@ This week, I tried to set up the reference website again---this time in Toby's r
 
 ### Created
 
-A mess.
-
-- I accidentally merged my changes from my fork of `animint2` into the original `animint2` repository. Whoops.
+A mess. I accidentally merged my changes from my fork of `animint2` into the original `animint2` repository. Whoops.
 
 
 ## Week 4 (June 26 to July 2)
 
-Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+This week, I'm setting the website up again. Yay!
+
+### Learned
+
+- You know issue 96? The one about $\LaTeX$ errors? I [tried installing Inconsolata](https://github.com/animint/animint2/issues/96#issuecomment-1612444392), but it didn't fix the issue. My Inconsolata font is the variable one from [Google Fonts](https://github.com/google/fonts/tree/main/ofl/inconsolata).
+- I wanted to know if it was possible to manually run a GitHub Action thing---that way, I would know if I'm failing a test before I submit a pull request. Turns out [the answer is yes](https://stackoverflow.com/questions/60419257/is-it-possible-to-manually-run-a-github-workflow), but only if I have the `workflow_dispatch` trigger. The workflow in `animint2` doesn't have that trigger, though.
+
+### Created
+
+- Toby created an organization, _animint_, for the `animint2` repository. I did some things with it:
+  + I changed the profile picture to a dittered Suki. Improving the world one cat pic at a time.
+  + I changed the settings so that we can control things with our PATs. If you want, go to `Settings > Third-party Access > Personal Access Tokens` to change it back.
+  + I generated a PAT for `animint2`.
 
 
 ## Week 5 (July 3 to July 9)
