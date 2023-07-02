@@ -195,8 +195,12 @@ This week, I'm setting the website up again. Yay! Toby said that he [wants me to
   + I changed the settings so that we can control things with our personal access tokens (PATs). If you want, go to `Settings > Third-party Access > Personal Access Tokens` to change it back.
   + I generated a PAT for `animint2`.
 - Converted `README.md` to `README.qmd`, which will let me do R computations for the website homepage.
-- In progress---I'm thoroughly updating and cleaning up the `website_setup.Rmd` document.
-- In progress---I'm editing `README.qmd` to be clearer and more immediately useful. Later, I'll convert it to `README.md` for 
+- Added the "Differences with other packages" section from `README.org` to the animint2 repo wiki.
+
+### In Progress
+
+- I'm thoroughly updating and cleaning up the `website_setup.Rmd` document.
+- I'm editing `README.qmd` to be clearer and more immediately useful. Later, I'll convert it to `README.md` for `pkgdown` to read.
 
 
 ## Week 6 (July 3 to July 9)
