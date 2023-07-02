@@ -113,7 +113,7 @@ Why are the tidyverse data tidiers being retired? I can't find any info about th
 `yay -S r-plyr r-reshape2` isn't working and requires "manual intervention." Why? Luckily, this isn't important---`build.sh` runs perfectly fine on Git Bash and therefore I don't actually need to figure out why the `yay` helper is acting this way.
 
 
-## Week 2 (June 12 to June 18)
+## Week 3 (June 12 to June 18)
 
 This week, I complained a lot. I chatted with Fei, who said that she would take care of [issue 90](https://github.com/tdhock/animint2/issues/90). Thank you, Fei!
 
@@ -144,7 +144,7 @@ This week, I complained a lot. I chatted with Fei, who said that she would take 
 - Made a new issue: [issue 96](https://github.com/tdhock/animint2/issues/96), which is about some $\LaTeX$ errors that seem exclusive to me.
 
 
-## Week 3 (June 19 to June 25)
+## Week 4 (June 19 to June 25)
 
 This week, I tried to set up the reference website again---this time in Toby's repository instead of my fork. This didn't work, so I started tinkering with my fork again.
 
@@ -173,9 +173,9 @@ This week, I tried to set up the reference website again---this time in Toby's r
 A mess. I accidentally merged my changes from my fork of `animint2` into the original `animint2` repository. Whoops.
 
 
-## Week 4 (June 26 to July 2)
+## Week 5 (June 26 to July 2)
 
-This week, I'm setting the website up again. Yay! Tody said that he [wants me to replace the README entirely](https://github.com/animint/animint2/issues/97#issuecomment-1615428430), so that's happening, too.
+This week, I'm setting the website up again. Yay! Toby said that he [wants me to replace the README entirely](https://github.com/animint/animint2/issues/97#issuecomment-1615428430), so that's happening, too.
 
 ### Learned
 
@@ -184,17 +184,29 @@ This week, I'm setting the website up again. Yay! Tody said that he [wants me to
 - Learned that the Windows 11 snipping tool [can record videos](https://www.microsoft.com/en-us/windows/learning-center/how-to-record-screen-windows-11).
 - Learned how to [trim videos with ffmpeg](https://stackoverflow.com/a/42827058).
 - I dunno what it does, but there's this [R Universe thing](https://r-universe.dev). You can search for `animint2` and get information about it.
+- Learned that `data()` will generate a list of all of R's [built-in datasets](https://rstats101.com/built-in-datasets-in-r/).
+- Learned that I can [generate GitHub-flavored Markdown (GFM) with Quarto](https://quarto.org/docs/output-formats/gfm.html). Here are [Quarto's options for GFM](https://quarto.org/docs/reference/formats/markdown/gfm.html).
+- R and `ggplot2` have built-in datasets, and I found the codebooks! [These codebooks are for R](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/). And [these are for `ggplot2`](https://ggplot2.tidyverse.org/reference/index.html#data).
 
 ### Created
 
 - Toby created an organization, _animint_, for the `animint2` repository. I did some things with it:
   + I changed the profile picture to a dittered Suki. Improving the world one cat pic at a time.
-  + I changed the settings so that we can control things with our PATs. If you want, go to `Settings > Third-party Access > Personal Access Tokens` to change it back.
+  + I changed the settings so that we can control things with our personal access tokens (PATs). If you want, go to `Settings > Third-party Access > Personal Access Tokens` to change it back.
   + I generated a PAT for `animint2`.
-- Thoroughly updated and cleaned up the `website_setup.Rmd` document. NOT FINISHED YET.
-- Editing `README.md` to be clearer and more immediately useful. NOT FINISHED YET.
+- Converted `README.md` to `README.qmd`, which will let me do R computations for the website homepage.
+- In progress---I'm thoroughly updating and cleaning up the `website_setup.Rmd` document.
+- In progress---I'm editing `README.qmd` to be clearer and more immediately useful. Later, I'll convert it to `README.md` for 
 
 
-## Week 5 (July 3 to July 9)
+## Week 6 (July 3 to July 9)
+
+Hoping to finish up the website this week. Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
+
+
+## Week 7 (July 10 to July 16)
 
 Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+
+
+
