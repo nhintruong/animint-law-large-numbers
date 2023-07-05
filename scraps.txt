@@ -293,4 +293,65 @@ Follow-up hypothesis...
 
 ##########
 
+<!-- simple-examples using morley -->
+
+---
+title: "Simple Examples"
+---
+
+
+## Introduction
+
+Here are a few simple examples. They use speed of light measurements from R's [`morley` dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/morley.html). For more complex examples, take a look at chapters 8 through 18 of the [animint2 Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html) or at the [animint gallery](https://rcdata.nau.edu/genomic-ml/animint-gallery/).
+
+The following graphs use some classic measurements of the speed of light from R's 
+
+```{r}
+library(animint2)
+data("morley")
+
+# So that the line graph will visually
+# separate the data by experiment:
+morley$Expt <- as.character(morley$Expt)
+```
+
+
+## Static Graphs
+
+First, a static graph. Most of what you can do in `ggplot2` you can do in `animint2`, too, using the same grammar of graphics:
+
+```{r}
+light <- morley |> 
+  ggplot() +
+  geom_line() +
+  geom_point() +
+  aes(x = Run, y = Speed, color = Expt, group = Expt) +
+  labs(title = "Some Classic Experiments on the Speed of Light")
+light
+```
+
+
+## Interactive Exploratory Data Analysis
+
+But the reason why you want to use `animint2` (versus `ggplot2`) is because of the former's support for interactive data visualizations. It's easy to render a graph interactive:
+
+```{r}
+animint(light)
+```
+
+By clicking on the legend or by using the selection menu, you can control which experiments have their data graphed, as well as how many. This allows you to explore your data without needing to facet all possible experiment combinations.
+
+
+## Presenting Data
+
+`animint2` also gives you control over how you present your data. Say you want to emphasize experiments 4 and 5. In `animint2`, you would use the `first` option and specify which experiments to present:
+
+```{r}
+light_2 <- animint(light)
+light_2$first <- list(Expt = c("4", "5"))
+light_2
+```
+
+##########
+
 empty
