@@ -112,7 +112,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#created-4" id="toc-created-4" class="nav-link" data-scroll-target="#created-4">Created</a></li>
   <li><a href="#in-progress" id="toc-in-progress" class="nav-link" data-scroll-target="#in-progress">In Progress</a></li>
   </ul></li>
-  <li><a href="#week-6-july-3-to-july-9" id="toc-week-6-july-3-to-july-9" class="nav-link" data-scroll-target="#week-6-july-3-to-july-9">Week 6 (July 3 to July 9)</a></li>
+  <li><a href="#week-6-july-3-to-july-9" id="toc-week-6-july-3-to-july-9" class="nav-link" data-scroll-target="#week-6-july-3-to-july-9">Week 6 (July 3 to July 9)</a>
+  <ul class="collapse">
+  <li><a href="#learned-5" id="toc-learned-5" class="nav-link" data-scroll-target="#learned-5">Learned</a></li>
+  <li><a href="#created-5" id="toc-created-5" class="nav-link" data-scroll-target="#created-5">Created</a></li>
+  <li><a href="#other-notes" id="toc-other-notes" class="nav-link" data-scroll-target="#other-notes">Other Notes</a></li>
+  </ul></li>
   <li><a href="#week-7-july-10-to-july-16" id="toc-week-7-july-10-to-july-16" class="nav-link" data-scroll-target="#week-7-july-10-to-july-16">Week 7 (July 10 to July 16)</a></li>
   </ul>
 </nav>
@@ -371,6 +376,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="week-6-july-3-to-july-9" class="level2">
 <h2 class="anchored" data-anchor-id="week-6-july-3-to-july-9">Week 6 (July 3 to July 9)</h2>
 <p>Hoping to finish up the website this week. Weird bugs exclusive to me and GitHub-specific problems… I’m behind on my timeline for reasons I didn’t anticipate. Good learning experience, though I’m learning about things I didn’t anticipated.</p>
+<section id="learned-5" class="level3">
+<h3 class="anchored" data-anchor-id="learned-5">Learned</h3>
+<ul>
+<li>Unsurprising, but I learned that you <a href="https://stackoverflow.com/questions/21340803/embed-javascript-in-github-readme-md">can’t have JavaScript in your GitHub README</a>. This is generally untrue: it’s possible to <a href="https://stackoverflow.com/questions/2754391/embed-javascript-in-markdown">embed Javascript in Markdown</a>.</li>
+<li>For Windows, it’s easy to <a href="https://stackoverflow.com/questions/69508787/how-to-change-the-default-browser-opened-for-localhost">change the localhost default browser</a>.</li>
+<li>Remember: in RStudio, use <kbd>Ctrl + Shift + C</kbd> to comment out multiple lines.</li>
+<li>Load a built-in dataset with <code>data()</code> and use <code>View()</code> to see a dataset more fully.</li>
+<li>Looked up datasets. Found one about <a href="https://github.com/washingtonpost/data-school-shootings/tree/master">school shootings</a> by the <em>Washington Post</em>. Also found the <a href="https://github.com/Polychart/polychart2/blob/master/example/population.coffee"><code>worldPop</code> dataset</a> in <code>animint2</code>.</li>
+<li>Looked up the <a href="https://cran.r-project.org/web/views/Distributions.html">CRAN List View on probability distributions</a>.</li>
+<li>For subsetting, see <a href="https://adv-r.hadley.nz/subsetting.html#subsetting">Advanced R: Subsetting Data</a> and <a href="https://stackoverflow.com/questions/12328056/how-do-i-delete-rows-in-a-data-frame">this post</a> on deleting rows.</li>
+<li>Some useful links for when I’m simulating data:
+<ul>
+<li>Use <code>rep()</code> to repeat a value some amount of times. <a href="https://stackoverflow.com/a/27472694">Link</a>. <a href="https://stackoverflow.com/a/3672568">Another link</a>. <a href="https://stackoverflow.com/questions/6432067/create-sequence-of-repeated-values-in-sequence">Third link</a> that suggests other functions.</li>
+<li>Use <code>data.frame(vector1, vector2)</code> to concatenate vectors into columns. <a href="https://stackoverflow.com/a/14624658">Link</a>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="created-5" class="level3">
+<h3 class="anchored" data-anchor-id="created-5">Created</h3>
+<ul>
+<li>Created <code>vignettes/simple-examples.Rmd</code> to house the usage examples for the <code>README</code> document. Why? Cuz GitHub doesn’t allow JavaScript in its READMEs.</li>
+</ul>
+</section>
+<section id="other-notes" class="level3">
+<h3 class="anchored" data-anchor-id="other-notes">Other Notes</h3>
+<ul>
+<li>When using <code>animint::labs()</code>, subtitles, tags, and captions don’t work.</li>
+</ul>
+</section>
 </section>
 <section id="week-7-july-10-to-july-16" class="level2">
 <h2 class="anchored" data-anchor-id="week-7-july-10-to-july-16">Week 7 (July 10 to July 16)</h2>
