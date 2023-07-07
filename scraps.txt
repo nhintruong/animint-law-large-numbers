@@ -354,4 +354,105 @@ light_2
 
 ##########
 
+<!-- simple examples using Theoph -->
+
+---
+title: "Simple Examples"
+---
+
+
+## Introduction
+
+It's pretty easy to make most of the graphs you want with `animint2`. The following data visualizations demonstrate some of `animint2`'s capabilities. They graph biomedical data on theophylline, a drug used to treat asthma and some lung diseases. The data are from R's [`Theoph` dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/Theoph.html).
+
+`animint2` is also capable of generating larger and more complex data visualizations. For examples, take a look at chapters 8 through 18 of the [animint2 Manual](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch00-preface.html) or at the [animint gallery](https://rcdata.nau.edu/genomic-ml/animint-gallery/).
+
+```{r, include = FALSE}
+data("Theoph")
+Theoph <- Theoph[1:99, ]
+Theoph$Subject <- as.character(Theoph$Subject)
+```
+
+
+## Static Graphs
+
+Here are the data:
+
+```{r}
+Theoph
+```
+
+Using the same grammar of graphics, you can generate static graphs in `animint2` the same way you generate them in `ggplot2`:
+
+```{r}
+library(animint2)
+
+conc_over_time <- Theoph |>
+  ggplot() +
+  geom_line() +
+  aes(x = Time, y = conc, 
+      color = Subject, group = Subject) +
+  labs(title = "Pharmacokinetics of Theophylline",
+       x = "Time (Hours)", 
+       y = "Concentration (mg/L)")
+conc_over_time
+```
+
+
+## Interactive Graphs
+
+But the reason why you want to use `animint2` (versus `ggplot2`) is because of the former's support for interactive data visualizations. It's easy to render a graph interactive:
+
+```{r}
+animint(conc_over_time)
+```
+
+By clicking on the legend or by using the selection menu, you can control which subjects have their data graphed, as well as how many. This allows you to explore your data without needing to facet all possible subject combinations.
+
+`animint2` also gives you control over how you present your data. Say you want to emphasize subjects 1 and 6. In `animint2`, you would use the `first` option and specify which subjects to present:
+
+```{r}
+cot_2 <- animint(conc_over_time)
+cot_2$first <- list(Subject = c("1", "6"))
+cot_2
+```
+
+
+## More Complex Examples
+
+You can use the `showSelected` and `clickSelects` keywords to gain finer control on what and how data appear. They are especially useful if you have many variables in your data and want to gain a broad understanding of how some of them interact.
+
+`showSelected` is useful if you're curious about how the interaction between two variables changes given changes in some other variable (like time). Using the `time` option, you can even animate the interaction:
+
+```{r}
+dose_conc_over_time <- Theoph |>
+  ggplot() +
+  geom_jitter() +
+  aes(x = Dose, y = conc, 
+      color = Subject, group = Subject)
+  # labs(title = "Pharmacokinetics of Theophylline",
+  #      x = "Time (Hours)", 
+  #      y = "Concentration (mg/L)")
+dose_conc_over_time
+```
+
+`animint2` also allows you to facet two graphs together, causing one graph to vary when another does.
+
+##########
+
+set.seed(27)
+
+# simulate data
+Day <- rep(x = 1:25, each = 4)
+Subject <- rep(x = c("Big Dog", "Junebug", "Kitty", "Teddy Bear"), times = 25)
+#Approval <- sample(x = 80:100, size = 100, replace = TRUE)
+Approval <- sample(x = 75:100, size = 100, replace = TRUE)
+Happiness <- sample.int(n = 100, size = 100, replace = TRUE)
+Cravings <- sample.int(n = 100, size = 100, replace = TRUE)
+
+# concatenate into dataframe
+sammys_reign <- data.frame(Day, Subject, Approval, Happiness, Cravings)
+
+##########
+
 empty
