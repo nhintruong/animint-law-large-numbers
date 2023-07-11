@@ -231,7 +231,25 @@ Hoping to finish up the website this week. Weird bugs exclusive to me and GitHub
 
 ## Week 7 (July 10 to July 16)
 
+fill in later
+
+### Learned
+
+- Re-reading [chapter 3](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch03-showSelected.html) and [chapter 4](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch04-clickSelects.html) of the _Animint2 Manual_.
+- Cosma Shalizi's [notes on R Markdown](https://www.stat.cmu.edu/~cshalizi/rmarkdown/). Read this before---it's a useful reference.
+- [R Helpful Codes](https://r.helpful.codes/) has a bunch of little R resources and tutorials. _Advanced R_ [mentions `order()`](https://adv-r.hadley.nz/subsetting.html#ordering-integer-subsetting).
+- There's a [Stack Overflow post](https://stackoverflow.com/questions/420296/what-are-some-good-books-web-resources-and-projects-for-learning-r) with R Resources, including an [R reference card]() that I've never seen before.
+- Some more useful notes for data simulation:
+  + `sort()` lets us sort our data. `order()` works, too, and in a more sophisticated way.
+  + [`cummax` lets you obtain the largest scalars in your vector](https://stackoverflow.com/a/12600068). It is related to `cumsum()`
+  + [Use `rbind() |> c()` to weaver multiple vectors together](https://stackoverflow.com/q/53802352).
+  + It's [pretty easy to sample from multiple vectors and then concatenate them](https://stackoverflow.com/a/46314294).
+  
+### Created
+
+- Massaged simulated data until they were useful and looked somewhat real.
+
+
+## Week 8 (July 17 to July 23)
+
 Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
-
-
-
