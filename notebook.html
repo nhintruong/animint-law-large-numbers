@@ -118,7 +118,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#created-5" id="toc-created-5" class="nav-link" data-scroll-target="#created-5">Created</a></li>
   <li><a href="#other-notes" id="toc-other-notes" class="nav-link" data-scroll-target="#other-notes">Other Notes</a></li>
   </ul></li>
-  <li><a href="#week-7-july-10-to-july-16" id="toc-week-7-july-10-to-july-16" class="nav-link" data-scroll-target="#week-7-july-10-to-july-16">Week 7 (July 10 to July 16)</a></li>
+  <li><a href="#week-7-july-10-to-july-16" id="toc-week-7-july-10-to-july-16" class="nav-link" data-scroll-target="#week-7-july-10-to-july-16">Week 7 (July 10 to July 16)</a>
+  <ul class="collapse">
+  <li><a href="#learned-6" id="toc-learned-6" class="nav-link" data-scroll-target="#learned-6">Learned</a></li>
+  <li><a href="#created-6" id="toc-created-6" class="nav-link" data-scroll-target="#created-6">Created</a></li>
+  </ul></li>
+  <li><a href="#week-8-july-17-to-july-23" id="toc-week-8-july-17-to-july-23" class="nav-link" data-scroll-target="#week-8-july-17-to-july-23">Week 8 (July 17 to July 23)</a>
+  <ul class="collapse">
+  <li><a href="#learned-7" id="toc-learned-7" class="nav-link" data-scroll-target="#learned-7">Learned</a></li>
+  <li><a href="#other-notes-1" id="toc-other-notes-1" class="nav-link" data-scroll-target="#other-notes-1">Other Notes</a></li>
+  </ul></li>
+  <li><a href="#week-9-july-24-to-july-30" id="toc-week-9-july-24-to-july-30" class="nav-link" data-scroll-target="#week-9-july-24-to-july-30">Week 9 (July 24 to July 30)</a></li>
   </ul>
 </nav>
 </div>
@@ -375,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-6-july-3-to-july-9" class="level2">
 <h2 class="anchored" data-anchor-id="week-6-july-3-to-july-9">Week 6 (July 3 to July 9)</h2>
-<p>Hoping to finish up the website this week. Weird bugs exclusive to me and GitHub-specific problems… I’m behind on my timeline for reasons I didn’t anticipate. Good learning experience, though I’m learning about things I didn’t anticipated.</p>
+<p>Hoping to finish up the website this week. (Editor’s note: this didn’t happen.) Weird bugs exclusive to me and GitHub-specific problems… I’m behind on my timeline for reasons I didn’t anticipate. Good learning experience, though I’m learning about things I didn’t anticipated.</p>
 <section id="learned-5" class="level3">
 <h3 class="anchored" data-anchor-id="learned-5">Learned</h3>
 <ul>
@@ -408,6 +418,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-7-july-10-to-july-16" class="level2">
 <h2 class="anchored" data-anchor-id="week-7-july-10-to-july-16">Week 7 (July 10 to July 16)</h2>
+<p>This week, I’ve continued work on the quick start guide.</p>
+<section id="learned-6" class="level3">
+<h3 class="anchored" data-anchor-id="learned-6">Learned</h3>
+<ul>
+<li>Re-reading <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch03-showSelected.html">chapter 3</a> and <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch04-clickSelects.html">chapter 4</a> of the <em>Animint2 Manual</em>.</li>
+<li>Cosma Shalizi’s <a href="https://www.stat.cmu.edu/~cshalizi/rmarkdown/">notes on R Markdown</a>. Read this before—it’s a useful reference.</li>
+<li><a href="https://r.helpful.codes/">R Helpful Codes</a> has a bunch of little R resources and tutorials. <em>Advanced R</em> <a href="https://adv-r.hadley.nz/subsetting.html#ordering-integer-subsetting">mentions <code>order()</code></a>.</li>
+<li>There’s a <a href="https://stackoverflow.com/questions/420296/what-are-some-good-books-web-resources-and-projects-for-learning-r">Stack Overflow post</a> with R Resources, including an <a href="">R reference card</a> that I’ve never seen before.</li>
+<li>Some more useful notes for data simulation:
+<ul>
+<li><code>sort()</code> lets us sort our data. <code>order()</code> works, too, and in a more sophisticated way.</li>
+<li><a href="https://stackoverflow.com/a/12600068"><code>cummax</code> lets you obtain the largest scalars in your vector</a>. It is related to <code>cumsum()</code></li>
+<li><a href="https://stackoverflow.com/q/53802352">Use <code>rbind() |&gt; c()</code> to weaver multiple vectors together</a>.</li>
+<li>It’s <a href="https://stackoverflow.com/a/46314294">pretty easy to sample from multiple vectors and then concatenate them</a>.</li>
+</ul></li>
+<li>James Murray has a collection of <a href="https://murraylax.org/rtutorials/">R tutorials</a>, including one on the <a href="https://murraylax.org/rtutorials/gog.html">grammar of graphics</a>.</li>
+<li>Use <code>[link](#foo-bar)</code> to link to the <code>foo-bar</code> section in a Markdown document. <a href="https://stackoverflow.com/a/16426829">Link</a>.</li>
+</ul>
+</section>
+<section id="created-6" class="level3">
+<h3 class="anchored" data-anchor-id="created-6">Created</h3>
+<ul>
+<li>Massaged simulated data until they were useful and looked somewhat real.</li>
+<li>Continued work with <code>simple-examples.Rmd</code>, which was renamed <code>quick-start.Rmd</code>. The simple examples vignette has transformed into a larger quick start guide.</li>
+</ul>
+</section>
+</section>
+<section id="week-8-july-17-to-july-23" class="level2">
+<h2 class="anchored" data-anchor-id="week-8-july-17-to-july-23">Week 8 (July 17 to July 23)</h2>
+<section id="learned-7" class="level3">
+<h3 class="anchored" data-anchor-id="learned-7">Learned</h3>
+<ul>
+<li>Erik Bernhardsson has an analysis for why <a href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">software projects take longer than expected</a>. For obvious reasons, it’s something I’ve been thinking about regarding the reference website project.</li>
+<li>Learned (or re-learned) about the <code>signif()</code> function, which is useful for rounding and cutting off overly-precise numbers.</li>
+</ul>
+</section>
+<section id="other-notes-1" class="level3">
+<h3 class="anchored" data-anchor-id="other-notes-1">Other Notes</h3>
+<ul>
+<li><code>animint()</code> fails to render ggplots that uses <code>geom_smooth()</code>.</li>
+</ul>
+</section>
+</section>
+<section id="week-9-july-24-to-july-30" class="level2">
+<h2 class="anchored" data-anchor-id="week-9-july-24-to-july-30">Week 9 (July 24 to July 30)</h2>
 <p>Nothing here yet. Unless you have an <a href="https://iep.utm.edu/time/#SH14a">unusual ontology of time</a>, of course. In that case, something was always here and always will be.</p>
 </section>
 
