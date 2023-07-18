@@ -205,7 +205,7 @@ This week, I'm setting the website up again. Yay! Toby said that he [wants me to
 
 ## Week 6 (July 3 to July 9)
 
-Hoping to finish up the website this week. Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
+Hoping to finish up the website this week. (Editor's note: this didn't happen.) Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
 
 ### Learned
 
@@ -231,7 +231,7 @@ Hoping to finish up the website this week. Weird bugs exclusive to me and GitHub
 
 ## Week 7 (July 10 to July 16)
 
-fill in later
+This week, I've continued work on the quick start guide.
 
 ### Learned
 
@@ -244,12 +244,27 @@ fill in later
   + [`cummax` lets you obtain the largest scalars in your vector](https://stackoverflow.com/a/12600068). It is related to `cumsum()`
   + [Use `rbind() |> c()` to weaver multiple vectors together](https://stackoverflow.com/q/53802352).
   + It's [pretty easy to sample from multiple vectors and then concatenate them](https://stackoverflow.com/a/46314294).
-  
+- James Murray has a collection of [R tutorials](https://murraylax.org/rtutorials/), including one on the [grammar of graphics](https://murraylax.org/rtutorials/gog.html).
+- Use `[link](#foo-bar)` to link to the `foo-bar` section in a Markdown document. [Link](https://stackoverflow.com/a/16426829).
+
 ### Created
 
 - Massaged simulated data until they were useful and looked somewhat real.
+- Continued work with `simple-examples.Rmd`, which was renamed `quick-start.Rmd`. The simple examples vignette has transformed into a larger quick start guide.
 
 
 ## Week 8 (July 17 to July 23)
+
+### Learned
+
+- Erik Bernhardsson has an analysis for why [software projects take longer than expected](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). For obvious reasons, it's something I've been thinking about regarding the reference website project.
+- Learned (or re-learned) about the `signif()` function, which is useful for rounding and cutting off overly-precise numbers.
+
+### Other Notes
+
+- `animint()` fails to render ggplots that uses `geom_smooth()`.
+
+
+## Week 9 (July 24 to July 30)
 
 Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
