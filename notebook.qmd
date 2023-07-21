@@ -226,7 +226,7 @@ Hoping to finish up the website this week. (Editor's note: this didn't happen.) 
 
 ### Other Notes
 
-- When using `animint::labs()`, subtitles, tags, and captions don't work.
+- When using `animint::labs()`, subtitles, tags, and captions don't work. `ggplot2` page for the function [is here](https://ggplot2.tidyverse.org/reference/labs.html).
 
 
 ## Week 7 (July 10 to July 16)
@@ -237,12 +237,12 @@ This week, I've continued work on the quick start guide.
 
 - Re-reading [chapter 3](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch03-showSelected.html) and [chapter 4](https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch04-clickSelects.html) of the _Animint2 Manual_.
 - Cosma Shalizi's [notes on R Markdown](https://www.stat.cmu.edu/~cshalizi/rmarkdown/). Read this before---it's a useful reference.
-- [R Helpful Codes](https://r.helpful.codes/) has a bunch of little R resources and tutorials. _Advanced R_ [mentions `order()`](https://adv-r.hadley.nz/subsetting.html#ordering-integer-subsetting).
+- [R Helpful Codes](https://r.helpful.codes/) has a bunch of little R resources and tutorials. _Advanced R_ [mentions](https://adv-r.hadley.nz/subsetting.html#ordering-integer-subsetting) `order()`.
 - There's a [Stack Overflow post](https://stackoverflow.com/questions/420296/what-are-some-good-books-web-resources-and-projects-for-learning-r) with R Resources, including an [R reference card]() that I've never seen before.
 - Some more useful notes for data simulation:
   + `sort()` lets us sort our data. `order()` works, too, and in a more sophisticated way.
   + [`cummax` lets you obtain the largest scalars in your vector](https://stackoverflow.com/a/12600068). It is related to `cumsum()`
-  + [Use `rbind() |> c()` to weaver multiple vectors together](https://stackoverflow.com/q/53802352).
+  + Use `rbind() |> c()` to [weave multiple vectors together](https://stackoverflow.com/q/53802352).
   + It's [pretty easy to sample from multiple vectors and then concatenate them](https://stackoverflow.com/a/46314294).
 - James Murray has a collection of [R tutorials](https://murraylax.org/rtutorials/), including one on the [grammar of graphics](https://murraylax.org/rtutorials/gog.html).
 - Use `[link](#foo-bar)` to link to the `foo-bar` section in a Markdown document. [Link](https://stackoverflow.com/a/16426829).
@@ -259,6 +259,9 @@ This week, I've continued work on the quick start guide.
 
 - Erik Bernhardsson has an analysis for why [software projects take longer than expected](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). For obvious reasons, it's something I've been thinking about regarding the reference website project.
 - Learned (or re-learned) about the `signif()` function, which is useful for rounding and cutting off overly-precise numbers.
+- _Data Visualization: A Practical Introduction_ has a section on `broom` in Chapter 6. Useful, since it's unclear to me what data tidiers do.
+- There are ways to place plots side by side in `ggplot2`, but those methods don't work in `animint2`. [_ggplot2: Elegant Graphics for Data Analysis_ link](https://ggplot2-book.org/arranging-plots.html). [Stack Overflow link](https://stackoverflow.com/q/1249548).
+- You can remove [legends](https://stackoverflow.com/q/35618260) and [axes](https://stackoverflow.com/a/19821839) in `ggplot2`. These solutions throw up errors when used with `animint2`.
 
 ### Other Notes
 
