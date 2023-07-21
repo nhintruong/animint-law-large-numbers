@@ -412,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="other-notes" class="level3">
 <h3 class="anchored" data-anchor-id="other-notes">Other Notes</h3>
 <ul>
-<li>When using <code>animint::labs()</code>, subtitles, tags, and captions don’t work.</li>
+<li>When using <code>animint::labs()</code>, subtitles, tags, and captions don’t work. <code>ggplot2</code> page for the function <a href="https://ggplot2.tidyverse.org/reference/labs.html">is here</a>.</li>
 </ul>
 </section>
 </section>
@@ -424,13 +424,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Re-reading <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch03-showSelected.html">chapter 3</a> and <a href="https://rcdata.nau.edu/genomic-ml/animint2-manual/Ch04-clickSelects.html">chapter 4</a> of the <em>Animint2 Manual</em>.</li>
 <li>Cosma Shalizi’s <a href="https://www.stat.cmu.edu/~cshalizi/rmarkdown/">notes on R Markdown</a>. Read this before—it’s a useful reference.</li>
-<li><a href="https://r.helpful.codes/">R Helpful Codes</a> has a bunch of little R resources and tutorials. <em>Advanced R</em> <a href="https://adv-r.hadley.nz/subsetting.html#ordering-integer-subsetting">mentions <code>order()</code></a>.</li>
+<li><a href="https://r.helpful.codes/">R Helpful Codes</a> has a bunch of little R resources and tutorials. <em>Advanced R</em> <a href="https://adv-r.hadley.nz/subsetting.html#ordering-integer-subsetting">mentions</a> <code>order()</code>.</li>
 <li>There’s a <a href="https://stackoverflow.com/questions/420296/what-are-some-good-books-web-resources-and-projects-for-learning-r">Stack Overflow post</a> with R Resources, including an <a href="">R reference card</a> that I’ve never seen before.</li>
 <li>Some more useful notes for data simulation:
 <ul>
 <li><code>sort()</code> lets us sort our data. <code>order()</code> works, too, and in a more sophisticated way.</li>
 <li><a href="https://stackoverflow.com/a/12600068"><code>cummax</code> lets you obtain the largest scalars in your vector</a>. It is related to <code>cumsum()</code></li>
-<li><a href="https://stackoverflow.com/q/53802352">Use <code>rbind() |&gt; c()</code> to weaver multiple vectors together</a>.</li>
+<li>Use <code>rbind() |&gt; c()</code> to <a href="https://stackoverflow.com/q/53802352">weave multiple vectors together</a>.</li>
 <li>It’s <a href="https://stackoverflow.com/a/46314294">pretty easy to sample from multiple vectors and then concatenate them</a>.</li>
 </ul></li>
 <li>James Murray has a collection of <a href="https://murraylax.org/rtutorials/">R tutorials</a>, including one on the <a href="https://murraylax.org/rtutorials/gog.html">grammar of graphics</a>.</li>
@@ -452,6 +452,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Erik Bernhardsson has an analysis for why <a href="https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html">software projects take longer than expected</a>. For obvious reasons, it’s something I’ve been thinking about regarding the reference website project.</li>
 <li>Learned (or re-learned) about the <code>signif()</code> function, which is useful for rounding and cutting off overly-precise numbers.</li>
+<li><em>Data Visualization: A Practical Introduction</em> has a section on <code>broom</code> in Chapter 6. Useful, since it’s unclear to me what data tidiers do.</li>
+<li>There are ways to place plots side by side in <code>ggplot2</code>, but those methods don’t work in <code>animint2</code>. <a href="https://ggplot2-book.org/arranging-plots.html"><em>ggplot2: Elegant Graphics for Data Analysis</em> link</a>. <a href="https://stackoverflow.com/q/1249548">Stack Overflow link</a>.</li>
+<li>You can remove <a href="https://stackoverflow.com/q/35618260">legends</a> and <a href="https://stackoverflow.com/a/19821839">axes</a> in <code>ggplot2</code>. These solutions throw up errors when used with <code>animint2</code>.</li>
 </ul>
 </section>
 <section id="other-notes-1" class="level3">
