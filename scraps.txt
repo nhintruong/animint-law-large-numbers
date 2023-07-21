@@ -455,4 +455,51 @@ sammys_reign <- data.frame(Day, Subject, Approval, Happiness, Cravings)
 
 ##########
 
-empty
+### notes on `animint()`
+
+On a related note, while going through the Animint2 Manual and the reference manual, I finally figured out why I find the reference manual so difficult to use.
+
+At first, I thought it was the reference's PDF-ness and its alphabetical-order-ness. I was wrong.
+
+I now think the two major reasons why the reference manual is difficult to use are:
+
+1. Many of the functions in the reference manual are not useful to the average user. (Will I ever use `fortify()`? No.) That's not a problem. It's just a matter of rearranging the functions on the website.
+2. The reference documentation for `animint()`, the heart of the `animint2` package, is mostly useful if you already know how to use `animint()` and just want a refresher. For a newbie, its utility is limited.
+
+I have a lot of sympathy re:
+
+##########
+
+Take a look:
+
+```{r}
+cute_and_cool <- meowtrics |>
+  ggplot() +
+  geom_point() +
+  aes(x = Coolness, y = Cuteness, group = Cat, color = Cat) +
+  labs(title = "Associations Between Cuteness and Coolness")
+
+cute_again <- cute_1
+```
+
+<table>
+  <tr>
+    <td>
+      ```{r}
+      cute_and_cool
+      ```
+    <td>
+      ```{r}
+      cute_again
+      ```
+</table>
+
+A data visualization is composed of parts. Using `facet_grid()`,
+
+##########
+
+`showSelected` is useful if you're curious about how the interaction between two variables changes given changes in some other variable (like time). Using the `time` option, you can even animate the interaction.
+
+You can use the `showSelected` and `clickSelects` keywords to gain finer control on what and how data appear. They are especially useful if you have many variables in your data and want to gain a broad understanding of how some of them interact.
+
+##########
