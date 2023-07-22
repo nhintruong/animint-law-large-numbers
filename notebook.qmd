@@ -262,6 +262,14 @@ This week, I've continued work on the quick start guide.
 - _Data Visualization: A Practical Introduction_ has a section on `broom` in Chapter 6. Useful, since it's unclear to me what data tidiers do.
 - There are ways to place plots side by side in `ggplot2`, but those methods don't work in `animint2`. [_ggplot2: Elegant Graphics for Data Analysis_ link](https://ggplot2-book.org/arranging-plots.html). [Stack Overflow link](https://stackoverflow.com/q/1249548).
 - You can remove [legends](https://stackoverflow.com/q/35618260) and [axes](https://stackoverflow.com/a/19821839) in `ggplot2`. These solutions throw up errors when used with `animint2`.
+- In Notepad++:
+  + `Edit > Blank Operations` offers you the option to delete trailing whitespaces.
+  + <kbd>Alt</kbd><kbd>Shift</kbd> throws you into [column mode](https://npp-user-manual.org/docs/editing/). Good for mass editing.
+- Comments are the same in both R and YAML. Use the `#` sign.
+
+### Created
+
+- Finished drafts for `quick-start.Rmd`, `README.qmd`, `README.md`.
 
 ### Other Notes
 
