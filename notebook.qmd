@@ -269,7 +269,11 @@ This week, I've continued work on the quick start guide.
 
 ### Created
 
-- Finished drafts for `quick-start.Rmd`, `README.qmd`, `README.md`.
+- Finished drafts for `quick-start.Rmd`, `README.qmd`, `README.md`. Yay!
+
+### In Progress
+
+- Worked on `_pkgdown.yml`.
 
 ### Other Notes
 
