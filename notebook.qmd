@@ -282,4 +282,15 @@ This week, I've continued work on the quick start guide.
 
 ## Week 9 (July 24 to July 30)
 
+### Learned
+
+- The `ggplot2` repository has a [useful `_pkgdown.yml` file](https://github.com/tidyverse/ggplot2/blob/main/_pkgdown.yml). I used it as a model for `animint2`'s file.
+
+### Created
+
+- Finished `pkgdown.yml`---but now there's a parser error!
+
+
+## Week 10 (July 31 to August 6)
+
 Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
