@@ -287,10 +287,21 @@ This week, I finally finished the quick start guide. And the README, too. I also
 ### Learned
 
 - The `ggplot2` repository has a [useful `_pkgdown.yml` file](https://github.com/tidyverse/ggplot2/blob/main/_pkgdown.yml). I used it as a model for `animint2`'s file.
+- Turns out that there are lots of [whitespace characters in Unicode](https://en.wikipedia.org/w/index.php?title=Whitespace_character&oldid=1146154369).
+- I got a parser error in my `_pkgdown.yml` file, so I looked it up:
+  + Looked through the [YAML specs](https://yaml.org/spec/1.2.2/). In YAML, it turns out that whitespace is syntactically significant in some places and ignored in others.
+  + This [Stack Overflow response](https://stackoverflow.com/a/21699210) notes there are at least 9 ways to write multi-line strings in YAML and comments: "YAML is crazy."
+- I tried to download the YAML specs as a PDF so it would be easier to read off the computer. This led to a wild adventure:
+  + The YAML repo uses a [Markdown file](https://github.com/yaml/yaml-spec/blob/main/spec/1.2.2/spec.md) that does not play well with pandoc.
+  + I'd forgotten that R Markdown and Quarto create PDFs differently. In the former, use [`output: pdf_document`](https://bookdown.org/yihui/rmarkdown/pdf-document.html) or the [`render` function](https://rmarkdown.rstudio.com/lesson-9.html). 
+  + To [convert multiple images in Imagemagick](https://imagemagick.org/script/mogrify.php), use `magick mogrify...`.
+- I'd forgotten why `_pkgdown.yml` uses `bootstrap: 5`. It's cuz some sites might break from the upgrade, so we need to [specify that we wanna use Bootstrap 5](https://github.com/r-lib/pkgdown/blob/c9206802f2888992de92aa41f517ba7812f05331/README.md?plain=1#L68C4-L68C4).
 
 ### Created
 
-- Finished `pkgdown.yml`---but now there's a parser error!
+- Finished the `pkgdown.yml` draft.
+  + There was a parser error, but I fixed it. Turns out it was a [whitespace error](https://github.com/animint/animint2/issues/97#issuecomment-1650780986).
+  + But now there's a [couple of new errors](https://github.com/animint/animint2/issues/97#issuecomment-1650780986).
 
 
 ## Week 10 (July 31 to August 6)
