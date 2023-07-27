@@ -255,6 +255,8 @@ This week, I've continued work on the quick start guide.
 
 ## Week 8 (July 17 to July 23)
 
+This week, I finally finished the quick start guide. And the README, too. I also worked a little on `website_setup.Rmd` and `_pkgdown.yml`.
+
 ### Learned
 
 - Erik Bernhardsson has an analysis for why [software projects take longer than expected](https://erikbern.com/2019/04/15/why-software-projects-take-longer-than-you-think-a-statistical-model.html). For obvious reasons, it's something I've been thinking about regarding the reference website project.
@@ -269,7 +271,7 @@ This week, I've continued work on the quick start guide.
 
 ### Created
 
-- Finished drafts for `quick-start.Rmd`, `README.qmd`, `README.md`. Yay!
+- Finished drafts for `quick-start.Rmd`, `README.qmd`, and `README.md`. Yay!
 
 ### In Progress
 
