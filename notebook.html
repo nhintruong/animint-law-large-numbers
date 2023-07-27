@@ -126,9 +126,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#week-8-july-17-to-july-23" id="toc-week-8-july-17-to-july-23" class="nav-link" data-scroll-target="#week-8-july-17-to-july-23">Week 8 (July 17 to July 23)</a>
   <ul class="collapse">
   <li><a href="#learned-7" id="toc-learned-7" class="nav-link" data-scroll-target="#learned-7">Learned</a></li>
+  <li><a href="#created-7" id="toc-created-7" class="nav-link" data-scroll-target="#created-7">Created</a></li>
+  <li><a href="#in-progress-1" id="toc-in-progress-1" class="nav-link" data-scroll-target="#in-progress-1">In Progress</a></li>
   <li><a href="#other-notes-1" id="toc-other-notes-1" class="nav-link" data-scroll-target="#other-notes-1">Other Notes</a></li>
   </ul></li>
-  <li><a href="#week-9-july-24-to-july-30" id="toc-week-9-july-24-to-july-30" class="nav-link" data-scroll-target="#week-9-july-24-to-july-30">Week 9 (July 24 to July 30)</a></li>
+  <li><a href="#week-9-july-24-to-july-30" id="toc-week-9-july-24-to-july-30" class="nav-link" data-scroll-target="#week-9-july-24-to-july-30">Week 9 (July 24 to July 30)</a>
+  <ul class="collapse">
+  <li><a href="#learned-8" id="toc-learned-8" class="nav-link" data-scroll-target="#learned-8">Learned</a></li>
+  <li><a href="#created-8" id="toc-created-8" class="nav-link" data-scroll-target="#created-8">Created</a></li>
+  </ul></li>
+  <li><a href="#week-10-july-31-to-august-6" id="toc-week-10-july-31-to-august-6" class="nav-link" data-scroll-target="#week-10-july-31-to-august-6">Week 10 (July 31 to August 6)</a></li>
   </ul>
 </nav>
 </div>
@@ -447,6 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-8-july-17-to-july-23" class="level2">
 <h2 class="anchored" data-anchor-id="week-8-july-17-to-july-23">Week 8 (July 17 to July 23)</h2>
+<p>This week, I finally finished the quick start guide. And the README, too. I also worked a little on <code>website_setup.Rmd</code> and <code>_pkgdown.yml</code>.</p>
 <section id="learned-7" class="level3">
 <h3 class="anchored" data-anchor-id="learned-7">Learned</h3>
 <ul>
@@ -455,6 +463,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><em>Data Visualization: A Practical Introduction</em> has a section on <code>broom</code> in Chapter 6. Useful, since it’s unclear to me what data tidiers do.</li>
 <li>There are ways to place plots side by side in <code>ggplot2</code>, but those methods don’t work in <code>animint2</code>. <a href="https://ggplot2-book.org/arranging-plots.html"><em>ggplot2: Elegant Graphics for Data Analysis</em> link</a>. <a href="https://stackoverflow.com/q/1249548">Stack Overflow link</a>.</li>
 <li>You can remove <a href="https://stackoverflow.com/q/35618260">legends</a> and <a href="https://stackoverflow.com/a/19821839">axes</a> in <code>ggplot2</code>. These solutions throw up errors when used with <code>animint2</code>.</li>
+<li>In Notepad++:
+<ul>
+<li><code>Edit &gt; Blank Operations</code> offers you the option to delete trailing whitespaces.</li>
+<li><kbd>Alt</kbd><kbd>Shift</kbd> throws you into <a href="https://npp-user-manual.org/docs/editing/">column mode</a>. Good for mass editing.</li>
+</ul></li>
+<li>Comments are the same in both R and YAML. Use the <code>#</code> sign.</li>
+</ul>
+</section>
+<section id="created-7" class="level3">
+<h3 class="anchored" data-anchor-id="created-7">Created</h3>
+<ul>
+<li>Finished drafts for <code>quick-start.Rmd</code>, <code>README.qmd</code>, and <code>README.md</code>. Yay!</li>
+</ul>
+</section>
+<section id="in-progress-1" class="level3">
+<h3 class="anchored" data-anchor-id="in-progress-1">In Progress</h3>
+<ul>
+<li>Worked on <code>_pkgdown.yml</code>.</li>
 </ul>
 </section>
 <section id="other-notes-1" class="level3">
@@ -466,6 +492,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-9-july-24-to-july-30" class="level2">
 <h2 class="anchored" data-anchor-id="week-9-july-24-to-july-30">Week 9 (July 24 to July 30)</h2>
+<section id="learned-8" class="level3">
+<h3 class="anchored" data-anchor-id="learned-8">Learned</h3>
+<ul>
+<li>The <code>ggplot2</code> repository has a <a href="https://github.com/tidyverse/ggplot2/blob/main/_pkgdown.yml">useful <code>_pkgdown.yml</code> file</a>. I used it as a model for <code>animint2</code>’s file.</li>
+<li>Turns out that there are lots of <a href="https://en.wikipedia.org/w/index.php?title=Whitespace_character&amp;oldid=1146154369">whitespace characters in Unicode</a>.</li>
+<li>I got a parser error in my <code>_pkgdown.yml</code> file, so I looked it up:
+<ul>
+<li>Looked through the <a href="https://yaml.org/spec/1.2.2/">YAML specs</a>. In YAML, it turns out that whitespace is syntactically significant in some places and ignored in others.</li>
+<li>This <a href="https://stackoverflow.com/a/21699210">Stack Overflow response</a> notes there are at least 9 ways to write multi-line strings in YAML and comments: “YAML is crazy.”</li>
+</ul></li>
+<li>I tried to download the YAML specs as a PDF so it would be easier to read off the computer. This led to a wild adventure:
+<ul>
+<li>The YAML repo uses a <a href="https://github.com/yaml/yaml-spec/blob/main/spec/1.2.2/spec.md">Markdown file</a> that does not play well with pandoc.</li>
+<li>I’d forgotten that R Markdown and Quarto create PDFs differently. In the former, use <a href="https://bookdown.org/yihui/rmarkdown/pdf-document.html"><code>output: pdf_document</code></a> or the <a href="https://rmarkdown.rstudio.com/lesson-9.html"><code>render</code> function</a>.</li>
+<li>To <a href="https://imagemagick.org/script/mogrify.php">convert multiple images in Imagemagick</a>, use <code>magick mogrify...</code>.</li>
+</ul></li>
+<li>I’d forgotten why <code>_pkgdown.yml</code> uses <code>bootstrap: 5</code>. It’s cuz some sites might break from the upgrade, so we need to <a href="https://github.com/r-lib/pkgdown/blob/c9206802f2888992de92aa41f517ba7812f05331/README.md?plain=1#L68C4-L68C4">specify that we wanna use Bootstrap 5</a>.</li>
+</ul>
+</section>
+<section id="created-8" class="level3">
+<h3 class="anchored" data-anchor-id="created-8">Created</h3>
+<ul>
+<li>Finished the <code>pkgdown.yml</code> draft.
+<ul>
+<li>There was a parser error, but I fixed it. Turns out it was a <a href="https://github.com/animint/animint2/issues/97#issuecomment-1650780986">whitespace error</a>.</li>
+<li>But now there’s a <a href="https://github.com/animint/animint2/issues/97#issuecomment-1650780986">couple of new errors</a>.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="week-10-july-31-to-august-6" class="level2">
+<h2 class="anchored" data-anchor-id="week-10-july-31-to-august-6">Week 10 (July 31 to August 6)</h2>
 <p>Nothing here yet. Unless you have an <a href="https://iep.utm.edu/time/#SH14a">unusual ontology of time</a>, of course. In that case, something was always here and always will be.</p>
 </section>
 
