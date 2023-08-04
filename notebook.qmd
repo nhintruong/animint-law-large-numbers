@@ -294,7 +294,7 @@ This week, I finally finished the quick start guide. And the README, too. I also
 - I tried to download the YAML specs as a PDF so it would be easier to read off the computer. This led to a wild adventure:
   + The YAML repo uses a [Markdown file](https://github.com/yaml/yaml-spec/blob/main/spec/1.2.2/spec.md) that does not play well with pandoc.
   + I'd forgotten that R Markdown and Quarto create PDFs differently. In the former, use [`output: pdf_document`](https://bookdown.org/yihui/rmarkdown/pdf-document.html) or the [`render` function](https://rmarkdown.rstudio.com/lesson-9.html). 
-  + To [convert multiple images in Imagemagick](https://imagemagick.org/script/mogrify.php), use `magick mogrify...`.
+  + To [convert multiple images in Imagemagick](https://imagemagick.org/script/mogrify.php), use `magick mogrify`.
 - I'd forgotten why `_pkgdown.yml` uses `bootstrap: 5`. It's cuz some sites might break from the upgrade, so we need to [specify that we wanna use Bootstrap 5](https://github.com/r-lib/pkgdown/blob/c9206802f2888992de92aa41f517ba7812f05331/README.md?plain=1#L68C4-L68C4).
 
 ### Created
@@ -305,5 +305,22 @@ This week, I finally finished the quick start guide. And the README, too. I also
 
 
 ## Week 10 (July 31 to August 6)
+
+## Learned
+
+## Empty
+
+
+## Week 11 (August 7 to August 13)
+
+Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+
+
+## Week 12 (August 14 to August 20)
+
+Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+
+
+## Week 13 (August 21 to August 28)
 
 Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
