@@ -303,15 +303,27 @@ This week, I continued working on `pkgdown.yml`.
 
 - Finished the `pkgdown.yml` draft.
   + There was a parser error, but I fixed it. Turns out it was a [whitespace error](https://github.com/animint/animint2/issues/97#issuecomment-1650780986).
-  + But now there's a [couple of new errors](https://github.com/animint/animint2/issues/97#issuecomment-1650780986).
+  + But now there's a [couple of new errors](https://github.com/animint/animint2/issues/97#issuecomment-1650780986). (Editor's note: this was the result of [three misnamed topics](https://github.com/animint/animint2/issues/97#issuecomment-1654634504). They've since been changed.)
 
 
 ## Week 10 (July 31 to August 6)
 
+This week, I finished `_pkgdown.yml`.
+
 ## Learned
 
-## Empty
+- `incomplete final line` warning message is the result of [](https://github.com/r-lib/pkgdown/issues/1419)
+- Topics filed under `title: internal` may show up anyway. This is the result of [strangely specific syntax requirements](https://github.com/r-lib/pkgdown/issues/2174).
+- Using an SVG workaround, it's possible to use [CSS in a GitHub README](https://css-tricks.com/custom-styles-in-github-readmes/).
+- In Notepad++, you can use the <kbd>CTRL</kbd><kbd>J</kbd> shortcut to [join lines and remove line breaks](https://superuser.com/a/518233).
+- There's an odd warning message when you build or check the site with `pkgdown`: `incomplete final line found on './_pkgdown.yml'`. There's a [bug report about it](https://github.com/r-lib/pkgdown/issues/1419). It's a YAML thing, but I'm not sure why.
+  + Just gonna ignore it for now.
 
+## Created
+
+- Finished `pkgdown.yml`! Woot woot!
+  + Reorganized all the topics.
+  + Wrote up descriptions for the titles.
 
 ## Week 11 (August 7 to August 13)
 
