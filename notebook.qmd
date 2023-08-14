@@ -327,7 +327,38 @@ This week, I finished `_pkgdown.yml`.
 
 ## Week 11 (August 7 to August 13)
 
-Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+## Learned
+
+- Fun with git:
+  + `.gitignore` comments use `#`. Just like R and YAML.
+  + You need to merge all files before you can revert anything.
+  + On GitHub, you can [re-publish a website via the Actions tab](https://stackoverflow.com/a/73733063).
+  + On GitHub, GitHub Pages [automatically deploys a pages-build-deployment workflow](https://stackoverflow.com/q/72079903).
+  + You can [manage GitHub credentials](https://usethis.r-lib.org/articles/git-credentials.html) via the usethis package.  
+- Notepad++ stopped working. Removing the plugins folder resolved the issue, though it causes other problems. Probably something wrong with one of the plugins.
+- Reviewed [Max Kohler's advice](https://www.maxkohler.com/posts/everything-i-know-about-alt-text/) about alt text.
+- _Advanced R_ has a chapter called [Debugging](https://adv-r.hadley.nz/debugging.html).
+- Some CSS and HTML links:
+  + You can [select multiple classes](https://css-tricks.com/css-not-with-multiple-classes/) with the `:not()` psuedo-class.
+  + HTML tags can have multiple classes. They're [separated with spaces](https://stackoverflow.com/a/13808874).
+
+## Created
+
+- Did lots of website stuff:
+  + Removed `docs` from the `.gitignore` website.
+  + Finally threw the official animint2 site online. [Here it is](https://animint.github.io/animint2/).
+  + Made minor changes to the alt text.
+  + Fixed an alt text–figure caption duplication error by using `<img src="source" alt="alt text">` instead of `![alt text](source)`.
+  + Moved `world_bank_screencast.gif` to `man/figures`. It's a `pkgdown` [convention](https://github.com/r-lib/pkgdown/issues/1472).
+  + Created `pkgdown/extra.css` and wrote some CSS to make changes to the website. It's a `pkgdown` [convention](https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files).
+- Made a PR to begin closing [issue 100](https://github.com/animint/animint2/issues/100).
+  + It's about how some of the datasets lack either a source (2) or a codebook (19). Or both (19).
+  + Added a bunch of TODOs in the `.Rd` files in `man/`.
+  + Added a `todo.md` file briefly explaining the TODO nomenclature.
+
+## Other Notes
+
+- There seems to be a minor accessibility bug with `pkgdown`. When you use `![alt text](source)` and render it as an HTML file, it takes the `alt text` and renders it twice: as the alt text and also as the figure caption.
 
 
 ## Week 12 (August 14 to August 20)
