@@ -310,7 +310,7 @@ This week, I continued working on `pkgdown.yml`.
 
 This week, I finished `_pkgdown.yml`.
 
-## Learned
+### Learned
 
 - `incomplete final line` warning message is the result of [](https://github.com/r-lib/pkgdown/issues/1419)
 - Topics filed under `title: internal` may show up anyway. This is the result of [strangely specific syntax requirements](https://github.com/r-lib/pkgdown/issues/2174).
@@ -319,7 +319,7 @@ This week, I finished `_pkgdown.yml`.
 - There's an odd warning message when you build or check the site with `pkgdown`: `incomplete final line found on './_pkgdown.yml'`. There's a [bug report about it](https://github.com/r-lib/pkgdown/issues/1419). It's a YAML thing, but I'm not sure why.
   + Just gonna ignore it for now.
 
-## Created
+### Created
 
 - Finished `pkgdown.yml`! Woot woot!
   + Reorganized all the topics.
@@ -327,7 +327,7 @@ This week, I finished `_pkgdown.yml`.
 
 ## Week 11 (August 7 to August 13)
 
-## Learned
+### Learned
 
 - Fun with git:
   + `.gitignore` comments use `#`. Just like R and YAML.
@@ -342,7 +342,7 @@ This week, I finished `_pkgdown.yml`.
   + You can [select multiple classes](https://css-tricks.com/css-not-with-multiple-classes/) with the `:not()` psuedo-class.
   + HTML tags can have multiple classes. They're [separated with spaces](https://stackoverflow.com/a/13808874).
 
-## Created
+### Created
 
 - Did lots of website stuff:
   + Removed `docs` from the `.gitignore` website.
@@ -356,14 +356,20 @@ This week, I finished `_pkgdown.yml`.
   + Added a bunch of TODOs in the `.Rd` files in `man/`.
   + Added a `todo.md` file briefly explaining the TODO nomenclature.
 
-## Other Notes
+### Other Notes
 
 - There seems to be a minor accessibility bug with `pkgdown`. When you use `![alt text](source)` and render it as an HTML file, it takes the `alt text` and renders it twice: as the alt text and also as the figure caption.
 
 
 ## Week 12 (August 14 to August 20)
 
-Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+### Learned
+
+empty
+
+### Created
+
+empty
 
 
 ## Week 13 (August 21 to August 28)
