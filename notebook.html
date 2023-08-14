@@ -139,6 +139,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#learned-9" id="toc-learned-9" class="nav-link" data-scroll-target="#learned-9">Learned</a></li>
   <li><a href="#created-9" id="toc-created-9" class="nav-link" data-scroll-target="#created-9">Created</a></li>
   <li><a href="#week-11-august-7-to-august-13" id="toc-week-11-august-7-to-august-13" class="nav-link" data-scroll-target="#week-11-august-7-to-august-13">Week 11 (August 7 to August 13)</a></li>
+  <li><a href="#learned-10" id="toc-learned-10" class="nav-link" data-scroll-target="#learned-10">Learned</a></li>
+  <li><a href="#created-10" id="toc-created-10" class="nav-link" data-scroll-target="#created-10">Created</a></li>
+  <li><a href="#other-notes-2" id="toc-other-notes-2" class="nav-link" data-scroll-target="#other-notes-2">Other Notes</a></li>
   <li><a href="#week-12-august-14-to-august-20" id="toc-week-12-august-14-to-august-20" class="nav-link" data-scroll-target="#week-12-august-14-to-august-20">Week 12 (August 14 to August 20)</a></li>
   <li><a href="#week-13-august-21-to-august-28" id="toc-week-13-august-21-to-august-28" class="nav-link" data-scroll-target="#week-13-august-21-to-august-28">Week 13 (August 21 to August 28)</a></li>
   </ul>
@@ -557,7 +560,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-11-august-7-to-august-13" class="level2">
 <h2 class="anchored" data-anchor-id="week-11-august-7-to-august-13">Week 11 (August 7 to August 13)</h2>
-<p>Nothing here yet. Unless you have an <a href="https://iep.utm.edu/time/#SH14a">unusual ontology of time</a>, of course. In that case, something was always here and always will be.</p>
+</section>
+<section id="learned-10" class="level2">
+<h2 class="anchored" data-anchor-id="learned-10">Learned</h2>
+<ul>
+<li>Fun with git:
+<ul>
+<li><code>.gitignore</code> comments use <code>#</code>. Just like R and YAML.</li>
+<li>You need to merge all files before you can revert anything.</li>
+<li>On GitHub, you can <a href="https://stackoverflow.com/a/73733063">re-publish a website via the Actions tab</a>.</li>
+<li>On GitHub, GitHub Pages <a href="https://stackoverflow.com/q/72079903">automatically deploys a pages-build-deployment workflow</a>.</li>
+<li>You can <a href="https://usethis.r-lib.org/articles/git-credentials.html">manage GitHub credentials</a> via the usethis package.<br>
+</li>
+</ul></li>
+<li>Notepad++ stopped working. Removing the plugins folder resolved the issue, though it causes other problems. Probably something wrong with one of the plugins.</li>
+<li>Reviewed <a href="https://www.maxkohler.com/posts/everything-i-know-about-alt-text/">Max Kohler’s advice</a> about alt text.</li>
+<li><em>Advanced R</em> has a chapter called <a href="https://adv-r.hadley.nz/debugging.html">Debugging</a>.</li>
+<li>Some CSS and HTML links:
+<ul>
+<li>You can <a href="https://css-tricks.com/css-not-with-multiple-classes/">select multiple classes</a> with the <code>:not()</code> psuedo-class.</li>
+<li>HTML tags can have multiple classes. They’re <a href="https://stackoverflow.com/a/13808874">separated with spaces</a>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="created-10" class="level2">
+<h2 class="anchored" data-anchor-id="created-10">Created</h2>
+<ul>
+<li>Did lots of website stuff:
+<ul>
+<li>Removed <code>docs</code> from the <code>.gitignore</code> website.</li>
+<li>Finally threw the official animint2 site online. <a href="https://animint.github.io/animint2/">Here it is</a>.</li>
+<li>Made minor changes to the alt text.</li>
+<li>Fixed an alt text–figure caption duplication error by using <code>&lt;img src="source" alt="alt text"&gt;</code> instead of <code>![alt text](source)</code>.</li>
+<li>Moved <code>world_bank_screencast.gif</code> to <code>man/figures</code>. It’s a <code>pkgdown</code> <a href="https://github.com/r-lib/pkgdown/issues/1472">convention</a>.</li>
+<li>Created <code>pkgdown/extra.css</code> and wrote some CSS to make changes to the website. It’s a <code>pkgdown</code> <a href="https://pkgdown.r-lib.org/articles/customise.html#additional-html-and-files">convention</a>.</li>
+</ul></li>
+<li>Made a PR to begin closing <a href="https://github.com/animint/animint2/issues/100">issue 100</a>.
+<ul>
+<li>It’s about how some of the datasets lack either a source (2) or a codebook (19). Or both (19).</li>
+<li>Added a bunch of TODOs in the <code>.Rd</code> files in <code>man/</code>.</li>
+<li>Added a <code>todo.md</code> file briefly explaining the TODO nomenclature.</li>
+</ul></li>
+</ul>
+</section>
+<section id="other-notes-2" class="level2">
+<h2 class="anchored" data-anchor-id="other-notes-2">Other Notes</h2>
+<ul>
+<li>There seems to be a minor accessibility bug with <code>pkgdown</code>. When you use <code>![alt text](source)</code> and render it as an HTML file, it takes the <code>alt text</code> and renders it twice: as the alt text and also as the figure caption.</li>
+</ul>
 </section>
 <section id="week-12-august-14-to-august-20" class="level2">
 <h2 class="anchored" data-anchor-id="week-12-august-14-to-august-20">Week 12 (August 14 to August 20)</h2>
