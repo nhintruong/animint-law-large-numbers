@@ -327,6 +327,8 @@ This week, I finished `_pkgdown.yml`.
 
 ## Week 11 (August 7 to August 13)
 
+This week, I put a mostly-finished website online! Woot woot!
+
 ### Learned
 
 - Fun with git:
@@ -365,11 +367,11 @@ This week, I finished `_pkgdown.yml`.
 
 ### Learned
 
-empty
+- I was previously unaware of CSS's [letter-spacing](https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing) property.
 
 ### Created
 
-empty
+- Fei reported a bug under issue 102. I [tested it](https://github.com/animint/animint2/issues/102#issuecomment-1678060496).
 
 
 ## Week 13 (August 21 to August 28)
