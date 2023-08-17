@@ -503,3 +503,9 @@ A data visualization is composed of parts. Using `facet_grid()`,
 You can use the `showSelected` and `clickSelects` keywords to gain finer control on what and how data appear. They are especially useful if you have many variables in your data and want to gain a broad understanding of how some of them interact.
 
 ##########
+
+Regarding the animints in `vignettes/` versus `articles/`: Using the Windows equivalent of diff, `fc.exe`, reveals no differences between the files. So why won't the webpage use it to render the animints? 😭
+
+I found this [old issue](https://github.com/r-lib/pkgdown/issues/1689) about it, but that seems to have been resolved...
+
+##########
