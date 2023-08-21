@@ -509,3 +509,47 @@ Regarding the animints in `vignettes/` versus `articles/`: Using the Windows equ
 I found this [old issue](https://github.com/r-lib/pkgdown/issues/1689) about it, but that seems to have been resolved...
 
 ##########
+
+<ol class="annotated">
+	<li>I begin with the dataset, called `meowtrics`.
+	<li>I pipe it into `ggplot()`, which tells `animint2` that I'm creating a data visualization.
+	<li>I declare that it's a scatterplot using `geom_point()`.
+	<li>I draw the axes of the graph with `aes()`. I place the time category in the x-axis and the cuteness ratings in the y-axis (the `x = Day` and `y = Cuteness` arguments, respectively). Using the `group` and `color` arguments, I also group the data together by the cat and color-code them.
+	<li>I give the graph a title using `labs()` and its `title` argument.
+</ol> <!-- Why use HTML instead of Markdown's syntax for ordered lists? I need to control the appearance of this specific ordered list. With Markdown, it's impossible. If you can figure out a way to do that, feel free to change the syntax. :> -->
+
+##########
+
+ol.annotated > li::marker {
+	content: "#"counter(list-item)" ";
+	border: 1.4px solid;
+	border-radius: 200px;
+	padding: 0.05rem 0.5rem;
+	font-size: 0.9rem;   /* for consistency with code annotations;
+                            the content and counter stuff lets me
+                            mimic how the code annotation looks */
+}
+
+##########
+
+<dl class="annotated">
+	<dt>#1
+		<dd>I begin with the dataset, called `meowtrics`.
+	<dt>#2
+		<dd>I pipe it into `ggplot()`, which tells `animint2` that I'm creating a data visualization.
+	<dt>#3
+		<dd>I declare that it's a scatterplot using `geom_point()`.
+	<dt>#4
+		<dd>I draw the axes of the graph with `aes()`. I place the time category in the x-axis and the cuteness ratings in the y-axis (the `x = Day` and `y = Cuteness` arguments, respectively). Using the `group` and `color` arguments, I also group the data together by the cat and color-code them.
+	<dt>#5
+		<dd>I give the graph a title using `labs()` and its `title` argument.
+</dl> <!-- Yup! A <dl>. You don't see these often. -->
+
+##########
+
+dl.annotated > dt {
+	border: 1.4px solid #212529;
+	border-radius: 200px;
+	padding: 0.05rem 0.5rem;
+	font-size: 0.9rem;   /* for consistency with code annotations */
+}
