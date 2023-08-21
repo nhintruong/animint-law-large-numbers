@@ -365,15 +365,46 @@ This week, I put a mostly-finished website online! Woot woot!
 
 ## Week 12 (August 14 to August 20)
 
+This week, I worked on improving the website, mostly with CSS.
+
 ### Learned
 
 - I was previously unaware of CSS's [letter-spacing](https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing) property.
+- `pkgdown` can't use Quarto cuz CRAN [doesn't have Quarto installed](https://github.com/r-lib/pkgdown/issues/2154). Didn't document this properly till now.
+- Resources that I've looked at to try and solve the JavaScript problem of animints not appearing in the quick guide. I should note that looking into this problem has been somewhat confusing.
+  + Toby told me to look at the [z_knitr.R](https://github.com/animint/animint2/blob/master/R/z_knitr.R) file, just in case it's something on our end.
+  + This [2021 `pkgdown` issue](https://github.com/r-lib/pkgdown/issues/1689) mentions something about live graphs no longer working. But that issue has been fixed, hasn't it?
+  + Doesn't matter---it fixed itself.
+- Learned and reviewed some CSS stuff:
+  + There's a difference between [child and descendant combinators](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator).
+- The Windows version of `diff` is `fc.exe`. [Link](https://stackoverflow.com/a/6877352).
 
 ### Created
 
 - Fei reported a bug under issue 102. I [tested it](https://github.com/animint/animint2/issues/102#issuecomment-1678060496).
+- Finally got the animints working in the quick start guide! I've moved the guide to its own section on the navigation bar.
+- Some other website changes:
+  + Switched the font from system-ui to Roboto Condensed and Roboto Mono.
+  + Changed the link color to match the link color on Toby's website.
+  + Increased spacing between each heading.
+  + Generated code annotations from code comments cuz I don't have direct access to the HTML. This was hard!
+
+### Confused
+
+Okay. Debugging notes. The problem is that the website won't render our animints. This seems to be the result of two issues:
+
+- `pkgdown` renders the animints in the `vignettes/` directory instead of `docs/articles/`.
+- Having the animints in `docs/articles/` doesn't appear to do anything.
+
+My guess is that it's a `pkgdown` thing. Quarto renders it, so the origin of the problem's not `animint2`. The animint2 Manual renders it, too. So it's not anything to do with R Markdown.
+
+The JavaScript output looks the same as well. It's a bunch of `<script type="text/javascript" src="animint/directories">` for the first codeblock, followed by `<script>var chunk_name = new animint("#chunk_name", "chunk_name/plot.json");</script>` for any future codeblocks. So there's nothing wrong with the code being generated.
+
+Maybe the code needs to be generated in the `docs/` directory instead of `vignettes/`? But why? I used `fc.exe` to look at the files and obviously there's no difference between them.
+
+Oddly, the bug fixed itself. I just renamed the file and now the animints work. Bizarre.
 
 
 ## Week 13 (August 21 to August 28)
 
-Nothing here yet. Unless you have an [unusual ontology of time](https://iep.utm.edu/time/#SH14a), of course. In that case, something was always here and always will be.
+[Work product submission week](https://developers.google.com/open-source/gsoc/help/work-product)! 🐈
