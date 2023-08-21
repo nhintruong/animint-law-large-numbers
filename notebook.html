@@ -150,6 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#learned-11" id="toc-learned-11" class="nav-link" data-scroll-target="#learned-11">Learned</a></li>
   <li><a href="#created-11" id="toc-created-11" class="nav-link" data-scroll-target="#created-11">Created</a></li>
+  <li><a href="#confused-2" id="toc-confused-2" class="nav-link" data-scroll-target="#confused-2">Confused</a></li>
   </ul></li>
   <li><a href="#week-13-august-21-to-august-28" id="toc-week-13-august-21-to-august-28" class="nav-link" data-scroll-target="#week-13-august-21-to-august-28">Week 13 (August 21 to August 28)</a></li>
   </ul>
@@ -568,6 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-11-august-7-to-august-13" class="level2">
 <h2 class="anchored" data-anchor-id="week-11-august-7-to-august-13">Week 11 (August 7 to August 13)</h2>
+<p>This week, I put a mostly-finished website online! Woot woot!</p>
 <section id="learned-10" class="level3">
 <h3 class="anchored" data-anchor-id="learned-10">Learned</h3>
 <ul>
@@ -619,18 +621,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="week-12-august-14-to-august-20" class="level2">
 <h2 class="anchored" data-anchor-id="week-12-august-14-to-august-20">Week 12 (August 14 to August 20)</h2>
+<p>This week, I worked on improving the website, mostly with CSS.</p>
 <section id="learned-11" class="level3">
 <h3 class="anchored" data-anchor-id="learned-11">Learned</h3>
-<p>empty</p>
+<ul>
+<li>I was previously unaware of CSS’s <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing">letter-spacing</a> property.</li>
+<li><code>pkgdown</code> can’t use Quarto cuz CRAN <a href="https://github.com/r-lib/pkgdown/issues/2154">doesn’t have Quarto installed</a>. Didn’t document this properly till now.</li>
+<li>Resources that I’ve looked at to try and solve the JavaScript problem of animints not appearing in the quick guide. I should note that looking into this problem has been somewhat confusing.
+<ul>
+<li>Toby told me to look at the <a href="https://github.com/animint/animint2/blob/master/R/z_knitr.R">z_knitr.R</a> file, just in case it’s something on our end.</li>
+<li>This <a href="https://github.com/r-lib/pkgdown/issues/1689">2021 <code>pkgdown</code> issue</a> mentions something about live graphs no longer working. But that issue has been fixed, hasn’t it?</li>
+<li>Doesn’t matter—it fixed itself.</li>
+</ul></li>
+<li>Learned and reviewed some CSS stuff:
+<ul>
+<li>There’s a difference between <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator">child and descendant combinators</a>.</li>
+</ul></li>
+<li>The Windows version of <code>diff</code> is <code>fc.exe</code>. <a href="https://stackoverflow.com/a/6877352">Link</a>.</li>
+</ul>
 </section>
 <section id="created-11" class="level3">
 <h3 class="anchored" data-anchor-id="created-11">Created</h3>
-<p>empty</p>
+<ul>
+<li>Fei reported a bug under issue 102. I <a href="https://github.com/animint/animint2/issues/102#issuecomment-1678060496">tested it</a>.</li>
+<li>Finally got the animints working in the quick start guide! I’ve moved the guide to its own section on the navigation bar.</li>
+<li>Some other website changes:
+<ul>
+<li>Switched the font from system-ui to Roboto Condensed and Roboto Mono.</li>
+<li>Changed the link color to match the link color on Toby’s website.</li>
+<li>Increased spacing between each heading.</li>
+<li>Generated code annotations from code comments cuz I don’t have direct access to the HTML. This was hard!</li>
+</ul></li>
+</ul>
+</section>
+<section id="confused-2" class="level3">
+<h3 class="anchored" data-anchor-id="confused-2">Confused</h3>
+<p>Okay. Debugging notes. The problem is that the website won’t render our animints. This seems to be the result of two issues:</p>
+<ul>
+<li><code>pkgdown</code> renders the animints in the <code>vignettes/</code> directory instead of <code>docs/articles/</code>.</li>
+<li>Having the animints in <code>docs/articles/</code> doesn’t appear to do anything.</li>
+</ul>
+<p>My guess is that it’s a <code>pkgdown</code> thing. Quarto renders it, so the origin of the problem’s not <code>animint2</code>. The animint2 Manual renders it, too. So it’s not anything to do with R Markdown.</p>
+<p>The JavaScript output looks the same as well. It’s a bunch of <code>&lt;script type="text/javascript" src="animint/directories"&gt;</code> for the first codeblock, followed by <code>&lt;script&gt;var chunk_name = new animint("#chunk_name", "chunk_name/plot.json");&lt;/script&gt;</code> for any future codeblocks. So there’s nothing wrong with the code being generated.</p>
+<p>Maybe the code needs to be generated in the <code>docs/</code> directory instead of <code>vignettes/</code>? But why? I used <code>fc.exe</code> to look at the files and obviously there’s no difference between them.</p>
+<p>Oddly, the bug fixed itself. I just renamed the file and now the animints work. Bizarre.</p>
 </section>
 </section>
 <section id="week-13-august-21-to-august-28" class="level2">
 <h2 class="anchored" data-anchor-id="week-13-august-21-to-august-28">Week 13 (August 21 to August 28)</h2>
-<p>Nothing here yet. Unless you have an <a href="https://iep.utm.edu/time/#SH14a">unusual ontology of time</a>, of course. In that case, something was always here and always will be.</p>
+<p><a href="https://developers.google.com/open-source/gsoc/help/work-product">Work product submission week</a>! 🐈</p>
 </section>
 
 </main>
