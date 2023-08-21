@@ -427,3 +427,11 @@ Oddly, the bug fixed itself. I just renamed the file and now the animints work. 
 ## Week 13 (August 21 to August 28)
 
 [Work product submission week](https://developers.google.com/open-source/gsoc/help/work-product)! 🐈
+
+## Learned
+
+- Using R and the `magick` package, you can [convert images to waveforms](https://yutani.rbind.io/post/how-to-convert-a-human-to-waves-by-magick-package/). This has nothing to do with animint2. But I just thought it was neat.
+
+## Created
+
+empty
