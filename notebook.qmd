@@ -9,9 +9,9 @@ code-summary: error message
 This is a public-facing notebook about what I'm doing, what I'm struggling to do, and what mistakes I've been making.
 
 
-## Week 1 (May 29 to June 4)
+## Week 1
 
-This week, I set up a preliminary `animint2` reference website.
+This week (May 29 to June 4), I set up a preliminary `animint2` reference website.
 
 ### Learned
 
@@ -69,9 +69,9 @@ This is confusing, since I thought `GITHUB_PAT` was already set with a GitHub Ac
 I also don't understand the GitHub workflow stuff. What exactly is GitHub doing?
 
 
-## Week 2 (June 5 to June 11)
+## Week 2
 
-This week, I tried to fix [issue 89](https://github.com/tdhock/animint2/issues/89). I did not succeed.
+This week (June 5 to June 11), I tried to fix [issue 89](https://github.com/tdhock/animint2/issues/89). I did not succeed.
 
 ### Learned
 
@@ -113,9 +113,9 @@ Why are the tidyverse data tidiers being retired? I can't find any info about th
 `yay -S r-plyr r-reshape2` isn't working and requires "manual intervention." Why? Luckily, this isn't important---`build.sh` runs perfectly fine on Git Bash and therefore I don't actually need to figure out why the `yay` helper is acting this way.
 
 
-## Week 3 (June 12 to June 18)
+## Week 3
 
-This week, I complained a lot. I chatted with Fei, who said that she would take care of [issue 90](https://github.com/tdhock/animint2/issues/90). Thank you, Fei!
+This week (June 12 to June 18), I complained a lot. I chatted with Fei, who said that she would take care of [issue 90](https://github.com/tdhock/animint2/issues/90). Thank you, Fei!
 
 ### Learned
 
@@ -144,9 +144,9 @@ This week, I complained a lot. I chatted with Fei, who said that she would take 
 - Made a new issue: [issue 96](https://github.com/tdhock/animint2/issues/96), which is about some $\LaTeX$ errors that seem exclusive to me.
 
 
-## Week 4 (June 19 to June 25)
+## Week 4
 
-This week, I tried to set up the reference website again---this time in Toby's repository instead of my fork. This didn't work, so I started tinkering with my fork again.
+This week (June 19 to June 25), I tried to set up the reference website again---this time in Toby's repository instead of my fork. This didn't work, so I started tinkering with my fork again.
 
 ### Learned
 
@@ -173,9 +173,9 @@ This week, I tried to set up the reference website again---this time in Toby's r
 A mess. I accidentally merged my changes from my fork of `animint2` into the original `animint2` repository. Whoops.
 
 
-## Week 5 (June 26 to July 2)
+## Week 5
 
-This week, I'm setting the website up again. Yay! Toby said that he [wants me to replace the README entirely](https://github.com/animint/animint2/issues/97#issuecomment-1615428430), so that's happening, too.
+This week (June 26 to July 2), I'm setting the website up again. Yay! Toby said that he [wants me to replace the README entirely](https://github.com/animint/animint2/issues/97#issuecomment-1615428430), so that's happening, too.
 
 ### Learned
 
@@ -203,9 +203,9 @@ This week, I'm setting the website up again. Yay! Toby said that he [wants me to
 - I'm editing `README.qmd` to be clearer and more immediately useful. Later, I'll convert it to `README.md` for `pkgdown` to read.
 
 
-## Week 6 (July 3 to July 9)
+## Week 6
 
-Hoping to finish up the website this week. (Editor's note: this didn't happen.) Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
+Hoping to finish up the website this week (July 3 to July 9). (Editor's note: this didn't happen.) Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
 
 ### Learned
 
@@ -229,9 +229,9 @@ Hoping to finish up the website this week. (Editor's note: this didn't happen.) 
 - When using `animint::labs()`, subtitles, tags, and captions don't work. `ggplot2` page for the function [is here](https://ggplot2.tidyverse.org/reference/labs.html).
 
 
-## Week 7 (July 10 to July 16)
+## Week 7
 
-This week, I've continued work on the quick start guide.
+This week (July 10 to July 16), I've continued work on the quick start guide.
 
 ### Learned
 
@@ -253,9 +253,9 @@ This week, I've continued work on the quick start guide.
 - Continued work with `simple-examples.Rmd`, which was renamed `quick-start.Rmd`. The simple examples vignette has transformed into a larger quick start guide.
 
 
-## Week 8 (July 17 to July 23)
+## Week 8
 
-This week, I finally finished the quick start guide. And the README, too. I also worked a little on `website_setup.Rmd` and `_pkgdown.yml`.
+This week (July 17 to July 23), I finally finished the quick start guide. And the README, too. I also worked a little on `website_setup.Rmd` and `_pkgdown.yml`.
 
 ### Learned
 
@@ -282,9 +282,9 @@ This week, I finally finished the quick start guide. And the README, too. I also
 - `animint()` fails to render ggplots that uses `geom_smooth()`.
 
 
-## Week 9 (July 24 to July 30)
+## Week 9
 
-This week, I continued working on `pkgdown.yml`.
+This week (July 24 to July 30), I continued working on `pkgdown.yml`.
 
 ### Learned
 
@@ -306,9 +306,9 @@ This week, I continued working on `pkgdown.yml`.
   + But now there's a [couple of new errors](https://github.com/animint/animint2/issues/97#issuecomment-1650780986). (Editor's note: this was the result of [three misnamed topics](https://github.com/animint/animint2/issues/97#issuecomment-1654634504). They've since been changed.)
 
 
-## Week 10 (July 31 to August 6)
+## Week 10
 
-This week, I finished `_pkgdown.yml`.
+This week (July 31 to August 6), I finished `_pkgdown.yml`.
 
 ### Learned
 
@@ -325,9 +325,9 @@ This week, I finished `_pkgdown.yml`.
   + Reorganized all the topics.
   + Wrote up descriptions for the titles.
 
-## Week 11 (August 7 to August 13)
+## Week 11
 
-This week, I put a mostly-finished website online! Woot woot!
+This week (August 7 to August 13), I put a mostly-finished website online! Woot woot!
 
 ### Learned
 
@@ -363,9 +363,9 @@ This week, I put a mostly-finished website online! Woot woot!
 - There seems to be a minor accessibility bug with `pkgdown`. When you use `![alt text](source)` and render it as an HTML file, it takes the `alt text` and renders it twice: as the alt text and also as the figure caption.
 
 
-## Week 12 (August 14 to August 20)
+## Week 12
 
-This week, I worked on improving the website, mostly with CSS.
+This week (August 14 to August 20), I worked on improving the website, mostly with CSS.
 
 ### Learned
 
@@ -424,9 +424,9 @@ Maybe the code needs to be generated in the `docs/` directory instead of `vignet
 Oddly, the bug fixed itself. I just renamed the file and now the animints work. Bizarre.
 
 
-## Week 13 (August 21 to August 28)
+## Week 13
 
-[Work product submission week](https://developers.google.com/open-source/gsoc/help/work-product)! 🐈
+[Work product submission week](https://developers.google.com/open-source/gsoc/help/work-product) (August 21 to August 28)! 🐈
 
 ## Learned
 
