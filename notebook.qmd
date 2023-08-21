@@ -374,10 +374,29 @@ This week, I worked on improving the website, mostly with CSS.
 - Resources that I've looked at to try and solve the JavaScript problem of animints not appearing in the quick guide. I should note that looking into this problem has been somewhat confusing.
   + Toby told me to look at the [z_knitr.R](https://github.com/animint/animint2/blob/master/R/z_knitr.R) file, just in case it's something on our end.
   + This [2021 `pkgdown` issue](https://github.com/r-lib/pkgdown/issues/1689) mentions something about live graphs no longer working. But that issue has been fixed, hasn't it?
+  + By default, [JavaScript uses the default MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#textjavascript) `text/javascript`.
+  + [How to Include JavaScript files in R Markdown files](https://community.rstudio.com/t/how-to-include-js-file-into-rmarkdown-file/154057/2).
+  + [Hello JS in R Markdown](https://www.aliciaschep.com/blog/js-rmarkdown/).
+  + [How to Add Extra Files to pkgdown Website](https://stackoverflow.com/q/67393709).
+  + Support for custom CSS and JS was added in 2017. [Link](https://github.com/r-lib/pkgdown/issues/317).
+  + [Using RGL in pkgdown Websites](https://dmurdoch.github.io/rgl/articles/pkgdown.html).
   + Doesn't matter---it fixed itself.
 - Learned and reviewed some CSS stuff:
   + There's a difference between [child and descendant combinators](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator).
 - The Windows version of `diff` is `fc.exe`. [Link](https://stackoverflow.com/a/6877352).
+- There's an R package called [htmlwidgets](http://www.htmlwidgets.org/). Seems cool.
+- There were a lot of resources I consulted when designing the code annotations.
+  + Remember: use `element#id` when selecting IDs.
+  + Controlling the gap between the list marker and whatever's after it is a real pain in the rear. See [this CSS Tricks link](https://css-tricks.com/everything-you-need-to-know-about-the-gap-after-the-list-marker/) for an analysis of this problem. See [this link](https://stackoverflow.com/q/39747766) or [this link](https://stackoverflow.com/a/4373216) on what to do. I just used `<span>` a bunch of times and then moved those. Thoroughly inelegant, but it works. 
+  + [MDN on `<dl>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl).
+  + [MDN on list-style-position](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position), which isn't helpful when you've changed things with `list-style: none`.
+  + [MDN on accessibility concerns re: `list-style: none`](https://developer.mozilla.org/en-US/docs/Web/CSS/list-style#accessibility_concerns). Specifically: Safari will stop recognizing the list as a list.
+  + Consulted [MDN on `border`](https://developer.mozilla.org/en-US/docs/Web/CSS/border) when designing the code annotations.
+  + To generating capsule- or stadium-shaped objects, apply a super big `border-radius`. [Link](https://stackoverflow.com/a/18795153). [Second link](https://stackoverflow.com/a/71024002).
+  + `::marker` only accepts a limited number of CSS properties. [MDN link](https://developer.mozilla.org/en-US/docs/Web/CSS/::marker#allowable_properties). [CSS Tricks link](https://css-tricks.com/list-markers-and-string-styles/).
+  + Because of the limitations above, you need to use workarounds. For example: [manipulating different pseudo-elements, like `::before`](https://stackoverflow.com/q/68135553). [Second link with a similar solution](https://stackoverflow.com/a/5308785). [Another example, this time focused on borders](https://stackoverflow.com/a/47441288). See also [this link from CSS Tricks](https://css-tricks.com/finally-it-will-be-easy-to-change-the-color-of-list-bullets/).
+  + [MDN on `::before`](https://developer.mozilla.org/en-US/docs/Web/CSS/::before).
+  + [MDN on CSS counters](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles/Using_CSS_counters), which are useful when hacking CSS lists.
 
 ### Created
 
