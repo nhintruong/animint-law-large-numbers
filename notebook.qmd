@@ -205,7 +205,7 @@ This week (June 26 to July 2), I'm setting the website up again. Yay! Toby said 
 
 ## Week 6
 
-Hoping to finish up the website this week (July 3 to July 9). (Editor's note: this didn't happen.) Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
+Hoping to finish up the website this week (July 3 to July 9).^[Editor's note: this didn't happen.] Weird bugs exclusive to me and GitHub-specific problems... I'm behind on my timeline for reasons I didn't anticipate. Good learning experience, though I'm learning about things I didn't anticipated.
 
 ### Learned
 
@@ -303,7 +303,7 @@ This week (July 24 to July 30), I continued working on `pkgdown.yml`.
 
 - Finished the `pkgdown.yml` draft.
   + There was a parser error, but I fixed it. Turns out it was a [whitespace error](https://github.com/animint/animint2/issues/97#issuecomment-1650780986).
-  + But now there's a [couple of new errors](https://github.com/animint/animint2/issues/97#issuecomment-1650780986). (Editor's note: this was the result of [three misnamed topics](https://github.com/animint/animint2/issues/97#issuecomment-1654634504). They've since been changed.)
+  + But now there's a [couple of new errors](https://github.com/animint/animint2/issues/97#issuecomment-1650780986).^[Editor's note: this was the result of [three misnamed topics](https://github.com/animint/animint2/issues/97#issuecomment-1654634504). They've since been changed.]
 
 
 ## Week 10
