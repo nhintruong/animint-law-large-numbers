@@ -152,15 +152,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#created-11" id="toc-created-11" class="nav-link" data-scroll-target="#created-11">Created</a></li>
   <li><a href="#confused-2" id="toc-confused-2" class="nav-link" data-scroll-target="#confused-2">Confused</a></li>
   </ul></li>
-  <li><a href="#week-13" id="toc-week-13" class="nav-link" data-scroll-target="#week-13">Week 13</a></li>
+  <li><a href="#week-13" id="toc-week-13" class="nav-link" data-scroll-target="#week-13">Week 13</a>
+  <ul class="collapse">
   <li><a href="#learned-12" id="toc-learned-12" class="nav-link" data-scroll-target="#learned-12">Learned</a></li>
   <li><a href="#created-12" id="toc-created-12" class="nav-link" data-scroll-target="#created-12">Created</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
 </div>
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -409,9 +411,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="week-6" class="level2">
+<section id="week-6" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="week-6">Week 6</h2>
-<p>Hoping to finish up the website this week (July 3 to July 9). (Editor’s note: this didn’t happen.) Weird bugs exclusive to me and GitHub-specific problems… I’m behind on my timeline for reasons I didn’t anticipate. Good learning experience, though I’m learning about things I didn’t anticipated.</p>
+<div class="page-columns page-full"><p>Hoping to finish up the website this week (July 3 to July 9).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Weird bugs exclusive to me and GitHub-specific problems… I’m behind on my timeline for reasons I didn’t anticipate. Good learning experience, though I’m learning about things I didn’t anticipated.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Editor’s note: this didn’t happen.</p></li></div></div>
 <section id="learned-5" class="level3">
 <h3 class="anchored" data-anchor-id="learned-5">Learned</h3>
 <ul>
@@ -509,7 +511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="week-9" class="level2">
+<section id="week-9" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="week-9">Week 9</h2>
 <p>This week (July 24 to July 30), I continued working on <code>pkgdown.yml</code>.</p>
 <section id="learned-8" class="level3">
@@ -531,16 +533,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>I’d forgotten why <code>_pkgdown.yml</code> uses <code>bootstrap: 5</code>. It’s cuz some sites might break from the upgrade, so we need to <a href="https://github.com/r-lib/pkgdown/blob/c9206802f2888992de92aa41f517ba7812f05331/README.md?plain=1#L68C4-L68C4">specify that we wanna use Bootstrap 5</a>.</li>
 </ul>
 </section>
-<section id="created-8" class="level3">
+<section id="created-8" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="created-8">Created</h3>
 <ul>
 <li>Finished the <code>pkgdown.yml</code> draft.
 <ul>
 <li>There was a parser error, but I fixed it. Turns out it was a <a href="https://github.com/animint/animint2/issues/97#issuecomment-1650780986">whitespace error</a>.</li>
-<li>But now there’s a <a href="https://github.com/animint/animint2/issues/97#issuecomment-1650780986">couple of new errors</a>. (Editor’s note: this was the result of <a href="https://github.com/animint/animint2/issues/97#issuecomment-1654634504">three misnamed topics</a>. They’ve since been changed.)</li>
+<li>But now there’s a <a href="https://github.com/animint/animint2/issues/97#issuecomment-1650780986">couple of new errors</a>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul></li>
 </ul>
-</section>
+<div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Editor’s note: this was the result of <a href="https://github.com/animint/animint2/issues/97#issuecomment-1654634504">three misnamed topics</a>. They’ve since been changed.</p></li></div></section>
 </section>
 <section id="week-10" class="level2">
 <h2 class="anchored" data-anchor-id="week-10">Week 10</h2>
@@ -693,17 +695,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="week-13" class="level2">
 <h2 class="anchored" data-anchor-id="week-13">Week 13</h2>
 <p><a href="https://developers.google.com/open-source/gsoc/help/work-product">Work product submission week</a> (August 21 to August 28)! 🐈</p>
-</section>
-<section id="learned-12" class="level2">
-<h2 class="anchored" data-anchor-id="learned-12">Learned</h2>
+<section id="learned-12" class="level3">
+<h3 class="anchored" data-anchor-id="learned-12">Learned</h3>
 <ul>
 <li>Using R and the <code>magick</code> package, you can <a href="https://yutani.rbind.io/post/how-to-convert-a-human-to-waves-by-magick-package/">convert images to waveforms</a>. This has nothing to do with animint2. But I just thought it was neat.</li>
 </ul>
 </section>
-<section id="created-12" class="level2">
-<h2 class="anchored" data-anchor-id="created-12">Created</h2>
+<section id="created-12" class="level3">
+<h3 class="anchored" data-anchor-id="created-12">Created</h3>
 <p>empty</p>
 </section>
+</section>
+
 
 </main>
 <!-- /main column -->
