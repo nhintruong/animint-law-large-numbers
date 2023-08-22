@@ -553,3 +553,27 @@ dl.annotated > dt {
 	padding: 0.05rem 0.5rem;
 	font-size: 0.9rem;   /* for consistency with code annotations */
 }
+
+##########
+
+## What Do I Need to Do?
+
+Here's a flowchart that depicts all the possible reasons for maintenance that I can think of, as well as the actions that you ought to perform to maintain the site. Since there's only some many words I can reasonably fit into a flowchart, some of the nodes direct you to another part of this document.
+
+``` mermaid
+flowchart TD
+	A(["I have made changes to the animint2 repository."]) -- TRUE --> B(["I added a function to the animint2 package."])
+	A -- FALSE --> C(["You don't need to do anything"])
+	B -- TRUE --> D(["See: I Added a Function"])
+	B -- FALSE --> E(["I'm seeing error messages about GitHub access tokens or PATs."])
+	E -- TRUE --> F(["See: Refreshing the GitHub Access Token"])
+	E -- FALSE --> G(["I pushed some commits to GitHub. Now the website is wonky or has stopped working."])
+	G -- TRUE --> H(["See: Mistakes"])
+	G -- FALSE --> I(["I made changes to the repository that should have showed up on the website, but they haven't."])
+	I -- TRUE --> J(["See: The Basics"])
+	I -- FALSE --> K(["I made changes to the extra.css or extra.js files, but they haven't showed up on the website."])
+	K -- TRUE --> L(["See: The Basics"])
+```
+Aside: If you're blind or can't see well---sorry about this. This flowchart uses Mermaid, and Mermaid is not screenreader-friendly. If anyone knows of any accessible alternatives, please replace the Mermaid diagram. Thanks.
+
+##########
