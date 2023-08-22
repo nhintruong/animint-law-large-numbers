@@ -11,7 +11,7 @@ toc: false
 
 Some of my notes about and contributions to [the `animint2` R package](https://cran.r-project.org/web/packages/animint2/) via the 2023 [Google Summer of Code](https://g.co/gsoc). `animint2` is a fork of `ggplot2` and can be used to generate interactive or animated graphics.
 
-My colleague this year is [Yufan Fei](https://yufanfei.xyz/), who is a much more skilled programmer than I am. [Toby Hocking and Faizan Khan](https://github.com/rstats-gsoc/gsoc2023/wiki/Animated-interactive-ggplots) are our mentors.
+My colleague this year is [Yufan Fei](https://yufanfei.xyz/), who is a much more skilled programmer than I am. [Toby Hocking](https://tdhock.github.io/) and [Faizan Khan](https://github.com/faizan-khan-iit) are our mentors.
 
 
 ## Pages
@@ -19,3 +19,4 @@ My colleague this year is [Yufan Fei](https://yufanfei.xyz/), who is a much more
 - [Coding Notebook](notebook.html): My notes on what I've been doing for GSOC so far. Mostly irrelevant unless you wanna see a public record of my coding mistakes and learn what not to do.
 - [How I Set Up the Animint2 Website](setup.html): My personal documentation on setting up the `animint2` website. Most irrelevant unless you're an `animint2` contributor, the website has become super messed up, and you need to do it all over again.
 - [R Project Exams](exam/exam.html): Some tests that I took. Mostly irrelevant unless you're interested in seeing some animated graphs of the [five-factor model of personality](https://www.britannica.com/science/five-factor-model-of-personality) or the [weak law of large numbers](https://www.britannica.com/science/law-of-large-numbers).
+- [R Project's GSOC page](https://github.com/rstats-gsoc/gsoc2023/wiki/Animated-interactive-ggplots) for `animint2`: This may be of interest for historical reasons.
