@@ -4,102 +4,119 @@ date: 2023-06-28
 date-modified: 2023-08-21
 ---
 
-This webpage details how I set the animint2 website up. Originally, I wrote this for the animint2 repository. But at some point, I realized that future animint2 contributors won't care about how I set things up. They'll just care about how to maintain the website. So I moved this here.
+This webpage summarizes how I set the animint2 website up. Originally, I wrote this for the animint2 repository. But at some point, I realized that future animint2 contributors won't care about how I set things up. They'll just care about how to maintain the website. So I moved this here.
+
+This summary is idealized and historically inaccurate. An accurate account would be much more chaotic and contain several swear words.
 
 
 ## Get Ready
 
-To get ready, I set your working directory to the `animint2` repository. If you're using an command line terminal, type in `cd whatever/your/path/is/animint/animint2`. If you're using RStudio, you can instead use the <kbd>CTRL</kbd><kbd>SHIFT</kbd><kbd>H</kbd> keyboard shortcut and select the `animint2` repository from there.
+I first set my working directory to the `animint2` repository. `cd whatever/my/path/is/animint/animint2` gets me there. If I were using RStudio, I could instead use the <kbd>CTRL</kbd><kbd>SHIFT</kbd><kbd>H</kbd> keyboard shortcut and select the `animint2` repository from there.
 
-A `README.md` document should already exist. If it doesn't, create one. Remember to use [GitHub-flavored Markdown](https://github.github.com/gfm/). The `README` should have, at minimum:
 
-1. A section that briefly summarizes what the package is about,
-2. A section that teaches the reader how to install both the CRAN and development versions of the package, and
-3. A section that briefly demonstrates how to do basic things with the package or links to another page that does.
+## Making the README
 
-In my `README`, I included About section with a GIF of someone using `animint2`, an Installation section, a Use section that linked to a quick start guide, a Similar Packages section about other packages that created interactive data visualizations, and a Problems? section asking users to report bugs if they find any.
+I generated a `README.md` file using [GitHub-flavored Markdown](https://github.github.com/gfm/). The `README` should have, at minimum:
 
-Next, generate a GitHub token. It's like a more secure password. We use it to access GitHub's API, which we need to set up the website:
+- A section that briefly summarizes what the package is about,
+- A section that teaches the reader how to install both the CRAN and development versions of the package, and
+- A section that briefly demonstrates how to do basic things with the package or links to another page that does.
+
+In my `README`, I included:
+
+- An About section with a GIF of someone using `animint2`,
+- An Installation section,
+- A Use section that linked to a quick start guide, 
+- A Similar Packages section about other packages that created interactive data visualizations, and
+- A Problems? section asking users to report bugs if they find any.
+
+There was already a `README.org`, but Toby asked me to create a new README and delete the old one.
+
+
+## GitHub Tokens
+
+I needed to access GitHub's API to set up the website. Instead of using my username and password, I had to use my username and a temporary PAT I generated. I guess it's like a better but less convenient password. Luckily, it's easy:
 
 ```{r, eval = FALSE}
 usethis::create_github_token()
 ```
 
-This function will open a GitHub webpage. Log in and generate the token. The token will be a series of characters. Save that somewhere, at least temporarily.
-
-Run the following and enter the token when asked:
+This function opened a GitHub webpage. I logged in, generated the token, and saved that somewhere. I then ran
 
 ```{r, eval = FALSE}
 gitcreds::gitcreds_set()
 ```
 
-Finally, configure the repository to use `pkgdown`:
+and entered the token when asked.
+
+
+## Build the Site
+
+`pkgdown` makes this easy. I configured the repository to use `pkgdown`:
 
 ```{r, eval = FALSE}
 usethis::use_pkgdown()
 ```
 
-That's it. Now we can build the site.
-
-
-## Build the Site
-
-We can build the whole site with just a single line of code:
+Then I built the whole site with this:
 
 ```{r, eval = FALSE}
 pkgdown::build_site()
 ```
 
-This generates HTML files from our `.Rd` files.
+This generated HTML files from our `.Rd` files, and it's this line of code that I run when I need to re-render the website.
 
-With another line of code, we create and edit the `_pkgdown.yml` file, which influences how the site looks:
+With another line of code, I created a `_pkgdown.yml` file, which influences how the site looks:
 
 ```{r, eval = FALSE}
 usethis::use_pkgdown_github_pages()
 ```
 
-If there's already a `_pkgdown.yml` file properly set up, just say no when `usethis` offers to modify it.
-
-And you're done with site building.
+I haven't used this since.
 
 
-## Organizing the Site
+## Organize the Site
 
-By default, the home page is just a mirror image of what's on the `animint2` repository, and the references are in alphabetical order. Not great. We can make it better.
+By default, the home page is just a mirror image of what's on the `animint2` repository, and the references are in alphabetical order. Not great.
 
-We can [rearrange the reference pages](https://pkgdown.r-lib.org/reference/build_reference.html) by adding a `reference` section to the `_pkgdown.yml`. I've linked to the `pkgdown` documentation, which describes the syntax in detail. It's gonna take a while to manually construct, partly due to the sheer number of functions `animint2` has. Two tricks that helped me:
+I [rearranged the reference pages](https://pkgdown.r-lib.org/reference/build_reference.html) by adding a `reference` section to the `_pkgdown.yml`. Then I added all of `animint2`'s functions. This took a while due to the sheer number of functions. A couple of tricks that helped me:
 
-- Use `data()` to pull up all the datasets that `animint2` has. (Thirty-three!) Then just copy/paste the list into a Dataset section in `_pkgdown.yaml`.
-- Use [`ggplot2`'s YAML file](https://github.com/tidyverse/ggplot2/blob/main/_pkgdown.yml) as a reference. `animint2` is a fork of `ggplot2`, so there's lots of similarities. Don't mindlessly copy/paste, though.
+- I used `data()` to pull up all the datasets that `animint2` has. (Thirty-three!) Then I copy/pasted the list into a Dataset section in `_pkgdown.yaml`.
+- I used [`ggplot2`'s YAML file](https://github.com/tidyverse/ggplot2/blob/main/_pkgdown.yml) as a reference. `animint2` is a fork of `ggplot2`, so there's lots of similarities. However, I find parts of `ggplot2`'s reference website confusing, so I've elected to organize the functions a little bit differently.
 
-Watch out for typos. Whitespace is relevant in YAML.
-
-
-## Changing Appearances
-
-There are [lots of ways to customize](https://pkgdown.r-lib.org/articles/customise.html) the website. I edited the typefaces (fonts) in the `_pkgdown.yml` file via `template > bslib`. To make finer and subtler modifications, I created an `extra.css` file in `pkgdown/` and edited the appearance of the site that way.
+I also made a typo early on. Whoops. Turns out whitespace is relevant in YAML.
 
 
-## Make the Site Appear on GitHub Pages
+## Change Appearances
 
-There are two ways to make this happen:
+There are [lots of ways to customize](https://pkgdown.r-lib.org/articles/customise.html) the website. I made typeface changes in the `_pkgdown.yml` file via `template > bslib`. Roboto Condensed and Roboto Mono look nice.
+
+To make finer and subtler modifications, I created an `extra.css` file in `pkgdown/` and edited the appearance of the site that way. I began with broad changes, like modifying the margins between headings and changing the link color. But I've also made subtler changes to the side bar and to the quick start guide.
+
+
+## Throw it Online
+
+Using GitHub Pages, there are two ways to make this happen:
 
 1. Upload the `docs/` directory to the GitHub repository.
 2. Get a GitHub Actions workflow going that re-generates the website every time you push a commit.
 
-I don't know how to do the second thing, so I did the first. `pkgdown` adds `docs/` to `.gitignore` by default. Delete it or comment it out. Then push your commits.
+I don't know how to do the second thing, so I did the first. `pkgdown` adds `docs/` to `.gitignore` by default, so I edited the latter to remove the former. Then I pushed `docs/` to my repository.
 
 
-## Maintaining the Website
+## Maintain the Website
 
-This is probably the most important section for most readers.
+The panacea for website maintance is a two-step process:
 
+1. Run `pkgdown::build_site()`, then
+2. Push the changes to the `animint2` repository.
 
+But `build_site()` can take a while.^[By which I mean minutes, not hours. If it's taking hours, something is wrong!] For quicker and more precise changes, I use`pkgdown`'s [other functions](https://pkgdown.r-lib.org/reference/index.html#build), like `pkgdown::init_site()`.
 
 
 ## See Also
 
-Some documentation that may be useful:
+Some documentation that was helpful to me when generating the site:
 
 - [Managing GitHub Credentials](https://usethis.r-lib.org/articles/git-credentials.html)
 - [`pkgdown` Documentation](https://pkgdown.r-lib.org/index.html)
