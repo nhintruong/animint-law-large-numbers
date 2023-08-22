@@ -23,3 +23,7 @@ blockquote {
 details {
 	margin-top: 1rem;
 }
+
+kbd {
+	padding: .2rem .2rem;
+}
