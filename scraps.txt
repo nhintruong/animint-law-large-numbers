@@ -577,3 +577,30 @@ flowchart TD
 Aside: If you're blind or can't see well---sorry about this. This flowchart uses Mermaid, and Mermaid is not screenreader-friendly. If anyone knows of any accessible alternatives, please replace the Mermaid diagram. Thanks.
 
 ##########
+
+Here's how the data would look if it were visualized as a smoothed line graph instead:
+
+```{r}
+cute_2 <- meowtrics |>
+  ggplot() +
+  geom_smooth(se = FALSE) +
+  aes(x = Day, y = Cuteness, color = Cat, group = Cat) +
+  labs(title = "Cat Cuteness Ratings Over Time")
+cute_2
+```
+
+The sole difference is that we've replaced the points with smoothed lines. (By default, `geom_smooth()` uses `loess()`.) For stylistic reasons, I've also used the `se = FALSE` argument to remove the confidence internals around the lines.
+
+It's also possible to have both the points and smoothed lines in one graph. Just use both the `geom_point()` abd `geom_smooth()` arguments in the same data visualization:
+
+```{r}
+cute_3 <- meowtrics |>
+  ggplot() +
+  geom_point() + 
+  geom_smooth(se = FALSE) +
+  aes(x = Day, y = Cuteness, color = Cat, group = Cat) +
+  labs(title = "Cat Cuteness Ratings Over Time")
+cute_3
+```
+
+##########
