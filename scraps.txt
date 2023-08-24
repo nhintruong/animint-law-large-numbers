@@ -604,3 +604,7 @@ cute_3
 ```
 
 ##########
+
+fig.alt = "This is the same scatterplot you saw in the previous image. But now it's interactive."
+fig.alt = "This is the same scatterplot again, except that all the data have been removed except for Archibald's and Muffin's. It shows the same upward trend as the previous two scatterplots."
+fig.alt = "An interactive scatterplot demonstrating..."
