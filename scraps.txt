@@ -700,3 +700,9 @@ span.explanation {
 /*
 
 ##########
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(root.dir="animint2/docs/articles/animints-etc")
+```
+
+##########
