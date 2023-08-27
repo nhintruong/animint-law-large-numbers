@@ -2,3 +2,39 @@
 title: "Narcissus Looks Back"
 ---
 
+## Introduction
+
+In Ovid's _Metamorphoses_, a young hunter named Narcissus falls into love with his own reflection in a pool of water. He stares at the pool in longing until he dies, and then his body disappears and becomes a flower.
+
+Not knowing what he sees, he adores the sight;  
+That false face fools and fuels his delight.  
+You simple boy, why strive in vain to catch  
+A fleeting image? What you see is nowhere;  
+And what you love---but turn away---you love!
+
+I thought about calling it a "final report" or something equally transparent.
+
+
+## What I Wanted
+
+Let's look at the project summary once more:
+
+> The animint2 Documentation and Bug Fix Project will make the animint2 reference documentation more accessible, fix errors in the documentation, and reduce the number of bugs by at least one.
+
+This was a bit ambitious.
+
+
+## What I Did
+
+empty
+
+
+## What I Still Need to Do
+
+empty
+
+## Accepted Code
+
+empty
+
+## Navel Gazing
