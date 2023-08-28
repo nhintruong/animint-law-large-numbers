@@ -4,15 +4,30 @@ title: "Narcissus Looks Back"
 
 ## Introduction
 
-In Ovid's _Metamorphoses_, a young hunter named Narcissus falls into love with his own reflection in a pool of water. He stares at the pool in longing until he dies, and then his body disappears and becomes a flower.
+> Not knowing what he sees, he adores the sight;  
+> That false face fools and fuels his delight.  
+> You simple boy, why strive in vain to catch  
+> A fleeting image? What you see is nowhere;  
+> And what you love---but turn away---you lose!
 
-Not knowing what he sees, he adores the sight;  
-That false face fools and fuels his delight.  
-You simple boy, why strive in vain to catch  
-A fleeting image? What you see is nowhere;  
-And what you love---but turn away---you love!
+In Ovid's _Metamorphoses_, a young hunter named Narcissus sees his reflection in a pool of water and falls in love with it. He can't look away. He stares at the pool in longing till he withers away and dies and becomes a flower.^[Ovid. _Metamorphoses_. Translated by A. D. Melville. 1986.]
 
-I thought about calling it a "final report" or something equally transparent.
+From Narcissus we get "narcissism," which is generally used to refer to excessive self-centeredness or selfishness. Narcissus seems an appropriate mascot for this essay. For this is an essay specifically about what _I've_ done over GSOC 2023.
+
+Don't misunderstand. I love navel-gazing. I usually don't do it in public, but it's part of GSOC's [work product submission requirement](https://developers.google.com/open-source/gsoc/help/work-product), so here we are. Enjoy.
+
+
+## What I Did
+
+My principal contribution was the construction of the [animint2 website](https://animint.github.io/animint2/).^[See the [pull request here](https://github.com/animint/animint2/pull/105).] I'm pretty proud of it. I wrote a [quick start guide](https://animint.github.io/animint2/articles/animint2.html) to introduce people to `animint2`, [organized and summarized `animint2`'s many functions](https://animint.github.io/animint2/reference/index.html), re-wrote the [README](https://animint.github.io/animint2/index.html), and made other little changes to make the website comfortable and usable.
+
+Making the website was exhausting in parts, but broadly it was a satisfying experience. I love making websites. I love HTML and CSS---though I actually wrote very little HTML during this time, since the website was generated with `pkgdown`. Most of the HTML I wrote can be found in the quick start guide, intertwined with the Markdown that composes much of the document. This was an unfortunate necessity.^["Unfortunate," because it makes `vignettes/animint2.Rmd` a bit of an aesthetic mess.] By themselves, Markdown and `pkgdown` just don't have the power to do what I need.
+
+and makes . Oh, well. The `pkgdown/extra.css` file fared
+
+
+
+Many of the codeblocks in the quick start guide contain code annotations. Toby said that I should implement them. 
 
 
 ## What I Wanted
