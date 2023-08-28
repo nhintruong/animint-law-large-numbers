@@ -16,6 +16,7 @@ My colleague this year is [Yufan Fei](https://yufanfei.xyz/), who is a much more
 
 ## Pages
 
+- [Narcissus Looks Back](narcissus.html): Reflections on what I've done over GSOC 2023.
 - [Coding Notebook](notebook.html): My notes on what I've been doing for GSOC so far. Mostly irrelevant unless you wanna see a public record of my coding mistakes and learn what not to do.
 - [How I Set Up the Animint2 Website](setup.html): My personal documentation on setting up the `animint2` website. Most irrelevant unless you're an `animint2` contributor, the website has become super messed up, and you need to do it all over again.
 - [R Project Exams](exam/exam.html): Some tests that I took. Mostly irrelevant unless you're interested in seeing some animated graphs of the [five-factor model of personality](https://www.britannica.com/science/five-factor-model-of-personality) or the [weak law of large numbers](https://www.britannica.com/science/law-of-large-numbers).
