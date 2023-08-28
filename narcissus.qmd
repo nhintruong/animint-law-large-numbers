@@ -10,47 +10,85 @@ title: "Narcissus Looks Back"
 > A fleeting image? What you see is nowhere;  
 > And what you love---but turn away---you lose!
 
-In Ovid's _Metamorphoses_, a young hunter named Narcissus sees his reflection in a pool of water and falls in love with it. He can't look away. He stares at the pool in longing till he withers away and dies and becomes a flower.^[Ovid. _Metamorphoses_. Translated by A. D. Melville. 1986.]
+In Ovid's _Metamorphoses_, a young hunter named Narcissus sees his reflection in a pool of water and falls in love with it. He can't look away. He stares at the pool in longing till he withers away, dies, and transforms into a flower.^[Ovid. _Metamorphoses_. Translated by A. D. Melville. 1986.]
 
-From Narcissus we get "narcissism," which is generally used to refer to excessive self-centeredness or selfishness. Narcissus seems an appropriate mascot for this essay. For this is an essay specifically about what _I've_ done over GSOC 2023.
+From Narcissus we get "narcissism," which is generally used to refer to excessive self-centeredness or selfishness. Narcissus seems an appropriate mascot for this essay. For this is an self-indulgent essay about what _I've_ done over GSOC 2023.
 
-Don't misunderstand. I love navel-gazing. I usually don't do it in public, but it's part of GSOC's [work product submission requirement](https://developers.google.com/open-source/gsoc/help/work-product), so here we are. Enjoy.
+Don't misunderstand. I love navel-gazing. This essay is also part of GSOC's [work product submission requirement](https://developers.google.com/open-source/gsoc/help/work-product), so here we are. Enjoy.^[Or don't. I'm not your boss.]
 
 
-## Reference Website
+## What I Did
+
+### Reference Website
 
 My principal contribution was the construction of the [animint2 reference website](https://animint.github.io/animint2/).^[See the [pull request here](https://github.com/animint/animint2/pull/105).] I'm pretty proud of it. I wrote a [quick start guide](https://animint.github.io/animint2/articles/animint2.html) to introduce people to `animint2`, [organized and summarized `animint2`'s many functions](https://animint.github.io/animint2/reference/index.html), re-wrote the [README](https://animint.github.io/animint2/index.html), and made other little changes to make the website comfortable and usable.
 
 Making the website was exhausting in parts, but broadly it was a satisfying experience. I love making websites. I love HTML and CSS---though I actually wrote very little HTML during this time, since the website was generated with `pkgdown`. Most of the HTML I wrote can be found in the quick start guide, intertwined with the Markdown that composes much of the document. This sacrifice of aesthetics was an unfortunate necessity. By themselves, Markdown and `pkgdown` just don't have the power to do what I need.
 
-The most technically challenging part of website-building was designing the code annotations and making them appear in the quick start guide.^[Credit to Toby for the code annotation idea. Thank you, Toby!] Recall that `pkgdown` generates the website, which leaves me limited control over the HTML, which limited my options for code annotations. My workaround was to use R comments and then use CSS to make the comments appear like annotations. I also had to do a bit of CSS trickery to make 
+The most technically challenging part of website-building was designing the code annotations and making them appear in the quick start guide.^[Credit to Toby for the code annotation idea. Thank you, Toby!] Recall that `pkgdown` generates the website, which leaves me limited control over the HTML, which limited my options for code annotations. My workaround was to use R comments and then use CSS to make the comments appear like annotations. I also had to do a bit of CSS trickery to make ordered list markers appear like the code annotations.
+
+### TODOs to Datasets
+
+Honestly? This barely counts as a contribution. I'm just including it here for completeness. I noticed that sources and codebooks were missing from some of the dataset files. I documented all the files that were missing information. Then I added a bunch of TODO strings to those aforementioned files.^[See the [pull request here](https://github.com/animint/animint2/pull/103).]
+
+### GitHub Issues
+
+I opened up a bunch of GitHub issues, thereby making work for future contributors of `animint2`. I'm creating jobs!^[Kidding. :stuck_out_tongue:] Issues that are still open:
+
+- [Issue 90](https://github.com/animint/animint2/issues/90): Observations on a Scrolling Bug. I noticed that pages with animated animints scroll upward on Firefox.
+- [Issue 106](https://github.com/animint/animint2/issues/106): Animints Don't Render Alt Text. I noticed that `{r fig.alt="foobar"}` worked for ggplots, but not for animints. 
+
+### Failures
+
+Early on, I was tasked with closing [issue 89](https://github.com/animint/animint2/issues/89). I failed. It's about removing `animint2`'s dependency on the `maptools` package.
+
+I also never solved [issue 96](https://github.com/animint/animint2/issues/96), which I opened. It's about $\LaTeX$ throwing up errors when I use `build.sh`. As far as I know, this issue has only ever affected me.
 
 
-## GitHub Issues
+## What's Missing
 
-My first iss
+This official title of this project is "The animint2 Documentation and Bug Fix Project." I've only really done the former and have fixed zero bugs that were not of my own making.
 
+During GSOC, I failed to make `animint2` a hexagon badge. I was planning on designing one near the end, but I ran out of time. This is the only part of the website that I'd say is truly missing.
 
-## What I Wanted
-
-Let's look at the project summary once more:
-
-> The animint2 Documentation and Bug Fix Project will make the animint2 reference documentation more accessible, fix errors in the documentation, and reduce the number of bugs by at least one.
-
-This was a bit ambitious.
+Something that I would've liked to do is automate the website rendering via GitHub Actions. Unfortunately, I don't know how GitHub Actions works, and I didn't have enough time to both learn about it and implement it.
 
 
-## What I Did
+## What I Learned
 
-empty
+### Theory-Building is Right
+
+When I first read Peter Naur's paper on programming as theory-building, I thought it was a neat idea.^[P. Naur. [Programming as theory building](https://www.sciencedirect.com/science/article/abs/pii/0165607485900328). _Microprocessing and Microprogramming_. 1985.] My experience over GSOC has corroborated the theory, and I've come to believe it.
+
+See: I built the `animint2` reference website over a period of about three months. I know it intimately. I know what every line of `_pkgdown.yml` and `pkgdown/extra.css` do. I know what I need to do to build the site right, and how to debug it when things go wrong. I've built up a wealth of tacit knowledge---in Naur's words, I've developed a theory.
+
+I've tried my best to document everything. However, according to Naur, that's not enough. This tacit knowledge cannot be communicated in writing. Nor is it present in the source code. It can only be communicated, indirectly, via mentorship.
+
+### HTML and CSS Rock
+
+I've also continued my path of becoming a curmudgeon with a distaste for frameworks that write HTML and CSS for me.
+
+Don't misunderstand me. Within bounds, these frameworks are wonderful and can save effort and time.^[This website was built using Quarto, which spared me the effort of manually constructing HTML sidenotes.] I'm glad `pkgdown` exists---it would be a real pain if I had to write the HTML for every single function. `pandoc` saves me an enormous amount of time and effort.
+
+But these abstractions also limit my control over how websites appear. Markdown was built for an older iteration of HTML, and it mixes semantics and appearances. When I italicize, it can't know if I mean `<em>`, `<i>`, or `<cite>`. I also have concerns about accessibility. Problems with screenreader accessibility, for example, must be addressed via HTML---which I have limited control over.
+
+### Watch for Typos
+
+Finally, I've learned that typos cause a surprisingly large number of problems. If things aren't working right, I ought to read my code again---carefully and slowly. There just might be a missing quotation mark, whitespace, or bracket causing the issue.
 
 
-## What I Still Need to Do
+## Thank You
 
-empty
+Thank you to Toby Hocking for accepting me as your mentee for GSOC 2023. Thank you also for mentoring me. I hope my work has repaid your confidence and your effort. I appreciate the independence I had to do this work, and I also liked the asynchronous communication structure we had in place. You were a great mentor to this cat-obsessed weirdo.^[In fact, you are arguably my first computer anything instructor.]
 
-## Accepted Code
+Thank you to Yufan Fei for your advice and perspective. Between us, you are the more experienced, and you did this last year. I appreciate that you emailed me and said we ought to communicate. I'm thankful that we both did GSOC 2023 together.
 
-empty
+Thank you to Faizan Khan for your help, especially at the beginning. I didn't get to know you very well, but perhaps that will change in the future.
 
-## Navel Gazing
+
+## Closing Thoughts
+
+In [Seizing the Bits of Production](https://thephd.dev/seize-bits-production-gsoc-2019), JeanHeyd Meneide summarizes his experience during GSOC 2019. In short: he did amazing work and met all his goals.
+
+Being a less impressive person, I haven't. But I think I've done good work regardless. And you know what? That's good enough for me.
+
