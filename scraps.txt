@@ -706,3 +706,24 @@ knitr::opts_chunk$set(root.dir="animint2/docs/articles/animints-etc")
 ```
 
 ##########
+
+But because it is trickery and hackery, it feels fragile. 
+
+But the fact that I could even trick a comment into becomes an annotation is arguably unfortunate. There is a possible world in which `pkgdown` generates code blocks only with `<pre>` and `<code>`. In that world, I wouldn't be able to do anything at all.
+
+There is also a possible world in which `pkgdown` generates a CSS class specific to 
+
+there are three possible technical worlds:
+
+1. When `pkgdown` generates code blocks, it only generates `<pre>` and `<code>`
+2. When `pkgdown` generates code blocks, it generates `<pre>` and `<code`, 
+
+##########
+
+### I Can Do It
+
+Being a self-taught programmer has obvious epistemological consequences. I've tried my best to patch up holes in my knowledge, and I continue to read and learn. But there's still a lot I don't know.
+
+Some less obvious consequences
+
+##########
