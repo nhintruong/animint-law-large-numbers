@@ -441,3 +441,8 @@ Oddly, the bug fixed itself. I just renamed the file and now the animints work. 
 
 - Finished website maintenance document and renamed the file `readme_website.md`.
 - Converted `NEWS` to `NEWS.md` and edited it so that `pkgdown` could read it and render it as the changelog.
+
+
+## Additional Work
+
+This section tracks work I've done immediately after GSOC ended.
