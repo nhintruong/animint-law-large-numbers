@@ -262,5 +262,7 @@
 "geom3_hline_llnplot" 
 ] 
 } 
-} 
+},
+"title": "Law of Large Numbers",
+"source": "https://github.com/nhintruong/animint-law-large-numbers/blob/main/informal_testing/fn_lln.R"
 }
